@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/_include::inclue"></head>
+<body>
+<header th:include="/admin/_header::header">
+    Your Company Name.
+</header>
+<div th:replace="/admin/_topmenu::topmenu"></div>
+<div class="container fluid">
+    <div class="col-md-3">
+        <div th:replace="/admin/_system_leftmenu::leftmenu"></div>
+    </div>
+    <div class="col-md-9">
+        <div class="toolbar">
+            <div class="col-md-6">
+                <h5 th:text="${groupName}"></h5>
+            </div>
+            <div class="col-md-6 right">
+                <a class="btn btn-primary" id="auth-save">
+                    <i class="fa fa-save"></i> 保存权限
+                </a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>全选<input class="select-all" value="1" type="checkbox"></th>
+                <th>编码</th>
+                <th>名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form id="myForm">
+                <input type="hidden" name="id" th:value="${groupid}">
+            <tr th:each="auth:${list}">
+                <td>
+                    <input type="checkbox"
+                           name="authcodes[]"
+                           th:value="${auth.code}"
+                           th:checked="${auth.code!=null && #strings.contains(authlist, auth.code)}"
+                           class="select-item"/>
+                </td>
+                <td th:text="${auth.code}">code</td>
+                <td th:text="${auth.intro}">intro</td>
+            </tr>
+            </form>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:src="@{~/js/common-files.js}"></script>
+<script>
+    $(function () {
+        $("#auth-save").click(function () {
+            $.ajax({
+                type:"post",
+                data:$("#myForm").serialize(),
+                dataType:"json",
+                url:"/system/admingroup/auth/save",
+                success:function (data) {
+                    if(data.code == 1){
+                        layer.alert(data.msg, {icon: 6, shade: false}, function () {
+                            parent.location.reload();
+                        });
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        });
+
+    })
+</script>
+<footer th:replace="admin/_footer">
+    Your Company Name.
+</footer>
+</body>
+</html>

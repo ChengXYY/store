@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+<header>
+    <div class="col-md-3 logo">
+        <img th:src="@{~/images/logo-line.png}">
+    </div>
+    <div class="col-md-9 right usercenter">
+        <span class="user">
+            <i class="fa fa-user-circle"></i> <span th:text="${session.ADMIN_ACCOUNT}">Adminstrator</span>
+        </span>
+        <a class="text-primary" title="修改密码" id="reset-password"><i class="fa fa-refresh"></i></a>
+        <a class="text-danger" title="退出" id="logout" href="javascript:"><i class="fa fa-power-off"></i></a>
+    </div>
+</header>
+<script>
+    $(function () {
+        $("#reset-password").click(function () {
+            layer.open({
+                type: 2,
+                title: '修改管理员密码',
+                shadeClose: false,
+                shade: 0.3,
+                area: '500px',
+                content: '/admin/editpwd',
+                success:function (layero, index) {
+                    layer.iframeAuto(index);
+                }
+            });
+        });
+
+        $("#logout").click(function () {
+            layer.alert("确定退出登录？",{icon:0},function () {
+                location.href="/login/logout";
+            })
+        });
+    });
+</script>
+</html>

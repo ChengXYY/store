@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/_include::include"></head>
+<body>
+<header th:include="/admin/_header::header">
+    Your Company Name.
+</header>
+<div th:replace="/admin/_topmenu::topmenu"></div>
+<div class="container fluid">
+    <div class="col-md-3">
+        <div th:replace="/admin/_system_leftmenu::leftmenu"></div>
+    </div>
+    <div class="col-md-9">
+        <div class="toolbar">
+            <div class="col-md-6">            </div>
+            <form class="col-md-6 right form-inline">
+                <input class="form-control" placeholder="请输入关键词" type="text" name="content" th:value="${content}"/>
+                <button type="submit" class="btn btn-warning btn-outline"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>管理员账号</th>
+                <th>内容</th>
+                <th>时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log:${list}">
+                <td th:text="${log.admin}">admin</td>
+                <td th:text="${log.content}">content</td>
+                <td th:text="${#dates.format(log.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(list)}">
+                <td colspan="3" class="center">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+        <page th:replace="/admin/_page::page"></page>
+    </div>
+</div>
+<footer th:replace="/admin/_footer::footer">
+    Your Company Name.
+</footer>
+</body>
+</html>

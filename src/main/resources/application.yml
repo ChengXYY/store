@@ -1,0 +1,67 @@
+server:
+  port: 8080
+spring:
+  mvc:
+    favicon:
+      enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/store?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: root
+  thymeleaf:
+    prefix: classpath:/templates
+    check-template-location: false
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+    cache: false
+    enabled: true
+    servlet:
+      content-type: text/html
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  servlet:
+    multipart:
+      max-file-size: 52428800
+      max-request-size: 52428800
+  mail:
+      port: 25
+      host:
+      username:
+      password:
+      default-encoding: UTF-8
+      protocol: smtp
+      test-connection: false
+
+mybatis:
+  mapper-locations: classpath:com/cy/**/mapper/*.xml
+  type-aliases-package: com.cy.*.model
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+debug: false
+
+#自定义变量
+list:
+  pagesize: 15
+file:
+  sitepage-image-path:
+
+#session
+admin:
+  session: ADMIN_SESSION
+  account: ADMIN_ACCOUNT
+  group: ADMIN_GROUP
+  auth: ADMIN_AUTH
+  id: ADMIN_ID
+login:
+  vercode: VERCODE
+
+system:
+  account: System
+  password: systemSys

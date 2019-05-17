@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/_include::include"></head>
+<body>
+<header th:include="/admin/_header::header">
+    Your Company Name.
+</header>
+<div th:replace="/admin/_topmenu::topmenu"></div>
+<div class="container fluid">
+    <div class="col-md-3">
+        <div th:replace="/admin/_system_leftmenu::leftmenu"></div>
+    </div>
+    <div class="col-md-9">
+        <div class="toolbar">
+            <div class="col-md-6">
+                <a class="btn btn-primary btn-outline" id="add-admingroup">
+                    <i class="fa fa-plus"></i> 添加管理员组
+                </a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>组名称</th>
+                <th>排序</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="group:${list}">
+                <td th:text="${group.name}">name</td>
+                <td th:text="${group.sort}">sort</td>
+                <td class="center">
+                    <input type="hidden" class="id" th:value="${group.id}"/>
+                    <a class="text-success reset" th:href="${'/system/admingroup/auth/'+group.id}" title="配置权限"
+                        th:if="${#strings.contains(session.ADMIN_AUTH+'','2003')}">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                    <a class="text-primary edit" href="javascript:" title="编辑组信息">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="text-danger remove" href="javascript:" title="删除管理员组">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(list)}">
+                <td colspan="3" class="center">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+        <page th:replace="/admin/_pagecount::page"></page>
+    </div>
+</div>
+<footer th:replace="/admin/_footer::footer">
+    Your Company Name.
+</footer>
+<script>
+    $(function () {
+        $("#add-admingroup").click(function () {
+            layer.open({
+                type: 2,
+                title: '添加管理员组',
+                shadeClose: false,
+                shade: 0.3,
+                area: '500px',
+                content: '/system/admingroup/add',
+                success:function (layero, index) {
+                    layer.iframeAuto(index);
+                }
+            });
+        });
+
+        $(".edit").click(function () {
+            var id = $(this).siblings(".id").val();
+            layer.open({
+                type: 2,
+                title: '编辑管理员组',
+                shadeClose: false,
+                shade: 0.3,
+                area: '500px',
+                content: '/system/admingroup/edit/'+id,
+                success:function (layero, index) {
+                    layer.iframeAuto(index);
+                }
+            });
+        });
+
+    })
+</script>
+</body>
+</html>

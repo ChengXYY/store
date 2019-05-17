@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="template" id="showParams" style="display:none;padding:40px;" >
+    <input type="hidden" id="paramsType" value="column"/>
+    <div id="paramsTitle">分栏参数</div>
+    <p class="text-muted" id="paramsIntro">相加等于12，逗号分隔。</p>
+    <input class="form-control" placeholder="3,6,3" id="Params" style="margin-bottom:15px;" />
+    <span class="btn btn-primary" id="paramsSubmit" >提交</span>
+</div>
+</html>
