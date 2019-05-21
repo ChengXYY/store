@@ -1,6 +1,6 @@
 package com.cy.store.aop;
 
-import com.cy.store.common.CommonOperation;
+import com.cy.store.utils.CommonOperation;
 import com.cy.store.service.AdminlogService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,7 +24,7 @@ public class OperationLog {
     @Value("${admin.account}")
     private String adminAccount;
 
-    @Pointcut("within(com.cy.store.servercontroller.LoginController)")
+    @Pointcut("within(com.cy.store.server.LoginController)")
     public void loginLog(){}
 
     @Pointcut("execution(public * com.cy.store.service.*.*(..))"+

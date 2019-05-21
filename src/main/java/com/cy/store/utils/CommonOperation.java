@@ -1,4 +1,4 @@
-package com.cy.store.common;
+package com.cy.store.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.exception.ErrorCodes;

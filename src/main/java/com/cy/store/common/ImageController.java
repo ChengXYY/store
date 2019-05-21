@@ -1,6 +1,6 @@
-package com.cy.store.commoncontroller;
+package com.cy.store.common;
 
-import com.cy.store.common.CommonOperation;
+import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

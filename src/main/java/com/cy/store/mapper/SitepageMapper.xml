@@ -18,18 +18,45 @@
     from sitepage
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByFilter" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from sitepage
+    <where>
+      <if test="code!=null">
+        and code like CONCAT('%',#{code},'%')
+      </if>
+      <if test="title!=null">
+        and title like CONCAT('%',#{title},'%')
+      </if>
+      <if test="createby!=null">
+        and createby = #{createby}
+      </if>
+    </where>
+    <if test="page !=null and pagesize !=null">
+      limit #{page}, #{pagesize}
+    </if>
+  </select>
+  <select id="countByFilter" parameterType="map" resultType="java.lang.Integer">
+    select
+      count(id) as ct
+    from sitepage
+    <where>
+      <if test="code!=null">
+        and code like CONCAT('%',#{code},'%')
+      </if>
+      <if test="title!=null">
+        and title like CONCAT('%',#{title},'%')
+      </if>
+      <if test="createby!=null">
+        and createby = #{createby}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sitepage
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cy.store.model.Sitepage" >
-    insert into sitepage (id, code, title, 
-      addtime, createby, content
-      )
-    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{addtime,jdbcType=TIMESTAMP}, #{createby,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.cy.store.model.Sitepage" >
     insert into sitepage
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -73,7 +100,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cy.store.model.Sitepage" >
+  <update id="updateByPrimaryKeySelective" parameterType="map" >
     update sitepage
     <set >
       <if test="code != null" >
@@ -92,23 +119,6 @@
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cy.store.model.Sitepage" >
-    update sitepage
-    set code = #{code,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      addtime = #{addtime,jdbcType=TIMESTAMP},
-      createby = #{createby,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cy.store.model.Sitepage" >
-    update sitepage
-    set code = #{code,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      addtime = #{addtime,jdbcType=TIMESTAMP},
-      createby = #{createby,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

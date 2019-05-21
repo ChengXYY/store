@@ -1,4 +1,4 @@
-package com.cy.store.servercontroller;
+package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.config.AuthCode;

@@ -1,6 +1,6 @@
 package com.cy.store.service.serviceimpl;
 
-import com.cy.store.common.CommonOperation;
+import com.cy.store.utils.CommonOperation;
 import com.cy.store.config.AuthCode;
 import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
