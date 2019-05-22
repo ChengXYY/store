@@ -33,7 +33,8 @@ public class AdminCheck {
     private String adminAuth;
 
     @Pointcut("within(com.cy.store.server..*)"+
-            "&& !within(com.cy.store.server.LoginController)")
+            "&& !within(com.cy.store.server.LoginController)"+
+            "&& !within(com.cy.store.server.BaseController)")
     public void privilege(){}
 
     @ResponseBody

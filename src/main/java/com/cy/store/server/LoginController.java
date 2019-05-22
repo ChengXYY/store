@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class LoginController extends BaseController{
 
     @Autowired
     private AdminService adminService;
@@ -29,23 +29,6 @@ public class LoginController {
     @Autowired
     private DefaultKaptcha captchaProducer;
 
-    @Value("${admin.session}")
-    private String adminSession;
-
-    @Value("${admin.account}")
-    private String adminAccount;
-
-    @Value("${admin.group}")
-    private String adminGroup;
-
-    @Value("${admin.id}")
-    private String adminId;
-
-    @Value("${admin.auth}")
-    private String adminAuth;
-
-    @Value("${login.vercode}")
-    private String verCode;
 
     @RequestMapping("/admin")
     public String index(ModelMap model){

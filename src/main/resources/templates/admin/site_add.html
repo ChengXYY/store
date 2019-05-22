@@ -3,7 +3,7 @@
 <head th:replace="/common/_include::include"></head>
 <body>
 <script type="text/javascript" th:src="@{~/js/bootstrap.js}"></script>
-<link rel="stylesheet" type="text/css" th:href="@{~/css/drag.css}">
+<link rel="stylesheet" type="text/css" th:href="@{~/css/drag2.css}">
 <header th:include="/admin/_header::header">
     Your Company Name.
 </header>
@@ -21,9 +21,23 @@
             <input class="form-control" placeholder="输入页面标题" type="text" name="title"/>
         </div>
         <div class="form-group">
+            <h3 class="text text-primary">页面模板</h3>
+            <hr/>
+            <select class="form-control" name="tplid" id="pageTPL">
+                <option value="0" selected>选择模板</option>
+                <option th:each="tpl:${list}" th:value="${tpl.id}" th:text="${tpl.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
             <h3 class="text text-primary">页面布局</h3>
             <hr/>
-            <textarea rows="10" class="form-control" name="content" id="editor"></textarea>
+            <div class="toolbar">
+                <div class="btn btn-primary  blocks" title="文字"><i class="fa fa-list"></i></div>
+                <div class="btn btn-success  blocks" title="图片"><i class="fa fa-photo"></i></div>
+
+            </div>
+            <div class="box" id="init" region-id="0">
+            </div>
         </div>
 
 
@@ -38,48 +52,51 @@
 <footer th:replace="/admin/_footer::footer">
     Your Company Name.
 </footer>
-
 <script type="text/javascript" th:src="@{~/js/jquery-ui.min.js}"></script>
-<script type="text/javascript" th:src="@{~/js/drag.js}"></script>
-<script type="text/javascript" th:src="@{~/js/tinymce/tinymce.js}"></script>
+<script type="text/javascript" th:src="@{~/js/drag2.js}"></script>
 <script>
     $(function () {
-            tinyMCE.init({
-                selector: "textarea#editor",
-                language: "zh_CN",
-                height: 500,
-                plugins: [
-                    "advlist anchor autolink autosave bbcode charmap code",
-                    "emoticons fullpage fullscreen help hr image imagetools link lists media paste print ",
-                    "save searchreplace spellchecker tabfocus table template textpattern wordcount "
-                ],
-                toolbar: "undo redo | styleselect | fontselect | fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | forecolor backcolor emoticons | fullscreen preview ",
-                convert_urls: false,
-                paste_data_images: true,
-
-                imageupload_url: '/sitepage/upload',
-                images_upload_credentials: true,
-                images_upload_handler: function (blobInfo, success, failure) {
-                    var form = new FormData();
-                    form.append('fileupload', blobInfo.blob(), blobInfo.filename());
-                    $.ajax({
-                        url: "/sitepage/upload",
-                        type: "post",
-                        data: form,
-                        processData: false,
-                        contentType: false,
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.code == 1) {
-                                success(data.path);
-                            }
-                        },
-                        error: function (e) {
-                            failure("图片上传失败");
-                        }
-                    });
+        $("body").on("change", "#pageTPL", function () {
+            var tplId = $("#pageTPL option:selected").val();
+            if(tplId == 0){
+                return;
+            }
+            $.ajax({
+                type:"post",
+                data:{
+                    id:tplId
+                },
+                dataType:"json",
+                url:"/pagetpl/get",
+                success: function (data) {
+                    if(data.code == 0){
+                        $("#init").html(data.content);
+                    }else {
+                        return;
+                    }
                 }
-            });
+            })
+        });
+
+        $("#submit-form").click(function () {
+            var content = tinymce.get("editor").getContent();
+            $("input[name='content']").val(content);
+            $.ajax({
+                type :"post",
+                data : $("#myForm").serialize(),
+                dataType :"json",
+                url :"/sitepage/add/submit",
+                success : function (data) {
+                    if(data.code == 0){
+                        layer.alert(data.msg, {icon:1}, function () {
+                            parent.location.href="/sitepage";
+                        })
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        })
     });
 </script>
 </body>

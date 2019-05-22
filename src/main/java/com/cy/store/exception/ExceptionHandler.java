@@ -21,7 +21,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 
     @Override
     public Response toResponse(Exception exception) {
-        ErrorCodes code = ErrorCodes.SERVICE_ERROR;
+        ErrorCodes code = ErrorCodes.SERVER_IS_WRONG;
         Status statusCode = Status.OK;
         String errMsg = "";
 
@@ -29,7 +29,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
             code = ((BaseException) exception).getCode();
             errMsg = ((BaseException) exception).getMsg();
         }else if(exception instanceof WebApplicationException){
-            code = ErrorCodes.HTTP_ERROR;
+            code = ErrorCodes.HTTP_IS_WRONG;
             if(exception instanceof NotFoundException){
                 statusCode = Status.NOT_FOUND;
             }else if(exception instanceof NotAllowedException){

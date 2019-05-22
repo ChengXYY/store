@@ -3,6 +3,7 @@ package com.cy.store.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,12 +55,12 @@ public class CommonOperation {
     //返回值
     public static JSONObject uploadFile(MultipartFile file, String savePath){
         JSONObject rs = new JSONObject();
-        if(file == null)throw JsonException.newInstance(ErrorCodes.IS_NOT_EMPTY);
+        if(file == null)throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
         String fileName = file.getOriginalFilename();
         String newFileName = System.currentTimeMillis() + "_" +fileName;
         int size = (int)file.getSize();
         size = (int)Math.ceil(size/1024);
-        if(size <= 0)throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_ERROR);
+        if(size <= 0)throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_FAILED);
         String destDir = savePath + "/" + newFileName;
         File dest  = new File(destDir);
         if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
@@ -74,10 +75,10 @@ public class CommonOperation {
             rs.put("realname", newFileName);
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
-           throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_ERROR);
+           throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_FAILED);
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_ERROR);
+            throw JsonException.newInstance(ErrorCodes.FILE_WRITE_FAILED);
         }
         return rs;
     }
@@ -103,5 +104,29 @@ public class CommonOperation {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static JSONObject success(Integer id){
+        JSONObject rs = new JSONObject();
+        rs.put("code", 0);
+        rs.put("msg", "操作成功");
+        rs.put("id", id);
+        return  rs;
+    }
+    public static JSONObject success(){
+        JSONObject rs = new JSONObject();
+        rs.put("code", 0);
+        rs.put("msg", "操作成功");
+        return  rs;
+    }
+
+    public static JSONObject success(Object obj){
+        JSONObject rs = new JSONObject();
+        rs.put("code", 0);
+        rs.put("msg", "操作成功");
+
+        Map<String, Object> data = BeanMap.create(obj);
+        rs.putAll(data);
+        return rs;
     }
 }

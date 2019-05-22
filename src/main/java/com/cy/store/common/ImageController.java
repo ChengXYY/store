@@ -17,7 +17,7 @@ public class ImageController {
     @Value("${file.sitepage-image-path}")
     private String sitePageImg;
 
-    @RequestMapping(value = "/sitepage/getimg", method = RequestMethod.GET)
+    @RequestMapping(value = "/getimg", method = RequestMethod.GET)
     public void getImage(@RequestParam(value = "filename") String filename,
                          HttpServletRequest request, HttpServletResponse response)throws IOException {
         CommonOperation.getImage(filename, sitePageImg, request, response);

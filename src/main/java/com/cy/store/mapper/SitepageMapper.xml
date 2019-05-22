@@ -18,6 +18,13 @@
     from sitepage
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from sitepage
+    where code = #{code}
+  </select>
+
   <select id="selectByFilter" resultMap="BaseResultMap" parameterType="map">
     select
     <include refid="Base_Column_List" />
@@ -57,7 +64,7 @@
     delete from sitepage
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.cy.store.model.Sitepage" >
+  <insert id="insertSelective" parameterType="com.cy.store.model.Sitepage" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
     insert into sitepage
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -99,6 +106,7 @@
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
+
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="map" >
     update sitepage

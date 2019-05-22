@@ -1,0 +1,19 @@
+*[region-id] {
+    min-height: 100px;
+    border: 1px dashed #2f88ea;
+    padding: 5px;
+    background: #fff;
+    margin: 10px 0;
+}
+
+*[frame-id]{
+    background: #eff2f7;
+    min-height: 100px;
+    margin: 10px 0;
+    min-width: 100px;
+    height: 100%;
+}
+
+#init{
+    min-height: 200px;
+}

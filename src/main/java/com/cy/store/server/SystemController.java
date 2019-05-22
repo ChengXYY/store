@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/system")
-public class SystemController {
+public class SystemController extends BaseController{
 
     @Autowired
     private AdminService adminService;
@@ -31,21 +31,6 @@ public class SystemController {
     private AdmingroupService admingroupService;
     @Autowired
     private AdminlogService adminlogService;
-
-    @Value("${admin.account}")
-    private String adminAccount;
-
-    @Value("${admin.group}")
-    private String adminGroup;
-
-    @Value("${admin.id}")
-    private String adminId;
-
-    @Value("${admin.auth}")
-    private String adminAuth;
-
-    @Value("${list.pagesize}")
-    private Integer pageSize;
 
     @RequestMapping("/admin/list")
     public String adminList(HttpSession session, ModelMap model){
@@ -59,7 +44,7 @@ public class SystemController {
         model.addAttribute("list", list);
 
         model.addAttribute("totalCount", totalCount);
-        model.addAttribute("pageTitle","管理员列表 - 系统设置 - 后台管理系统");
+        model.addAttribute("pageTitle",listPageTitle+adminModuleTitle+systemTitle);
 
         model.addAttribute("TopMenuFlag", "system");
         model.addAttribute("LeftMenuFlag", "admin");
@@ -70,15 +55,9 @@ public class SystemController {
     @RequestMapping(value = "/admin/resetpwd/submit", produces = {"application/json;charset=UTF-8"})
     public JSONObject passwordReset(Integer id){
 
-        JSONObject result = new JSONObject();
         try{
-            adminService.resetPassword(id);
-            result.put("code", 1);
-            result.put("msg", "添加成功");
-            return result;
+            return adminService.resetPassword(id);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }
@@ -87,6 +66,7 @@ public class SystemController {
     public String adminAdd(HttpSession session, ModelMap model){
         List<Admingroup> list = admingroupService.getListAll(Integer.parseInt(session.getAttribute(adminId).toString()));
         model.addAttribute("list", list);
+        model.addAttribute("pageTitle",addPageTitle+adminModuleTitle+systemTitle);
         return "/admin/admin_add";
     }
 
@@ -97,16 +77,10 @@ public class SystemController {
             admin.setName(admin.getAccount());
         }
         admin.setParentid(Integer.parseInt(session.getAttribute(adminId).toString()));
-        JSONObject result = new JSONObject();
 
         try {
-            adminService.add(admin);
-            result.put("code", 1);
-            result.put("msg", "添加成功");
-            return result;
+            return adminService.add(admin);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }
@@ -121,23 +95,17 @@ public class SystemController {
         List<Admingroup> list = admingroupService.getListAll(Integer.parseInt(session.getAttribute(adminId).toString()));
         model.addAttribute("list", list);
         model.addAttribute("admin", admin);
-        model.addAttribute("pageTitle","编辑管理员信息");
+        model.addAttribute("pageTitle",editPageTitle+adminModuleTitle+systemTitle);
         return "/admin/admin_edit";
     }
 
     @ResponseBody
     @RequestMapping(value = "/admin/edit/submit", method = RequestMethod.POST)
-    public JSONObject editAdmin(@RequestParam Map<String, Object> admin ){
-        JSONObject result = new JSONObject();
+    public JSONObject editAdmin(Admin admin ){
 
         try {
-            adminService.edit(admin);
-            result.put("code", 1);
-            result.put("msg", "保存成功");
-            return result;
+            return adminService.edit(admin);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }
@@ -146,16 +114,9 @@ public class SystemController {
     @RequestMapping(value = "/admin/remove", method = RequestMethod.POST)
     public JSONObject removeAdmin(@RequestParam(value = "id", required = true)Integer id){
 
-        JSONObject result = new JSONObject();
-
         try {
-            adminService.remove(id);
-            result.put("code", 1);
-            result.put("msg", "删除成功");
-            return result;
+            return adminService.remove(id);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }
@@ -167,7 +128,7 @@ public class SystemController {
         model.addAttribute("list", list);
 
         int totalCount = list.size();
-        model.addAttribute("pageTitle","管理员列表 - 系统设置 - 后台管理系统");
+        model.addAttribute("pageTitle",listPageTitle+admingroupModuleTitle+systemTitle);
 
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("TopMenuFlag", "system");
@@ -184,15 +145,9 @@ public class SystemController {
     @RequestMapping("/admingroup/add/submit")
     public JSONObject admingroupAdd(Admingroup admingroup, HttpSession session){
         admingroup.setParentid(Integer.parseInt(session.getAttribute(adminId).toString()));
-        JSONObject result = new JSONObject();
         try {
-            admingroupService.add(admingroup);
-            result.put("code", 1);
-            result.put("msg", "添加成功");
-            return result;
+            return admingroupService.add(admingroup);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }
@@ -208,19 +163,10 @@ public class SystemController {
     @ResponseBody
     @RequestMapping("/admingroup/edit/submit")
     public JSONObject admingroupEdit(Admingroup admingroup){
-        Map<String, Object> group = new HashMap<>();
-        group.put("id", admingroup.getId());
-        group.put("sort", admingroup.getSort());
-        group.put("name", admingroup.getName());
-        JSONObject result = new JSONObject();
+
         try {
-            admingroupService.edit(group);
-            result.put("code", 1);
-            result.put("msg", "修改成功");
-            return result;
+            return admingroupService.edit(admingroup);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }
@@ -262,15 +208,9 @@ public class SystemController {
     @ResponseBody
     @RequestMapping(value = "/admingroup/auth/save", method = RequestMethod.POST)
     public JSONObject authSave(Integer id, @RequestParam(value = "authcodes[]") String[] authcodes){
-        JSONObject result = new JSONObject();
         try {
-            admingroupService.changeAuth(id, authcodes);
-            result.put("code", 1);
-            result.put("msg", "保存成功");
-            return result;
+            return admingroupService.changeAuth(id, authcodes);
         }catch (JsonException e){
-            //result.put("code", e.getCode());
-            //result.put("msg", e.getMsg());
             return e.toJson();
         }
     }

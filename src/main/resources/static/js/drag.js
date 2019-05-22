@@ -104,39 +104,6 @@ $(function () {
        })
     });
 
-    $("#submit-form").click(function () {
-       save();
-       $.ajax({
-           type : "post",
-           data : $("#myForm").serialize(),
-           dataType : "json",
-           url : "/sitepage/add/submit",
-           success :function (data) {
-               if(data.code == 1){
-                   location.href="/sitepage/list";
-               }else {
-                   layer.msg(data.msg);
-               }
-           }
-       })
-    });
-
-    $("#submit-edit").click(function () {
-        save();
-        $.ajax({
-            type : "post",
-            data : $("#myForm").serialize(),
-            dataType : "json",
-            url : "/sitepage/edit/submit",
-            success :function (data) {
-                if(data.code == 1){
-                    location.href="/sitepage/list";
-                }else {
-                    layer.msg(data.msg);
-                }
-            }
-        })
-    });
 });
 
 //初始化

@@ -65,3 +65,19 @@ login:
 system:
   account: System
   password: systemSys
+
+#页面title
+title:
+  system: 后台管理系统
+  module:
+    admin: 管理员
+    admingroup: 管理员组
+    adminlog: 管理员日志
+    sitepage: 网页生成
+    pagetpl: 网页模板
+    index: 首页
+  page:
+    list: 列表页
+    add: 新增页
+    edit: 编辑页
+    auth: 权限配置页

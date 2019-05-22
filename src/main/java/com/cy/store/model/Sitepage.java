@@ -6,9 +6,9 @@ import java.sql.Timestamp;
 public class Sitepage {
     private Integer id;
 
-    private String code;
+    private String code = "";
 
-    private String title;
+    private String title = "";
 
     private Timestamp addtime= new Timestamp(System.currentTimeMillis());
 

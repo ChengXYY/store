@@ -3,9 +3,9 @@ package com.cy.store.model;
 public class Admingroup {
     private Integer id;
 
-    private String name;
+    private String name ="";
 
-    private String auth;
+    private String auth = "";
 
     private Integer sort;
 

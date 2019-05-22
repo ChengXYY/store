@@ -82,7 +82,7 @@
       #{lastloginip,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, #{logincount,jdbcType=INTEGER},
       #{addtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cy.store.model.Admin" >
+  <insert id="insertSelective" parameterType="com.cy.store.model.Admin" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

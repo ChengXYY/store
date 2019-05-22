@@ -1,5 +1,6 @@
 package com.cy.store.aop;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.store.utils.CommonOperation;
 import com.cy.store.service.AdminlogService;
 import org.apache.commons.lang3.ArrayUtils;
@@ -84,11 +85,19 @@ public class OperationLog {
         Object[] args = joinPoint.getArgs();
         String[] parameterNames = signature.getParameterNames();
 
+        //获取返回值
         String param = "";
         String checkMethodStr = "add,edit,remove";
-        if(checkMethodStr.contains(methodName) && (result==null || !CommonOperation.checkId(Integer.parseInt(result.toString())))){
+        if(!checkMethodStr.contains(methodName)){
             return result;
         }
+        if(checkMethodStr.contains(methodName) && result==null ){
+            JSONObject rs = JSONObject.parseObject(result.toString());
+            if(!rs.get("code").equals("0"))
+                return result;
+        }
+        JSONObject res = JSONObject.parseObject(result.toString());
+
         switch (methodName){
             case "add":
                 Field[] fields = Class.forName(modelName).getDeclaredFields();
@@ -98,15 +107,15 @@ public class OperationLog {
                         param = f.get(args[0]).toString();
                     }
                 }
-                adminlogService.add(session.getAttribute(adminAccount).toString(), "添加【"+className+"】记录("+param+")");
+                adminlogService.add(session.getAttribute(adminAccount).toString(), "添加【"+className+"】记录("+res.get("id")+")");
                 break;
             case "edit":
                 param = getParamValue("id", args, parameterNames);
-                adminlogService.add(session.getAttribute(adminAccount).toString(), "修改【"+className+"】记录("+param+")");
+                adminlogService.add(session.getAttribute(adminAccount).toString(), "修改【"+className+"】记录("+res.get("id")+")");
                 break;
             case "remove":
                 param = getParamValue("id", args, parameterNames);
-                adminlogService.add(session.getAttribute(adminAccount).toString(), "删除【"+className+"】记录("+param+")");
+                adminlogService.add(session.getAttribute(adminAccount).toString(), "删除【"+className+"】记录("+res.get("id")+")");
                 break;
         }
         return result;

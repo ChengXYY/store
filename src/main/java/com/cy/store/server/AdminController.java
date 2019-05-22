@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController{
 
     @Autowired
     private AdminService adminService;
@@ -21,7 +21,7 @@ public class AdminController {
     @RequestMapping(value = {"/index", "/", ""})
     public String index(ModelMap model){
         model.addAttribute("TopMenuFlag", "index");
-        model.addAttribute("pageTitle","首页 - 后台管理系统");
+        model.addAttribute("pageTitle",indexModuleTitle+systemTitle);
         return "/admin/index";
     }
 

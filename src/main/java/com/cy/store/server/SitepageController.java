@@ -2,6 +2,7 @@ package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.model.Sitepage;
+import com.cy.store.service.PagetplService;
 import com.cy.store.service.SitepageService;
 import com.cy.store.utils.CommonOperation;
 import com.cy.store.exception.JsonException;
@@ -23,16 +24,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/sitepage")
-public class SitepageController {
-
-    @Value("${file.sitepage-image-path}")
-    private String imageSavePath;
-
-    @Value("${list.pagesize}")
-    private Integer pageSize;
+public class SitepageController extends BaseController{
 
     @Autowired
     private SitepageService sitepageService;
+
+    @Autowired
+    private PagetplService pagetplService;
 
     @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
     public String list(@RequestParam(value = "code", required = false)String code,
@@ -69,22 +67,29 @@ public class SitepageController {
         model.addAttribute("code", code);
         model.addAttribute("title", title);
 
-        model.addAttribute("pageTitle","管理员日志 - 系统设置 - 后台管理系统");
-        model.addAttribute("TopMenuFlag", "system");
+        model.addAttribute("pageTitle",listPageTitle+sitepageModuleTitle+systemTitle);
+        model.addAttribute("TopMenuFlag", "sitepage");
         model.addAttribute("LeftMenuFlag", "adminlog");
+        model.addAttribute("LeftMenuFlag", "page");
         return "/admin/site_list";
     }
 
     @RequestMapping("/add")
-    public String add(){
+    public String add(ModelMap model){
+        //获取模板列表
+        List<Map<String, Object>> list = pagetplService.getSelectList();
+        model.addAttribute("list", list);
+        model.addAttribute("pageTitle",addPageTitle+sitepageModuleTitle+systemTitle);
+        model.addAttribute("TopMenuFlag", "sitepage");
         return "/admin/site_add";
     }
 
     @ResponseBody
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
-    public JSONObject add(String code, String title, String content, HttpSession session){
+    public JSONObject add(Sitepage sitepage, HttpSession session){
+        sitepage.setCreateby(session.getAttribute(adminAccount).toString());
         try {
-            return null;
+            return sitepageService.add(sitepage);
 
         }catch (JsonException e){
             return e.toJson();
@@ -92,11 +97,14 @@ public class SitepageController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String edit(@RequestParam(value = "id", required = true)String id){
-        if(id.isEmpty()){
-            return "/error/404";
-        }
+    public String edit(@RequestParam(value = "id", required = true)Integer id, ModelMap model){
+
         try {
+            Sitepage sitepage = sitepageService.get(id);
+            model.addAttribute("page", sitepage);
+            model.addAttribute("pageTitle",editPageTitle+sitepageModuleTitle+systemTitle);
+            model.addAttribute("TopMenuFlag", "sitepage");
+
             return "/admin/site_edit";
         }catch (JsonException e){
             e.toJson();
@@ -106,9 +114,9 @@ public class SitepageController {
 
     @ResponseBody
     @RequestMapping(value = "/edit/submit", method = RequestMethod.POST)
-    public JSONObject edit(String id, String code, String title, String content, HttpSession session){
+    public JSONObject edit(Sitepage sitepage){
         try {
-            return null;
+            return sitepageService.edit(sitepage);
 
         }catch (JsonException e){
             return e.toJson();
@@ -118,10 +126,11 @@ public class SitepageController {
     @ResponseBody
     @RequestMapping("/upload")
     public JSONObject uploadIamge(@RequestParam(value = "fileupload")MultipartFile file){
+
         JSONObject result = new JSONObject();
         try {
             result = CommonOperation.uploadFile(file, imageSavePath);
-            result.put("path", "/sitepage/getimg?filename="+result.get("realname"));
+            result.put("path", "/getimg?filename="+result.get("realname"));
         }catch (JsonException e){
             result = e.toJson();
         }
@@ -136,10 +145,22 @@ public class SitepageController {
         try {
             Sitepage page = sitepageService.get(pageId);
             model.addAttribute("page", page);
-            return "/web/site_preview";
+            return "/admin/site_preview";
 
         }catch (JsonException e){
             return "/error/404";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public JSONObject remove(@RequestParam(value = "id", required = true)Integer id){
+
+        try {
+            return sitepageService.remove(id);
+
+        }catch (JsonException e){
+            return e.toJson();
         }
     }
 }

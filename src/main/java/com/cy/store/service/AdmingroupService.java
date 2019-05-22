@@ -1,5 +1,6 @@
 package com.cy.store.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.store.model.Admingroup;
 
 import java.util.List;
@@ -10,18 +11,18 @@ public interface AdmingroupService {
     List<Admingroup> getListAll(Integer parentid);
 
     //add
-    int add(Admingroup admingroup);
+    JSONObject add(Admingroup admingroup);
 
     //edit
-    int edit(Map<String, Object> admingroup);
+    JSONObject edit(Admingroup admingroup);
 
     //delete
-    int remove(Integer id);
+    JSONObject remove(Integer id);
 
     //get
     Admingroup get(Integer id);
 
     //auth
-    void changeAuth(Integer id, String[] auths);
+    JSONObject changeAuth(Integer id, String[] auths);
 
 }

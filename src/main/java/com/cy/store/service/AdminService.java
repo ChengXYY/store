@@ -1,5 +1,6 @@
 package com.cy.store.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.store.model.Admin;
 
 import javax.servlet.http.HttpSession;
@@ -8,11 +9,11 @@ import java.util.Map;
 
 public interface AdminService {
     //add user
-    int add(Admin admin);
+    JSONObject add(Admin admin);
     //update user
-    int edit(Map<String, Object> admin);
+    JSONObject edit(Admin admin);
     //delete user
-    int remove(Integer id);
+    JSONObject remove(Integer id);
 
     Admin get(Integer id);
 
@@ -20,7 +21,7 @@ public interface AdminService {
 
     List<Admin> getList(Map<String, Object> filter);
 
-    int resetPassword(Integer id);
+    JSONObject resetPassword(Integer id);
 
     void login(String account, String password, String vercode, HttpSession session);
 

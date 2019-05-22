@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<ul th:fragment="leftmenu" class="list-group">
+    <li class="list-group-item item-title">
+        <a class="list-group-item-heading">
+            <i class="fa fa-arrow-circle-right"></i>
+            网页配置
+        </a>
+    </li>
+    <li th:class="${LeftMenuFlag=='page'?'list-group-item active':'list-group-item'}"
+        th:if="${#strings.contains(session.ADMIN_AUTH+'','2001')}">
+        <a class="list-group-item-heading" href="/sitepage/list">
+            页面管理
+        </a>
+    </li>
+    <li th:class="${LeftMenuFlag=='tpl'?'list-group-item active':'list-group-item'}"
+        th:if="${#strings.contains(session.ADMIN_AUTH+'','2002')}">
+        <a class="list-group-item-heading" href="/pagetpl/list">
+            模板配置
+        </a>
+    </li>
+
+</ul>
+</html>

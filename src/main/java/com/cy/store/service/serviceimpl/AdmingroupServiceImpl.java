@@ -1,5 +1,7 @@
 package com.cy.store.service.serviceimpl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cy.store.model.Sitepage;
 import com.cy.store.utils.CommonOperation;
 import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
@@ -29,48 +31,72 @@ public class AdmingroupServiceImpl implements AdmingroupService {
     }
 
     @Override
-    public int add(Admingroup admingroup) {
-        if(admingroup.getName().isEmpty() || !CommonOperation.checkId(admingroup.getSort())) throw JsonException.newInstance(ErrorCodes.IS_NOT_EMPTY);
+    public JSONObject add(Admingroup admingroup) {
+        if(admingroup.getName().isEmpty() || !CommonOperation.checkId(admingroup.getSort())) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         int rs = admingroupMapper.insertSelective(admingroup);
-        if(rs>0)
-            return rs;
-        else
+        if(rs>0) {
+            return CommonOperation.success(admingroup.getId());
+        }else
             throw JsonException.newInstance(ErrorCodes.DATA_OP_FAILED);
     }
 
     @Override
-    public int edit(Map<String, Object> admingroup) {
-        if(admingroup.get("id")==null || !CommonOperation.checkId(Integer.parseInt(admingroup.get("id").toString())))throw JsonException.newInstance(ErrorCodes.ID_NOT_ILLEGAL);
-        return admingroupMapper.updateByPrimaryKeySelective(admingroup);
+    public JSONObject edit(Admingroup admingroup) {
+        if(admingroup.getId()==null || admingroup.getId()<1 )throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", admingroup.getId());
+        data.put("name", admingroup.getName());
+        data.put("auth", admingroup.getAuth());
+        data.put("sort",admingroup.getSort());
+        data.put("parentid", admingroup.getParentid());
+        int rs = admingroupMapper.updateByPrimaryKeySelective(data);
+        if(rs > 0){
+            return CommonOperation.success(admingroup.getId());
+        }else {
+            throw JsonException.newInstance(ErrorCodes.DATA_OP_FAILED);
+        }
     }
 
     @Override
-    public int remove(Integer id) {
-        return 0;
+    public JSONObject remove(Integer id) {
+        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        int rs = admingroupMapper.deleteByPrimaryKey(id);
+
+        if(rs > 0){
+            return CommonOperation.success(id);
+        }else {
+            throw JsonException.newInstance(ErrorCodes.DATA_OP_FAILED);
+        }
     }
 
     @Override
     public Admingroup get(Integer id) {
-        if(!CommonOperation.checkId(id)) throw JsonException.newInstance(ErrorCodes.ID_NOT_ILLEGAL);
+        if(!CommonOperation.checkId(id)) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         Admingroup admingroup = admingroupMapper.selectByPrimaryKey(id);
         if(admingroup == null)throw JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST);
         return admingroup;
     }
 
     @Override
-    public void changeAuth(Integer id, String[] auths) {
-        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_ILLEGAL);
+    public JSONObject changeAuth(Integer id, String[] auths) {
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        Admingroup admingroup = get(id);
+
+        String authStr = "";
         if(auths.length>0){
-            String authStr = "";
             for (String code : auths){
                 authStr += code+"|";
             }
             authStr.substring(0,authStr.length()-1);
-            Map<String, Object> group = new HashMap<>();
-            group.put("id", id);
-            group.put("auth", authStr);
-            admingroupMapper.updateByPrimaryKeySelective(group);
         }
+        Map<String, Object> group = new HashMap<>();
+        group.put("id", id);
+        group.put("auth", authStr);
+        int rs = admingroupMapper.updateByPrimaryKeySelective(group);
+        if(rs > 0){
+            return CommonOperation.success(id);
+        }else
+            throw JsonException.newInstance(ErrorCodes.DATA_OP_FAILED);
     }
 
 

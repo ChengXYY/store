@@ -40,7 +40,7 @@
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{auth,jdbcType=VARCHAR}, 
        #{order,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.cy.store.model.Admingroup" >
+  <insert id="insertSelective" parameterType="com.cy.store.model.Admingroup" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into admingroup
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
