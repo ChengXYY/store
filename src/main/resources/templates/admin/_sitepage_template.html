@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="template" >
+<div id="textBox" style="display:none;padding:0px 40px 40px;" >
+    <h3>文章选择</h3>
+    <p class="text-muted">输入文章编号</p>
+    <input type="hidden" name="blockId">
+    <input class="form-control" style="margin-bottom:15px;" name="articleCode"/>
+    <div class="right">
+        <span class="btn btn-success preview">预览</span>
+        <span class="btn btn-primary submit">提交</span>
+    </div>
+    <div class="show"></div>
+</div>
+
+<div id="pictureBox" style="display:none;padding:0px 40px 40px;" >
+    <h3>图片选择</h3>
+    <p class="text-muted">输入图片编号</p>
+    <input type="hidden" name="blockId">
+    <input class="form-control" style="margin-bottom:15px;" name="pictureCode"/>
+    <div class="right">
+        <span class="btn btn-success preview">预览</span>
+        <span class="btn btn-primary submit">提交</span>
+    </div>
+
+    <div class="show"></div>
+</div>
+</html>

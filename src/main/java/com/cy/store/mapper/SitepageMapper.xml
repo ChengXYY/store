@@ -3,6 +3,7 @@
 <mapper namespace="com.cy.store.mapper.SitepageMapper" >
   <resultMap id="BaseResultMap" type="com.cy.store.model.Sitepage" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tplid" property="tplid" jdbcType="INTEGER" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
@@ -10,7 +11,7 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, code, title, addtime, createby, content
+    id, tplid, code, title, addtime, createby, content
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -70,6 +71,9 @@
       <if test="id != null" >
         id,
       </if>
+      <if test="tplid != null" >
+        tplid,
+      </if>
       <if test="code != null" >
         code,
       </if>
@@ -89,6 +93,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tplid != null" >
+        #{tplid,jdbcType=INTEGER},
       </if>
       <if test="code != null" >
         #{code,jdbcType=VARCHAR},
@@ -111,6 +118,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="map" >
     update sitepage
     <set >
+      <if test="tplid != null" >
+        tplid = #{tplid,jdbcType=VARCHAR},
+      </if>
       <if test="code != null" >
         code = #{code,jdbcType=VARCHAR},
       </if>

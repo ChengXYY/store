@@ -5,6 +5,7 @@ import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
 import com.cy.store.mapper.SitepageMapper;
 import com.cy.store.model.Sitepage;
+import com.cy.store.service.PagetplService;
 import com.cy.store.service.SitepageService;
 import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,16 @@ public class SitepageServiceImpl implements SitepageService {
     @Autowired
     private SitepageMapper sitepageMapper;
 
+    @Autowired
+    private PagetplService pagetplService;
+
     @Override
     public JSONObject add(Sitepage sitepage) {
-        if(sitepage.getCode().isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+        if((sitepage.getTplid() == 0 && (sitepage.getContent()!=null || !sitepage.getContent().isEmpty()))
+                || sitepage.getCode().isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+        if(sitepage.getTplid() > 0){
+            pagetplService.get(sitepage.getTplid());
+        }
         //判断重复
         Sitepage page = get(sitepage.getCode());
         if(page!=null) throw JsonException.newInstance(ErrorCodes.CODE_REPEATED);
@@ -38,17 +46,18 @@ public class SitepageServiceImpl implements SitepageService {
     @Override
     public JSONObject edit(Sitepage sitepage) {
         if(sitepage.getId() == null || sitepage.getId() < 1) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
-        if(sitepage.getCode().isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
-
-        String content = sitepage.getContent();
-        if(!content.isEmpty()){
-            content = content.replace("<br />", "");
-            content = content.replace("<br>", "");
-            content = content.replace("<em>", "");
-            sitepage.setContent(content);
+        if((sitepage.getTplid() == 0 && (sitepage.getContent()!=null || !sitepage.getContent().isEmpty()))
+            || sitepage.getCode().isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+        if(sitepage.getTplid() > 0){
+            pagetplService.get(sitepage.getTplid());
         }
+        //判断重复
+        Sitepage page = get(sitepage.getCode());
+        if(page!=null && page.getId()!=sitepage.getId()) throw JsonException.newInstance(ErrorCodes.CODE_REPEATED);
+
         Map<String, Object> data = new HashMap<>();
         data.put("id", sitepage.getId());
+        data.put("tplid", sitepage.getTplid());
         data.put("code", sitepage.getCode());
         data.put("title", sitepage.getTitle());
         data.put("content", sitepage.getContent());

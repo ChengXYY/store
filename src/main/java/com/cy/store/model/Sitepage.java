@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 public class Sitepage {
     private Integer id;
 
+    private Integer tplid = 0;
+
     private String code = "";
 
     private String title = "";
@@ -22,6 +24,14 @@ public class Sitepage {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTplid() {
+        return tplid;
+    }
+
+    public void setTplid(Integer tplid) {
+        this.tplid = tplid;
     }
 
     public String getCode() {

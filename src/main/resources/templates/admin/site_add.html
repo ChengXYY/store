@@ -32,12 +32,15 @@
             <h3 class="text text-primary">页面布局</h3>
             <hr/>
             <div class="toolbar">
-                <div class="btn btn-primary  blocks" title="文字"><i class="fa fa-list"></i></div>
-                <div class="btn btn-success  blocks" title="图片"><i class="fa fa-photo"></i></div>
+                <div class="text text-primary blocks" title="文字" data-type="text" ><i class="fa fa-list"></i></div>
+                <div class="text text-success blocks" title="图片" data-type="picture"><i class="fa fa-photo"></i></div>
+                <div class="text text-warning blocks" title="视频" data-type="picture"><i class="fa fa-film"></i></div>
+                <div class="text text-info blocks" title="轮播图" data-type="picture"><i class="fa fa-newspaper-o"></i></div>
 
             </div>
-            <div class="box" id="init" region-id="0">
+            <div class="box" id="init">
             </div>
+            <textarea style="display: none" name="content" ></textarea>
         </div>
 
 
@@ -52,6 +55,8 @@
 <footer th:replace="/admin/_footer::footer">
     Your Company Name.
 </footer>
+<div th:include="/admin/_sitepage_template::template"></div>
+
 <script type="text/javascript" th:src="@{~/js/jquery-ui.min.js}"></script>
 <script type="text/javascript" th:src="@{~/js/drag2.js}"></script>
 <script>
@@ -71,6 +76,7 @@
                 success: function (data) {
                     if(data.code == 0){
                         $("#init").html(data.content);
+                        updateStatus();
                     }else {
                         return;
                     }
@@ -79,8 +85,7 @@
         });
 
         $("#submit-form").click(function () {
-            var content = tinymce.get("editor").getContent();
-            $("input[name='content']").val(content);
+           save();return;
             $.ajax({
                 type :"post",
                 data : $("#myForm").serialize(),

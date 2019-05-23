@@ -107,8 +107,8 @@ public class SitepageController extends BaseController{
 
             return "/admin/site_edit";
         }catch (JsonException e){
-            e.toJson();
-            return "/error/404";
+            model.addAttribute("error", e.toJson());
+            return "/error/common";
         }
     }
 
@@ -148,7 +148,8 @@ public class SitepageController extends BaseController{
             return "/admin/site_preview";
 
         }catch (JsonException e){
-            return "/error/404";
+            model.addAttribute("error", e.toJson());
+            return "/error/common";
         }
     }
 

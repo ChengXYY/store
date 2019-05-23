@@ -85,7 +85,8 @@ public class PagetplController extends BaseController{
             model.addAttribute("TopMenuFlag", "sitepage");
             return "/admin/tpl_edit";
         }catch (JsonException e){
-            return "/error/404";
+            model.addAttribute("error", e.toJson());
+            return "/error/common";
         }
 
     }

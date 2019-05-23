@@ -201,7 +201,8 @@ public class SystemController extends BaseController{
             model.addAttribute("LeftMenuFlag", "admingroup");
             return "/admin/admingroup_auth";
         }catch (JsonException e){
-            return "/error/404";
+            model.addAttribute("error", e.toJson());
+            return "/error/common";
         }
     }
 
