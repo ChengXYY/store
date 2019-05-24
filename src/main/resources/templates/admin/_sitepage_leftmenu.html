@@ -7,14 +7,12 @@
             网页配置
         </a>
     </li>
-    <li th:class="${LeftMenuFlag=='page'?'list-group-item active':'list-group-item'}"
-        th:if="${#strings.contains(session.ADMIN_AUTH+'','2001')}">
+    <li th:class="${LeftMenuFlag=='page'?'list-group-item active':'list-group-item'}">
         <a class="list-group-item-heading" href="/sitepage/list">
             页面管理
         </a>
     </li>
-    <li th:class="${LeftMenuFlag=='tpl'?'list-group-item active':'list-group-item'}"
-        th:if="${#strings.contains(session.ADMIN_AUTH+'','2002')}">
+    <li th:class="${LeftMenuFlag=='tpl'?'list-group-item active':'list-group-item'}">
         <a class="list-group-item-heading" href="/pagetpl/list">
             模板配置
         </a>

@@ -35,6 +35,10 @@ public class BaseController {
     protected String sitepageModuleTitle;
     @Value("${title.module.pagetpl}")
     protected String pagetplModuleTitle;
+    @Value("${title.module.article}")
+    protected String articleModuleTitle;
+    @Value("${title.module.picture}")
+    protected String pictureModuleTitle;
     @Value("${title.module.index}")
     protected String indexModuleTitle;
 
@@ -48,7 +52,9 @@ public class BaseController {
     protected String authPageTitle;
 
 
-    @Value("${file.sitepage-image-path}")
-    protected String imageSavePath;
+    @Value("${file.article-path}")
+    protected String articleSavePath;
+    @Value("${file.picture-path}")
+    protected String pictureSavePath;
 
 }

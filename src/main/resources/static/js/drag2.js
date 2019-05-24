@@ -1,4 +1,13 @@
 $(function () {
+    //初始化操作
+    updateStatus();
+
+    $("#init div[block-id]").each(function () {
+        $(this).prepend(createED());
+        code = $(this).attr("code");
+        $(this).prepend(createT(code));
+    });
+
     $(".blocks").draggable({
         revers: "invalid",
         helper: "clone",
@@ -43,31 +52,32 @@ $(function () {
     $("#textBox .submit").click(function () {
         var code = $("#textBox> input[name='articleCode']").val();
         var blockId = $("#textBox> input[name='blockId']").val();
-        if($("div[block-id='"+blockId+"']").data("type") != "text"){
+        var obj = $(".content-block[block-id='"+blockId+"']");
+        if(obj.data("type")!= "text"){
             layer.msg("Error！Please retry！");
             return;
         }
-        $("div[block-id='"+blockId+"']").data("code", code);
-        html = "<div class='block-title'>"+code+"</div>";
-        $("div[block-id='"+blockId+"']").prepend(html);
+        obj.attr("code", code);
+        obj.prepend(createT(code));
         layer.closeAll();
     });
     $("#pictureBox .submit").click(function () {
         var code = $("#pictureBox> input[name='pictureCode']").val();
         var blockId = $("#pictureBox> input[name='blockId']").val();
-        if($("div[block-id='"+blockId+"']").data("type") != "picture"){
+        var obj = $(".content-block[block-id='"+blockId+"']");
+
+        if(obj.data("type")!= "picture"){
             layer.msg("Error！Please retry！");
             return;
         }
-        $("div[block-id='"+blockId+"']").data("code", code);
-        html = createT(code);
-        $("div[block-id='"+blockId+"']").prepend(html);
+        obj.attr("code", code);
+        obj.prepend(createT(code));
         layer.closeAll();
     });
 
     $("#init").on("click", ".block-edit", function () {
         var type = $(this).parent().data("type");
-        var code = $(this).parent().data("code");console.log(code);
+        var code = $(this).parent().attr("code");
         var blockId = $(this).parent().attr("block-id");
         switch (type) {
             case "text":

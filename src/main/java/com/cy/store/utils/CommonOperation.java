@@ -58,6 +58,8 @@ public class CommonOperation {
         if(file == null)throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
         String fileName = file.getOriginalFilename();
         String newFileName = System.currentTimeMillis() + "_" +fileName;
+
+        String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
         int size = (int)file.getSize();
         size = (int)Math.ceil(size/1024);
         if(size <= 0)throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_FAILED);
@@ -68,11 +70,12 @@ public class CommonOperation {
         }
         try {
             file.transferTo(dest);
-            rs.put("code", 1);
+            rs.put("code", 0);
             rs.put("msg", "上传成功");
             rs.put("size", size);
             rs.put("filename", fileName);
             rs.put("realname", newFileName);
+            rs.put("ext", ext);
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
            throw JsonException.newInstance(ErrorCodes.FILE_UPLOAD_FAILED);
@@ -89,7 +92,8 @@ public class CommonOperation {
 
         if (filename != null) {
             FileInputStream is = null;
-            File file = new File(imageSavePath+"/"+filename);
+
+            File file = new File(imageSavePath+filename);
             try {
                 is = new FileInputStream(file);
                 int i = is.available();

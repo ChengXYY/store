@@ -25,7 +25,7 @@
                         <i class="fa fa-check-square"></i>
                     </div>
                     <div class="col-md-5"style="padding: 0px">
-                        <img src="/login/vercode" onclick="this.src='/login/vercode?d='+new Date()*1" class="vercode-img" alt="刷新换一张" id="vercodeimg"/>
+                        <img src="/admin/vercode" onclick="this.src='/admin/vercode?d='+new Date()*1" class="vercode-img" alt="刷新换一张" id="vercodeimg"/>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -54,7 +54,7 @@
                 type:"post",
                 data:$("#Login").serialize(),
                 dataType:"json",
-                url:"/login/adminlogin",
+                url:"/admin/login/submit",
                 success:function (data) {
                     if(data.code == 1){
                         if(location.href.indexOf("login")>-1){

@@ -2,8 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${page.title}"></title>
-</head>
-<body th:utext="${page.content}">
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/font-awesome.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/data.css}">
 
+</head>
+<body>
+<div class="container-fluid" th:utext="${page.content}"></div>
+<script type="text/javascript" th:src="@{~/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{~/js/data.js}"></script>
 </body>
 </html>

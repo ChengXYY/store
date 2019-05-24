@@ -50,7 +50,8 @@ debug: false
 list:
   pagesize: 15
 file:
-  sitepage-image-path:
+  article-path: C:/www/upload/article/
+  picture-path: C:/www/upload/picture/
 
 #session
 admin:
@@ -70,14 +71,16 @@ system:
 title:
   system: 后台管理系统
   module:
-    admin: 管理员
-    admingroup: 管理员组
-    adminlog: 管理员日志
-    sitepage: 网页生成
-    pagetpl: 网页模板
-    index: 首页
+    admin: 管理员-
+    admingroup: 管理员组-
+    adminlog: 管理员日志-
+    sitepage: 网页生成-
+    pagetpl: 网页模板-
+    article: 文章-
+    picture: 图片-
+    index: 首页-
   page:
-    list: 列表页
-    add: 新增页
-    edit: 编辑页
-    auth: 权限配置页
+    list: 列表页-
+    add: 新增页-
+    edit: 编辑页-
+    auth: 权限配置页-

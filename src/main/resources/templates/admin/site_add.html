@@ -32,10 +32,10 @@
             <h3 class="text text-primary">页面布局</h3>
             <hr/>
             <div class="toolbar">
-                <div class="text text-primary blocks" title="文字" data-type="text" ><i class="fa fa-list"></i></div>
-                <div class="text text-success blocks" title="图片" data-type="picture"><i class="fa fa-photo"></i></div>
-                <div class="text text-warning blocks" title="视频" data-type="picture"><i class="fa fa-film"></i></div>
-                <div class="text text-info blocks" title="轮播图" data-type="picture"><i class="fa fa-newspaper-o"></i></div>
+                <div class="text text-primary blocks" title="文字" data-type="text" code=""><i class="fa fa-list"></i></div>
+                <div class="text text-success blocks" title="图片" data-type="picture" code=""><i class="fa fa-photo"></i></div>
+                <div class="text text-warning blocks" title="视频" data-type="video" code=""><i class="fa fa-film"></i></div>
+                <div class="text text-info blocks" title="轮播图" data-type="pics" code=""><i class="fa fa-newspaper-o"></i></div>
 
             </div>
             <div class="box" id="init">
@@ -85,7 +85,7 @@
         });
 
         $("#submit-form").click(function () {
-           save();return;
+           save();
             $.ajax({
                 type :"post",
                 data : $("#myForm").serialize(),

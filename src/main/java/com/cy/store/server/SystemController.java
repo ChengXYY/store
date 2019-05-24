@@ -195,7 +195,7 @@ public class SystemController extends BaseController{
             model.addAttribute("list", list);
             model.addAttribute("groupid", id);
             model.addAttribute("groupName", admingroup.getName());
-            model.addAttribute("pageTitle","管理员组权限配置 - 系统设置 - 后台管理系统");
+            model.addAttribute("pageTitle",authPageTitle+admingroupModuleTitle+systemTitle);
 
             model.addAttribute("TopMenuFlag", "system");
             model.addAttribute("LeftMenuFlag", "admingroup");
@@ -252,7 +252,7 @@ public class SystemController extends BaseController{
         model.addAttribute("list", list);
         model.addAttribute("content", content);
 
-        model.addAttribute("pageTitle","管理员日志 - 系统设置 - 后台管理系统");
+        model.addAttribute("pageTitle",listPageTitle+adminlogModuleTitle+systemTitle);
         model.addAttribute("TopMenuFlag", "system");
         model.addAttribute("LeftMenuFlag", "adminlog");
         return "/admin/adminlog_list";

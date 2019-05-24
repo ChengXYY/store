@@ -1,5 +1,6 @@
 package com.cy.store.common;
 
+import com.cy.store.server.BaseController;
 import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,14 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-public class ImageController {
-
-    @Value("${file.sitepage-image-path}")
-    private String sitePageImg;
+public class ImageController extends BaseController {
 
     @RequestMapping(value = "/getimg", method = RequestMethod.GET)
     public void getImage(@RequestParam(value = "filename") String filename,
                          HttpServletRequest request, HttpServletResponse response)throws IOException {
-        CommonOperation.getImage(filename, sitePageImg, request, response);
+        CommonOperation.getImage(filename, pictureSavePath, request, response);
     }
 }

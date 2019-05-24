@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/admin")
 public class LoginController extends BaseController{
 
     @Autowired
@@ -30,14 +30,14 @@ public class LoginController extends BaseController{
     private DefaultKaptcha captchaProducer;
 
 
-    @RequestMapping("/admin")
+    @RequestMapping("/login")
     public String index(ModelMap model){
         model.addAttribute("pageTitle","登录 - 后台管理系统");
         return "admin/login";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/submit", method = RequestMethod.POST)
     public JSONObject login(String account, String password, String vercode, HttpSession session){
         JSONObject result = new JSONObject();
         try {

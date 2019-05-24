@@ -7,7 +7,6 @@ import com.cy.store.service.SitepageService;
 import com.cy.store.utils.CommonOperation;
 import com.cy.store.exception.JsonException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,7 +68,6 @@ public class SitepageController extends BaseController{
 
         model.addAttribute("pageTitle",listPageTitle+sitepageModuleTitle+systemTitle);
         model.addAttribute("TopMenuFlag", "sitepage");
-        model.addAttribute("LeftMenuFlag", "adminlog");
         model.addAttribute("LeftMenuFlag", "page");
         return "/admin/site_list";
     }
@@ -100,6 +98,9 @@ public class SitepageController extends BaseController{
     public String edit(@RequestParam(value = "id", required = true)Integer id, ModelMap model){
 
         try {
+            List<Map<String, Object>> list = pagetplService.getSelectList();
+            model.addAttribute("list", list);
+
             Sitepage sitepage = sitepageService.get(id);
             model.addAttribute("page", sitepage);
             model.addAttribute("pageTitle",editPageTitle+sitepageModuleTitle+systemTitle);
@@ -123,19 +124,6 @@ public class SitepageController extends BaseController{
         }
     }
 
-    @ResponseBody
-    @RequestMapping("/upload")
-    public JSONObject uploadIamge(@RequestParam(value = "fileupload")MultipartFile file){
-
-        JSONObject result = new JSONObject();
-        try {
-            result = CommonOperation.uploadFile(file, imageSavePath);
-            result.put("path", "/getimg?filename="+result.get("realname"));
-        }catch (JsonException e){
-            result = e.toJson();
-        }
-        return  result;
-    }
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
     public String preview(@RequestParam(value = "id", required = true)String id, ModelMap model){
         if(id==null || id.isEmpty() || id.equals("0")){

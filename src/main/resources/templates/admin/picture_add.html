@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/_include::include"></head>
+<body>
+<script type="text/javascript" th:src="@{~/js/bootstrap.js}"></script>
+<header th:include="/admin/_header::header">
+    Your Company Name.
+</header>
+<div th:replace="/admin/_topmenu::topmenu"></div>
+<div class="container">
+    <form class="form-horizontal" id="myForm" style="margin-bottom: 50px">
+
+        <div class="form-group">
+            <h3 class="text text-primary">图片编号</h3>
+            <hr/>
+            <input class="form-control" placeholder="英文字母、数字、符号" type="text" name="code"/>
+        </div>
+        <div class="form-group">
+            <h3 class="text text-primary">图片描述</h3>
+            <hr/>
+            <textarea class="form-control" name="intro"></textarea>
+        </div>
+        <div class="form-group">
+            <h3 class="text text-primary">图片上传</h3>
+            <hr/>
+            <div class="btn btn-outline btn-success" id="select-file"><i class="fa fa-folder-open"></i> 选择文件</div>
+            <div class="btn btn-primary" id="upload-file"><i class="fa fa-upload"></i> 上传</div>
+
+            <h5 class="text text-primary" id="file-name"></h5>
+        </div>
+        <div class="form-group" id="uploadShow">
+            <h5 class="text-danger" id="upload-finished">请上传文件</h5>
+            <input type="hidden" name="name"/>
+            <input type="hidden" name="url"/>
+            <input type="hidden" name="size"/>
+            <input type="hidden" name="ext"/>
+            <div class="image" id="show-image">
+
+            </div>
+        </div>
+        <div class="form-group center">
+            <br/>
+            <a class="btn btn-warning" href="javascript:" id="submit-form">保 存</a>
+            <a href="javascript:history.back()" class="btn btn-default">返 回</a>
+        </div>
+    </form>
+    <form style="display: none" id="uploadForm">
+        <input name="fileupload" id="fileupload" type="file">
+    </form>
+</div>
+
+<footer th:replace="/admin/_footer::footer">
+    Your Company Name.
+</footer>
+
+<script type="text/javascript" th:src="@{~/js/common-files.js}"></script>
+<script>
+    $(function () {
+        $("#submit-form").click(function () {
+
+            $.ajax({
+                type : "post",
+                data : $("#myForm").serialize(),
+                dataType : "json",
+                url : "/picture/add/submit",
+                success :function (data) {
+                    if(data.code == 0){
+                        location.href="/pagetpl/list";
+                    }else {
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        });
+
+        $("#select-file").click(function () {
+            $("#upload-finished").html("请上传文件");
+            $("#fileupload").click();
+        });
+
+        $("body").on("change", "#fileupload", function () {
+            $("#file-name").html($("#fileupload").val());
+        });
+
+        $("#upload-file").click(function () {
+            var result = uploadFile("/picture/upload");
+            if(result == null || $.isEmptyObject(result) || result.code!=0){
+                return;
+            }
+            $("#upload-finished").html(result.msg);
+            $("input[name='name']").val(result.name);
+            $("input[name='url']").val(result.url);
+            $("input[name='size']").val(result.size);
+            $("input[name='ext']").val(result.ext);
+            $("#show-image").html("<img src='"+result.url+"' width='200px'/>");
+        });
+    })
+</script>
+</body>
+</html>

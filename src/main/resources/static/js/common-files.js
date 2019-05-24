@@ -27,4 +27,31 @@ $(function () {
             $("input[class='select-all']").prop("checked",false); //全选按钮不能勾选
         }
     });
-})
+
+});
+
+function uploadFile(url) {
+    var result=[];
+    $.ajax({
+        url: url,
+        type: 'POST',
+        cache: false,
+        data: new FormData($('#uploadForm')[0]),
+        processData: false,
+        contentType: false,
+        dataType:"json",
+        async:false,
+        beforeSend: function(){
+            layer.load(1, {shade: [0.5,'#fff']});
+        },
+        success : function(data) {
+            layer.closeAll();
+            if (data.code == 0) {
+                result = data;
+            } else {
+                layer.msg(data.msg);
+            }
+        }
+    });
+    return result;
+}
