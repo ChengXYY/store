@@ -52,7 +52,7 @@ public class CommonOperation {
             return false;
     }
 
-    //返回值
+    //上传文件
     public static JSONObject uploadFile(MultipartFile file, String savePath){
         JSONObject rs = new JSONObject();
         if(file == null)throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
@@ -108,6 +108,10 @@ public class CommonOperation {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static boolean removeFile(){
+        return true;
     }
 
     public static JSONObject success(Integer id){

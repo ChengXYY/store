@@ -65,7 +65,7 @@
                 url : "/picture/add/submit",
                 success :function (data) {
                     if(data.code == 0){
-                        location.href="/pagetpl/list";
+                        location.href="/picture/list";
                     }else {
                         layer.msg(data.msg);
                     }

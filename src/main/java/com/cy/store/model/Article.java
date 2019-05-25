@@ -8,9 +8,9 @@ public class Article {
 
     private String code = "";
 
-    private String title = "";
+    private String title;
 
-    private String author = "";
+    private String author;
 
     private String createby;
 

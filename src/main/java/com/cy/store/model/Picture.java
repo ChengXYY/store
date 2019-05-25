@@ -6,17 +6,17 @@ import java.util.Date;
 public class Picture {
     private Integer id;
 
-    private String code = "";
+    private String code;
 
-    private String intro = "";
+    private String intro ;
 
-    private String name = "";
+    private String name;
 
-    private String url = "";
+    private String url;
 
-    private Integer size = 0;
+    private Integer size;
 
-    private String ext = "jpg";
+    private String ext;
 
     private String createby;
 

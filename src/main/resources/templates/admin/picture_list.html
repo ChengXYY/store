@@ -7,8 +7,9 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <style>
-    table>img{
-        width: 10em;
+    .show-image img{
+        width: 100px;
+        cursor: pointer;
     }
 </style>
 <div class="container fluid">
@@ -40,10 +41,10 @@
             <tr th:each="picture:${list}">
                 <td th:text="${picture.code}"></td>
                 <td th:text="${picture.intro}"></td>
-                <td><img th:src="${picture.url}"></td>
+                <td class="center show-image"><img th:src="${picture.url}"></td>
                 <td th:text="${#dates.format(picture.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
                 <td th:attr="data-id=${picture.id}" class="center">
-                    <a class="btn btn-outline btn-primary btn-xs " title="编辑图片" th:href="@{/picture/edit?id={id}(id=${picture.id})}"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-outline btn-primary btn-xs edit" title="编辑图片" ><i class="fa fa-edit"></i></a>
                     <a class="btn btn-outline btn-danger btn-xs delete" title="删除图片" ><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
@@ -60,6 +61,34 @@
 </footer>
 <script>
     $(function () {
+        $(".show-image").click(function () {
+            var obj = $(this).html();
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                area: 'auto',
+                skin: 'layui-layer-nobg', //没有背景色
+                shadeClose: true,
+                content: obj
+            });
+        });
+
+        $(".edit").click(function () {
+            var id = $(this).parent().data("id");
+            layer.open({
+                type: 2,
+                title: '编辑图片信息',
+                shadeClose: false,
+                shade: 0.3,
+                area: '500px',
+                content: '/picture/edit?id='+id,
+                success:function (layero, index) {
+                    layer.iframeAuto(index);
+                }
+            });
+        });
+
         $(".delete").click(function () {
             var id = $(this).parent().data("id");
 

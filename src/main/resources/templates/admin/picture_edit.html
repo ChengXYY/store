@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/_include::include"></head>
+<body>
+<div class="container">
+    <form class="form-horizontal" id="myForm" style="margin-bottom: 50px">
+
+        <div class="form-group">
+            <h4 class="text text-primary">图片编号</h4>
+            <hr/>
+            <input class="form-control" placeholder="英文字母、数字、符号" type="text" name="code" th:value="${picture.code}"/>
+        </div>
+        <div class="form-group">
+            <h4 class="text text-primary">图片描述</h4>
+            <hr/>
+            <textarea class="form-control" name="intro" th:text="${picture.intro}"></textarea>
+        </div>
+
+        <div class="form-group center">
+            <br/>
+            <input type="hidden" name="id" th:value="${picture.id}"/>
+            <a class="btn btn-primary" href="javascript:" id="submit-form">提交修改</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        $("#submit-form").click(function () {
+
+            $.ajax({
+                type : "post",
+                data : $("#myForm").serialize(),
+                dataType : "json",
+                url : "/picture/edit/submit",
+                success :function (data) {
+                    if(data.code == 0){
+                        parent.location.reload();
+                    }else {
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        });
+    })
+</script>
+</body>
+</html>
