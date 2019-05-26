@@ -1,7 +1,6 @@
 package com.cy.store.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Pagetpl {
     private Integer id;
@@ -10,7 +9,7 @@ public class Pagetpl {
 
     private String createby;
 
-    private Date addtime = new Timestamp(System.currentTimeMillis());
+    private Timestamp addtime = new Timestamp(System.currentTimeMillis());
 
     private String content;
 
@@ -38,11 +37,11 @@ public class Pagetpl {
         this.createby = createby == null ? null : createby.trim();
     }
 
-    public Date getAddtime() {
+    public Timestamp getAddtime() {
         return addtime;
     }
 
-    public void setAddtime(Date addtime) {
+    public void setAddtime(Timestamp addtime) {
         this.addtime = addtime;
     }
 

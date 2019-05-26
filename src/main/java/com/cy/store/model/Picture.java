@@ -1,7 +1,6 @@
 package com.cy.store.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Picture {
     private Integer id;
@@ -20,7 +19,7 @@ public class Picture {
 
     private String createby;
 
-    private Date addtime= new Timestamp(System.currentTimeMillis());
+    private Timestamp addtime= new Timestamp(System.currentTimeMillis());
 
     public Integer getId() {
         return id;
@@ -86,11 +85,11 @@ public class Picture {
         this.createby = createby == null ? null : createby.trim();
     }
 
-    public Date getAddtime() {
+    public Timestamp getAddtime() {
         return addtime;
     }
 
-    public void setAddtime(Date addtime) {
+    public void setAddtime(Timestamp addtime) {
         this.addtime = addtime;
     }
 }
