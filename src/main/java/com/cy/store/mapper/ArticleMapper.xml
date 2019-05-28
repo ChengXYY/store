@@ -59,7 +59,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   
-  <insert id="insertSelective" parameterType="com.cy.store.model.Article" >
+  <insert id="insertSelective" parameterType="com.cy.store.model.Article" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

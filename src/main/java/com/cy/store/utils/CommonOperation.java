@@ -53,11 +53,14 @@ public class CommonOperation {
     }
 
     //上传文件
-    public static JSONObject uploadFile(MultipartFile file, String savePath){
+    public static JSONObject uploadFile(MultipartFile file, String savePath, String myFileName){
         JSONObject rs = new JSONObject();
         if(file == null)throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
         String fileName = file.getOriginalFilename();
-        String newFileName = System.currentTimeMillis() + "_" +fileName;
+        String newFileName = myFileName;
+        if(myFileName == null || myFileName.isEmpty()){
+            newFileName = System.currentTimeMillis() + "_" +fileName;
+        }
 
         String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
         int size = (int)file.getSize();
@@ -86,6 +89,10 @@ public class CommonOperation {
         return rs;
     }
 
+    public static JSONObject uploadFile(MultipartFile file, String path){
+        return uploadFile(file, path, null);
+    }
+
     //查看图片
     public static void getImage(String filename, String imageSavePath,
                                 HttpServletRequest request, HttpServletResponse response)throws IOException {
@@ -110,8 +117,19 @@ public class CommonOperation {
         }
     }
 
-    public static boolean removeFile(){
-        return true;
+    public static JSONObject removeFile(String path){
+        JSONObject rs = new JSONObject();
+        if(path == null || path.isEmpty()) throw JsonException.newInstance(ErrorCodes.PATH_IS_WRONG);
+        File file = new File(path);
+        if(file.exists() && file.isFile()){
+            if(file.delete()){
+                return success();
+            }else {
+                throw JsonException.newInstance(ErrorCodes.DATA_OP_FAILED);
+            }
+        }else{
+            throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
+        }
     }
 
     public static JSONObject success(Integer id){
@@ -137,4 +155,5 @@ public class CommonOperation {
         rs.putAll(data);
         return rs;
     }
+
 }

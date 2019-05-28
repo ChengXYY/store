@@ -19,6 +19,7 @@ public enum ErrorCodes {
     FILE_NOT_EXSIT(70001, "文件不存在"),
     FILE_UPLOAD_FAILED(70002, "文件上传失败"),
     FILE_WRITE_FAILED(70003, "文件写失败"),
+    PATH_IS_WRONG(70004, "路径正确"),
 
     VERCODE_NOT_EMPTY(80001, "验证码不能为空"),
     VERCODE_IS_WRONG(80002, "验证码错误"),

@@ -8,6 +8,7 @@ import com.cy.store.model.Picture;
 import com.cy.store.service.PictureService;
 import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,12 @@ import java.util.Map;
 
 @Service
 public class PictureServiceImpl implements PictureService {
+
     @Autowired
     private PictureMapper pictureMapper;
+
+    @Value("${file.picture-path}")
+    protected String pictureSavePath;
 
     @Override
     public JSONObject add(Picture picture) {
@@ -50,6 +55,15 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public JSONObject remove(Integer id) {
         if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        //获取picture
+        Picture pic = get(id);
+        if(pic == null) throw JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST);
+        try {
+            CommonOperation.removeFile(pictureSavePath+pic.getUrl().replace("getimg?filename=", ""));
+        }catch (JsonException e){
+            System.out.println(e.toJson());
+        }
+
         int rs = pictureMapper.deleteByPrimaryKey(id);
 
         if(rs > 0){

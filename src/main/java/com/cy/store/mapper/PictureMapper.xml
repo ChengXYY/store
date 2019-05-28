@@ -60,7 +60,7 @@
     delete from picture
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.cy.store.model.Picture" >
+  <insert id="insertSelective" parameterType="com.cy.store.model.Picture" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into picture
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
