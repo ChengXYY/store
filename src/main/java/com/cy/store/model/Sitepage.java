@@ -8,9 +8,11 @@ public class Sitepage {
 
     private Integer tplid = 0;
 
-    private String code = "";
+    private String code;
 
-    private String title = "";
+    private String title;
+
+    private String css;
 
     private Timestamp addtime= new Timestamp(System.currentTimeMillis());
 
@@ -48,6 +50,14 @@ public class Sitepage {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getCss() {
+        return css;
+    }
+
+    public void setCss(String css) {
+        this.css = css;
     }
 
     public Timestamp getAddtime() {

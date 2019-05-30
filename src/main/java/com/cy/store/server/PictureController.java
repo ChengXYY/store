@@ -1,11 +1,11 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
 import com.cy.store.model.Picture;
 import com.cy.store.service.PictureService;
 import com.cy.store.utils.CommonOperation;
+import com.cy.store.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/picture")
-public class PictureController extends BaseController {
+public class PictureController extends AdminConfig {
 
     @Autowired
     private PictureService pictureService;
@@ -90,7 +90,7 @@ public class PictureController extends BaseController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String edit(@RequestParam(value = "id", required = true)Integer id, ModelMap model){
+    public String edit(@RequestParam(value = "id")Integer id, ModelMap model){
 
         try {
 
@@ -119,7 +119,7 @@ public class PictureController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public JSONObject remove(@RequestParam(value = "id", required = true)Integer id){
+    public JSONObject remove(@RequestParam(value = "id")Integer id){
         try {
             return pictureService.remove(id);
         }catch (JsonException e){
@@ -145,8 +145,13 @@ public class PictureController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public JSONObject get(@RequestParam(value = "code", required = true)String code){
-        return JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST).toJson();
+    public JSONObject get(@RequestParam(value = "code")String code){
+        try {
+            Picture pic = pictureService.get(code);
+            return CommonOperation.success(pic);
+        }catch (JsonException e){
+            return e.toJson();
+        }
     }
 }
 

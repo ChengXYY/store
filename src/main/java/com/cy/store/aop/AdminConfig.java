@@ -10,7 +10,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,20 +20,15 @@ import javax.servlet.http.HttpSession;
 
 @Aspect
 @Component
-public class AdminCheck {
+public class AdminConfig extends AdminConfig {
 
-    private final static Logger logger = LoggerFactory.getLogger(AdminCheck.class);
+    private final static Logger logger = LoggerFactory.getLogger(AdminConfig.class);
 
     @Autowired
     private AdminService adminService;
-    @Value("${admin.account}")
-    private String adminAccount;
-    @Value("${admin.auth}")
-    private String adminAuth;
 
     @Pointcut("within(com.cy.store.server..*)"+
-            "&& !within(com.cy.store.server.LoginController)"+
-            "&& !within(com.cy.store.server.BaseController)")
+            "&& !within(com.cy.store.server.LoginController)")
     public void privilege(){}
 
     @ResponseBody

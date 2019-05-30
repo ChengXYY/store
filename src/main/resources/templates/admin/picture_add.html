@@ -64,10 +64,10 @@
                 dataType : "json",
                 url : "/picture/add/submit",
                 success :function (data) {
-                    if(data.code == 0){
+                    if(data.retCode == 0){
                         location.href="/picture/list";
                     }else {
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })

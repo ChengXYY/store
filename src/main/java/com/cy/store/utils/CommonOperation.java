@@ -1,6 +1,7 @@
 package com.cy.store.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.config.AdminConfig;
 import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
 import org.springframework.cglib.beans.BeanMap;
@@ -16,7 +17,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommonOperation {
+public class CommonOperation extends AdminConfig {
     public static Map<String, Object> encodeStr(String str){
         Map<String, Object> rs = new HashMap<String, Object>();
         //get salt
@@ -34,6 +35,7 @@ public class CommonOperation {
     }
 
     public static boolean checkId(Integer id){
+        if(id == null) return false;
         if(id.toString().isEmpty()) return false;
         if(id.intValue() < 1)return false;
         return true;
@@ -53,14 +55,17 @@ public class CommonOperation {
     }
 
     //上传文件
-    public static JSONObject uploadFile(MultipartFile file, String savePath, String myFileName){
+    public static JSONObject uploadFile(MultipartFile file, String type, String myFileName){
         JSONObject rs = new JSONObject();
-        if(file == null)throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
+        if(file == null || !fileType.contains(type))throw JsonException.newInstance(ErrorCodes.FILE_NOT_EXSIT);
+
         String fileName = file.getOriginalFilename();
         String newFileName = myFileName;
         if(myFileName == null || myFileName.isEmpty()){
-            newFileName = System.currentTimeMillis() + "_" +fileName;
+            newFileName = System.currentTimeMillis() + "-" +fileName;
         }
+        newFileName = type + "-" + newFileName;
+        String savePath = baseSavePath+type;
 
         String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
         int size = (int)file.getSize();
@@ -89,18 +94,22 @@ public class CommonOperation {
         return rs;
     }
 
-    public static JSONObject uploadFile(MultipartFile file, String path){
-        return uploadFile(file, path, null);
+    public static JSONObject uploadFile(MultipartFile file, String type){
+        return uploadFile(file, type, null);
     }
 
     //查看图片
-    public static void getImage(String filename, String imageSavePath,
-                                HttpServletRequest request, HttpServletResponse response)throws IOException {
+    public static void getImage(String filename,
+                                HttpServletRequest request,
+                                HttpServletResponse response)throws IOException {
 
-        if (filename != null) {
+        if (filename != null || filename.isEmpty()) {
             FileInputStream is = null;
 
-            File file = new File(imageSavePath+filename);
+            String type = filename.substring(0, filename.indexOf('-')+1);
+            if(!fileType.contains(type))return;
+            String path = baseSavePath+type+"/"+filename;
+            File file = new File(path);
             try {
                 is = new FileInputStream(file);
                 int i = is.available();
@@ -117,9 +126,14 @@ public class CommonOperation {
         }
     }
 
-    public static JSONObject removeFile(String path){
+    public static JSONObject removeFile(String fileName){
         JSONObject rs = new JSONObject();
-        if(path == null || path.isEmpty()) throw JsonException.newInstance(ErrorCodes.PATH_IS_WRONG);
+        if(fileName == null || fileName.isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+
+        String type = fileName.substring(0, fileName.indexOf('-')+1);
+        if(!fileType.contains(type))throw JsonException.newInstance(ErrorCodes.PATH_IS_WRONG);
+        String path = baseSavePath+type+"/"+fileName;
+
         File file = new File(path);
         if(file.exists() && file.isFile()){
             if(file.delete()){
@@ -134,26 +148,29 @@ public class CommonOperation {
 
     public static JSONObject success(Integer id){
         JSONObject rs = new JSONObject();
-        rs.put("code", 0);
-        rs.put("msg", "操作成功");
+        rs.put("retCode", 0);
+        rs.put("retMsg", "操作成功");
         rs.put("id", id);
         return  rs;
     }
     public static JSONObject success(){
         JSONObject rs = new JSONObject();
-        rs.put("code", 0);
-        rs.put("msg", "操作成功");
+        rs.put("retCode", 0);
+        rs.put("retMsg", "操作成功");
         return  rs;
     }
 
     public static JSONObject success(Object obj){
         JSONObject rs = new JSONObject();
-        rs.put("code", 0);
-        rs.put("msg", "操作成功");
+        rs.put("retCode", 0);
+        rs.put("retMsg", "操作成功");
 
         Map<String, Object> data = BeanMap.create(obj);
         rs.putAll(data);
         return rs;
     }
+
+    //读取Excel
+
 
 }

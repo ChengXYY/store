@@ -7,21 +7,19 @@ import com.cy.store.mapper.PictureMapper;
 import com.cy.store.model.Picture;
 import com.cy.store.service.PictureService;
 import com.cy.store.utils.CommonOperation;
+import com.cy.store.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class PictureServiceImpl implements PictureService {
+public class PictureServiceImpl extends AdminConfig implements PictureService {
 
     @Autowired
     private PictureMapper pictureMapper;
 
-    @Value("${file.picture-path}")
-    protected String pictureSavePath;
 
     @Override
     public JSONObject add(Picture picture) {
@@ -39,7 +37,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public JSONObject edit(Picture picture) {
-        if(picture.getId() == null || picture.getId() < 1) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(picture.getId())) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         if(picture.getCode().isEmpty())throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         //判断重复
         Picture pic = get(picture.getCode());
@@ -54,7 +52,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public JSONObject remove(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         //获取picture
         Picture pic = get(id);
         if(pic == null) throw JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST);
@@ -85,7 +83,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public Picture get(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
 
         return pictureMapper.selectByPrimaryKey(id);
     }

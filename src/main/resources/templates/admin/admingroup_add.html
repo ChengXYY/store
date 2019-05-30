@@ -27,12 +27,12 @@
                 dataType : "json",
                 url : "/system/admingroup/add/submit",
                 success : function (data) {
-                    if(data.code > 0){
-                        layer.alert(data.msg, {icon: 6, shade: false}, function () {
+                    if(data.retCode== 0){
+                        layer.alert(data.retMsg, {icon: 6, shade: false}, function () {
                             parent.location.reload();
                         })
                     }else {
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })

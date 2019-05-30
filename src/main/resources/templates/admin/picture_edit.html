@@ -34,10 +34,10 @@
                 dataType : "json",
                 url : "/picture/edit/submit",
                 success :function (data) {
-                    if(data.code == 0){
+                    if(data.retCode == 0){
                         parent.location.reload();
                     }else {
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })

@@ -155,7 +155,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="map" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.store.model.Admin" >
     update admin
     <set >
       <if test="name != null" >

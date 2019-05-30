@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public JSONObject edit(Article article) {
-        if(article.getId() == null || article.getId() < 1) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(article.getId())) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         if(article.getCode().isEmpty())throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         //判断重复
         Article art = get(article.getCode());
@@ -49,7 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public JSONObject remove(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         int rs = articleMapper.deleteByPrimaryKey(id);
 
         if(rs > 0){
@@ -71,7 +71,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article get(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
 
         return articleMapper.selectByPrimaryKey(id);
     }

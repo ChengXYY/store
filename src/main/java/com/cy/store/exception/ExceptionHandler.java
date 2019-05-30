@@ -17,7 +17,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 
     private static final Log logger = LogFactory.getLog(ExceptionHandler.class);
 
-    private String basePackage = "com.my.formtool";
+    private String basePackage = "com.cy.store";
 
     @Override
     public Response toResponse(Exception exception) {
@@ -26,7 +26,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
         String errMsg = "";
 
         if(exception instanceof BaseException){
-            code = ((BaseException) exception).getCode();
+            code = ((BaseException) exception).getErrorCode();
             errMsg = ((BaseException) exception).getMsg();
         }else if(exception instanceof WebApplicationException){
             code = ErrorCodes.HTTP_IS_WRONG;
@@ -41,8 +41,8 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
             }
         }
 
-        Integer errorCode = code.getErrorCode();
-        errMsg = StringUtils.isBlank(errMsg)?code.getInfo():errMsg;
+        Integer errorCode = code.getRetCode();
+        errMsg = StringUtils.isBlank(errMsg)?code.getRetMsg():errMsg;
         //只打印业务代码异常栈
         exception.setStackTrace(Lists.newArrayList(exception.getStackTrace()).stream().filter(s -> s.getClassName().contains(basePackage)).collect(Collectors.toList()).toArray(new StackTraceElement[]{}));
         logger.error(errorCode,exception);

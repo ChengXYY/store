@@ -35,9 +35,11 @@ $(function () {
             switch (block.data("type")) {
                 case "text":
                     showTextBox(blockId, "");
+                    block.removeClass("text text-primary");
                     break;
                 case "picture":
                     showPictureBox(blockId, "");
+                    block.removeClass("text text-success");
                     break;
             }
             //样式修改
@@ -133,6 +135,7 @@ function updateStatus() {
 function showTextBox(blockId, code) {
     $("#textBox input[name='blockId']").val(blockId);
     $("#textBox input[name='articleCode']").val(code);
+    $("#textBox .show").html("");
     layer.open({
         type: 1,
         title: '添加文章',
@@ -146,6 +149,7 @@ function showTextBox(blockId, code) {
 function showPictureBox(blockId, code) {
     $("#pictureBox input[name='blockId']").val(blockId);
     $("#pictureBox input[name='pictureCode']").val(code);
+    $("#pictureBox .show").html("");
     layer.open({
         type: 1,
         title: '添加图片',

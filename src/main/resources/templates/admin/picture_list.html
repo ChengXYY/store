@@ -41,7 +41,7 @@
             <tr th:each="picture:${list}">
                 <td th:text="${picture.code}"></td>
                 <td th:text="${picture.intro}"></td>
-                <td class="center show-image"><img th:src="${picture.url}"></td>
+                <td class="center show-image"><img th:src="${picture.url}" width="600px"></td>
                 <td th:text="${#dates.format(picture.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
                 <td th:attr="data-id=${picture.id}" class="center">
                     <a class="btn btn-outline btn-primary btn-xs edit" title="编辑图片" ><i class="fa fa-edit"></i></a>
@@ -67,7 +67,7 @@
                 type: 1,
                 title: false,
                 closeBtn: 0,
-                area: 'auto',
+                area: '600px',
                 skin: 'layui-layer-nobg', //没有背景色
                 shadeClose: true,
                 content: obj
@@ -81,7 +81,7 @@
                 title: '编辑图片信息',
                 shadeClose: false,
                 shade: 0.3,
-                area: '500px',
+                area: 'auto',
                 content: '/picture/edit?id='+id,
                 success:function (layero, index) {
                     layer.iframeAuto(index);
@@ -105,10 +105,10 @@
                         url:"/picture/remove",
                         success:function (data) {
                             layer.close(index);
-                            if(data.code == 0){
+                            if(data.retCode == 0){
                                 location.reload()
                             }else{
-                                layer.msg(data.msg);
+                                layer.msg(data.retMsg);
                             }
                         }
                     });

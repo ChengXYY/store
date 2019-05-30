@@ -67,10 +67,10 @@
                 dataType : "json",
                 url : "/pagetpl/edit/submit",
                 success :function (data) {
-                    if(data.code == 0){
+                    if(data.retCode == 0){
                         location.href="/pagetpl/list";
                     }else {
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })

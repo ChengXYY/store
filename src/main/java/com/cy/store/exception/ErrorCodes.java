@@ -19,7 +19,7 @@ public enum ErrorCodes {
     FILE_NOT_EXSIT(70001, "文件不存在"),
     FILE_UPLOAD_FAILED(70002, "文件上传失败"),
     FILE_WRITE_FAILED(70003, "文件写失败"),
-    PATH_IS_WRONG(70004, "路径正确"),
+    PATH_IS_WRONG(70004, "路径不正确"),
 
     VERCODE_NOT_EMPTY(80001, "验证码不能为空"),
     VERCODE_IS_WRONG(80002, "验证码错误"),
@@ -31,30 +31,25 @@ public enum ErrorCodes {
     SERVER_IS_WRONG(90001, "服务端错误"),
     HTTP_IS_WRONG(90002, "http服务错误");
 
-    private Integer code;
-    private String errorInfo;
+    private Integer retCode;
+    private String retMsg;
 
-    ErrorCodes(Integer code, String errorInfo){
-        this.code = code ;
-        this.errorInfo = errorInfo;
+    ErrorCodes(Integer retCode, String retMsg){
+        this.retCode = retCode ;
+        this.retMsg = retMsg;
     }
 
-    public int getErrorCode() {
-        return code;
+    public int getRetCode() {
+        return retCode;
     }
 
-    public String getInfo() {
-        return toString();
-    }
-
-    @Override
-    public String toString() {
-        return errorInfo;
+    public String getRetMsg() {
+        return retMsg;
     }
 
     public static ErrorCodes fromErrorCode(Integer code){
         for (ErrorCodes error : ErrorCodes.values()) {
-            if (Objects.equals(code,error.getErrorCode())) {
+            if (Objects.equals(code,error.getRetCode())) {
                 return error;
             }
         }

@@ -5,3 +5,10 @@
 .center{
     text-align: center;
 }
+
+.right{
+    text-align: right;
+}
+*[frame-id]{
+    margin-bottom: 1em;
+}

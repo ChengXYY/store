@@ -1,8 +1,8 @@
 package com.cy.store.aop;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cy.store.utils.CommonOperation;
 import com.cy.store.service.AdminlogService;
+import com.cy.store.config.AdminConfig;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -21,9 +20,7 @@ import java.lang.reflect.Field;
 
 @Aspect
 @Component
-public class OperationLog {
-    @Value("${admin.account}")
-    private String adminAccount;
+public class OperationLog extends AdminConfig {
 
     @Pointcut("within(com.cy.store.server.LoginController)")
     public void loginLog(){}

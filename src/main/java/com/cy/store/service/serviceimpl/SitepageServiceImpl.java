@@ -26,7 +26,7 @@ public class SitepageServiceImpl implements SitepageService {
 
     @Override
     public JSONObject add(Sitepage sitepage) {
-        if((sitepage.getTplid() == 0 && (sitepage.getContent()!=null || !sitepage.getContent().isEmpty()))
+        if((!CommonOperation.checkId(sitepage.getTplid()) && (sitepage.getContent()!=null || !sitepage.getContent().isEmpty()))
                 || sitepage.getCode().isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         if(sitepage.getTplid() > 0){
             pagetplService.get(sitepage.getTplid());
@@ -45,7 +45,7 @@ public class SitepageServiceImpl implements SitepageService {
 
     @Override
     public JSONObject edit(Sitepage sitepage) {
-        if(sitepage.getId() == null || sitepage.getId() < 1) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(sitepage.getId())) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         if((sitepage.getTplid() == 0 && (sitepage.getContent()!=null || !sitepage.getContent().isEmpty()))
             || sitepage.getCode().isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         if(sitepage.getTplid() > 0){
@@ -55,13 +55,7 @@ public class SitepageServiceImpl implements SitepageService {
         Sitepage page = get(sitepage.getCode());
         if(page!=null && page.getId()!=sitepage.getId()) throw JsonException.newInstance(ErrorCodes.CODE_REPEATED);
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", sitepage.getId());
-        data.put("tplid", sitepage.getTplid());
-        data.put("code", sitepage.getCode());
-        data.put("title", sitepage.getTitle());
-        data.put("content", sitepage.getContent());
-        int rs = sitepageMapper.updateByPrimaryKeySelective(data);
+        int rs = sitepageMapper.updateByPrimaryKeySelective(sitepage);
 
         if(rs > 0){
             return CommonOperation.success(sitepage.getId());
@@ -72,7 +66,7 @@ public class SitepageServiceImpl implements SitepageService {
 
     @Override
     public JSONObject remove(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         int rs = sitepageMapper.deleteByPrimaryKey(id);
 
         if(rs > 0){
@@ -94,7 +88,7 @@ public class SitepageServiceImpl implements SitepageService {
 
     @Override
     public Sitepage get(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
 
         return sitepageMapper.selectByPrimaryKey(id);
     }

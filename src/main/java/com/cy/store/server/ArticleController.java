@@ -1,11 +1,11 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
 import com.cy.store.model.Article;
 import com.cy.store.service.ArticleService;
 import com.cy.store.utils.CommonOperation;
+import com.cy.store.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,11 +23,11 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
-public class ArticleController extends BaseController {
+public class ArticleController extends AdminConfig {
 
     @Autowired
     private ArticleService articleService;
-    
+
     @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
     public String list(@RequestParam(value = "code", required = false)String code,
                        @RequestParam(value = "title", required = false)String title,
@@ -71,7 +71,7 @@ public class ArticleController extends BaseController {
 
     @RequestMapping("/add")
     public String add(ModelMap model){
-        //获取模板列表       
+        //获取模板列表
         model.addAttribute("pageTitle",addPageTitle+articleModuleTitle+systemTitle);
         model.addAttribute("TopMenuFlag", "resource");
         return "/admin/article_add";
@@ -93,7 +93,7 @@ public class ArticleController extends BaseController {
     public String edit(@RequestParam(value = "id", required = true)Integer id, ModelMap model){
 
         try {
-           
+
             Article article = articleService.get(id);
             model.addAttribute("article", article);
             model.addAttribute("pageTitle",editPageTitle+articleModuleTitle+systemTitle);
@@ -140,10 +140,14 @@ public class ArticleController extends BaseController {
         }
         return  result;
     }
-
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public JSONObject get(@RequestParam(value = "code", required = true)String code){
-        return JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST).toJson();
+    public JSONObject get(@RequestParam(value = "code")String code){
+        try {
+            Article article = articleService.get(code);
+            return CommonOperation.success(article);
+        }catch (JsonException e){
+            return e.toJson();
+        }
     }
 }

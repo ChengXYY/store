@@ -3,33 +3,40 @@ package com.cy.store.exception;
 
 public class BaseException extends RuntimeException {
 
+    private String retMsg;
+    private int retCode;
     private ErrorCodes code;
-    private String msg;
 
     protected BaseException(ErrorCodes code) {
-        this(code,code.toString());
+        this(code,code.getRetMsg());
     }
 
-    protected BaseException(ErrorCodes code, String msg) {
-        super(msg);
+    protected BaseException(ErrorCodes code, String retMsg) {
+        super(retMsg);
+        this.retCode = code.getRetCode();
+        this.retMsg = retMsg;
         this.code = code;
-        this.msg = msg;
     }
 
-    public ErrorCodes getCode() {
+    public ErrorCodes getErrorCode() {
         return code;
     }
 
-    public void setCode(ErrorCodes code) {
+    public void setErrorCode(ErrorCodes code) {
+        this.retCode = code.getRetCode();
+        this.retMsg = code.getRetMsg();
         this.code = code;
     }
 
+    public int getCode(){
+        return retCode;
+    }
     public String getMsg() {
-        return msg;
+        return retMsg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMsg(String retMsg) {
+        this.retMsg = retMsg;
     }
 
 }

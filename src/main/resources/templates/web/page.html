@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/web/_include_page::include"></head>
+<body>
+<style th:utext="${page.css}"></style>
+<div class="container-fluid" th:utext="${page.content}"></div>
+<script type="text/javascript" th:src="@{~/js/data.js}"></script>
+</body>
+</html>

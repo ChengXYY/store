@@ -3,9 +3,10 @@ package com.cy.store.server;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.exception.JsonException;
 import com.cy.store.service.AdminService;
+import com.cy.store.utils.CommonOperation;
+import com.cy.store.config.AdminConfig;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import java.io.ByteArrayOutputStream;
 
 @Controller
 @RequestMapping("/admin")
-public class LoginController extends BaseController{
+public class LoginController extends AdminConfig {
 
     @Autowired
     private AdminService adminService;
@@ -33,18 +34,16 @@ public class LoginController extends BaseController{
     @RequestMapping("/login")
     public String index(ModelMap model){
         model.addAttribute("pageTitle","登录 - 后台管理系统");
-        return "admin/login";
+        return "/admin/login";
     }
 
     @ResponseBody
     @RequestMapping(value = "/login/submit", method = RequestMethod.POST)
     public JSONObject login(String account, String password, String vercode, HttpSession session){
-        JSONObject result = new JSONObject();
+
         try {
             adminService.login(account, password, vercode, session);
-            result.put("code", 1);
-            result.put("msg", "登录成功");
-            return result;
+            return CommonOperation.success();
         }catch (JsonException e){
             //result.put("code", e.getCode());
             //result.put("msg", e.getMsg());
@@ -54,13 +53,13 @@ public class LoginController extends BaseController{
 
     //生产验证码
     @ResponseBody
-    @RequestMapping("/vercode")
+    @RequestMapping(value = "/vercode", method = RequestMethod.GET)
     public void defaultKaptcha(HttpSession session, HttpServletResponse httpServletResponse) throws Exception{
         byte[] captchaChallengeAsJpeg = null;
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
         try {
             //生产验证码字符串并保存到session中
-            String createText = captchaProducer.createText();
+            String createText = captchaProducer.createText();System.out.println(verCode);
             session.setAttribute(verCode, createText);
             //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
             BufferedImage challenge = captchaProducer.createImage(createText);

@@ -12,7 +12,7 @@ public interface PagetplMapper {
 
     Pagetpl selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Map<String, Object> record);
+    int updateByPrimaryKeySelective(Pagetpl record);
 
     List<Pagetpl> selectByFilter(Map<String, Object> filter);
 

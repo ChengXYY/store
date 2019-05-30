@@ -56,14 +56,14 @@
                 dataType:"json",
                 url:"/admin/login/submit",
                 success:function (data) {
-                    if(data.code == 1){
+                    if(data.retCode == 0){
                         if(location.href.indexOf("login")>-1){
                             location.href = "/admin/index";
                         }else{
                             location.reload();
                         }
                     }else {
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })

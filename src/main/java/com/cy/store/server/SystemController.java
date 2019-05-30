@@ -9,8 +9,8 @@ import com.cy.store.model.Adminlog;
 import com.cy.store.service.AdminService;
 import com.cy.store.service.AdmingroupService;
 import com.cy.store.service.AdminlogService;
+import com.cy.store.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/system")
-public class SystemController extends BaseController{
+public class SystemController extends AdminConfig {
 
     @Autowired
     private AdminService adminService;

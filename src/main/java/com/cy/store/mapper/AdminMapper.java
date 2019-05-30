@@ -11,13 +11,11 @@ public interface AdminMapper {
 
     int insertSelective(Admin admin);
 
-    int insert(Admin admin);
-
     Admin selectByPrimaryKey(Integer id);
 
     Admin selectByAccount(String account);
 
     List<Admin> selectByFilter(Map<String, Object> filter);
 
-    int updateByPrimaryKeySelective(Map<String, Object> admin);
+    int updateByPrimaryKeySelective(Admin admin);
 }

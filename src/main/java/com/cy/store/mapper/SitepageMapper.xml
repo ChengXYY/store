@@ -6,12 +6,13 @@
     <result column="tplid" property="tplid" jdbcType="INTEGER" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="css" property="css" jdbcType="VARCHAR" />
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
     <result column="createby" property="createby" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, tplid, code, title, addtime, createby, content
+    id, tplid, code, title, css, addtime, createby, content
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -80,6 +81,9 @@
       <if test="title != null" >
         title,
       </if>
+      <if test="css != null" >
+        css,
+      </if>
       <if test="addtime != null" >
         addtime,
       </if>
@@ -103,6 +107,9 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="css != null" >
+        #{css,jdbcType=VARCHAR},
+      </if>
       <if test="addtime != null" >
         #{addtime,jdbcType=TIMESTAMP},
       </if>
@@ -115,7 +122,7 @@
     </trim>
 
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="map" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.store.model.Sitepage" >
     update sitepage
     <set >
       <if test="tplid != null" >
@@ -126,6 +133,9 @@
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="css != null" >
+        css = #{css,jdbcType=VARCHAR},
       </if>
       <if test="addtime != null" >
         addtime = #{addtime,jdbcType=TIMESTAMP},

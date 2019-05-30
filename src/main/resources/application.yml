@@ -46,41 +46,7 @@ mybatis:
 
 debug: false
 
-#自定义变量
-list:
-  pagesize: 15
-file:
-  article-path: C:/www/upload/article/
-  picture-path: C:/www/upload/picture/
-
-#session
-admin:
-  session: ADMIN_SESSION
-  account: ADMIN_ACCOUNT
-  group: ADMIN_GROUP
-  auth: ADMIN_AUTH
-  id: ADMIN_ID
-login:
-  vercode: VERCODE
-
 system:
   account: System
   password: systemSys
 
-#页面title
-title:
-  system: 后台管理系统
-  module:
-    admin: 管理员-
-    admingroup: 管理员组-
-    adminlog: 管理员日志-
-    sitepage: 网页生成-
-    pagetpl: 网页模板-
-    article: 文章-
-    picture: 图片-
-    index: 首页-
-  page:
-    list: 列表页-
-    add: 新增页-
-    edit: 编辑页-
-    auth: 权限配置页-

@@ -3,6 +3,7 @@ package com.cy.store.server;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.exception.JsonException;
 import com.cy.store.service.AdminService;
+import com.cy.store.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController extends BaseController{
+public class AdminController extends AdminConfig {
 
     @Autowired
     private AdminService adminService;

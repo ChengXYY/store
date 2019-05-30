@@ -35,11 +35,8 @@ public class PagetplServiceImpl implements PagetplService {
     public JSONObject edit(Pagetpl pagetpl) {
         if(pagetpl.getName() == null || pagetpl.getName().isEmpty())throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         get(pagetpl.getId());
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", pagetpl.getId());
-        data.put("name", pagetpl.getName());
-        data.put("content", pagetpl.getContent());
-        int rs = pagetplMapper.updateByPrimaryKeySelective(data);
+
+        int rs = pagetplMapper.updateByPrimaryKeySelective(pagetpl);
         if(rs > 0){
             return CommonOperation.success(pagetpl.getId());
         }else {
@@ -49,7 +46,7 @@ public class PagetplServiceImpl implements PagetplService {
 
     @Override
     public JSONObject remove(Integer id) {
-        if(id==null || id<1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         int rs = pagetplMapper.deleteByPrimaryKey(id);
         if(rs > 0){
             return CommonOperation.success(id);
@@ -70,7 +67,7 @@ public class PagetplServiceImpl implements PagetplService {
 
     @Override
     public JSONObject get(Integer id) {
-        if(id==null || id<1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        if(!CommonOperation.checkId(id))throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         Pagetpl page = pagetplMapper.selectByPrimaryKey(id);
         if(page == null) throw JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST);
         return CommonOperation.success(page);

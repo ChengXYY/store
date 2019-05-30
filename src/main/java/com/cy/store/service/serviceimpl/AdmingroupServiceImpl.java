@@ -43,13 +43,8 @@ public class AdmingroupServiceImpl implements AdmingroupService {
     @Override
     public JSONObject edit(Admingroup admingroup) {
         if(admingroup.getId()==null || admingroup.getId()<1 )throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", admingroup.getId());
-        data.put("name", admingroup.getName());
-        data.put("auth", admingroup.getAuth());
-        data.put("sort",admingroup.getSort());
-        data.put("parentid", admingroup.getParentid());
-        int rs = admingroupMapper.updateByPrimaryKeySelective(data);
+
+        int rs = admingroupMapper.updateByPrimaryKeySelective(admingroup);
         if(rs > 0){
             return CommonOperation.success(admingroup.getId());
         }else {
@@ -89,10 +84,8 @@ public class AdmingroupServiceImpl implements AdmingroupService {
             }
             authStr.substring(0,authStr.length()-1);
         }
-        Map<String, Object> group = new HashMap<>();
-        group.put("id", id);
-        group.put("auth", authStr);
-        int rs = admingroupMapper.updateByPrimaryKeySelective(group);
+        admingroup.setAuth(authStr);
+        int rs = admingroupMapper.updateByPrimaryKeySelective(admingroup);
         if(rs > 0){
             return CommonOperation.success(id);
         }else

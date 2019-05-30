@@ -21,4 +21,5 @@ public interface ArticleService {
     Article get(Integer id);
 
     Article get(String code);
+
 }

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Article {
     private Integer id;
 
-    private String code = "";
+    private String code;
 
     private String title;
 

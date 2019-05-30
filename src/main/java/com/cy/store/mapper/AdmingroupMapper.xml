@@ -34,12 +34,6 @@
     delete from admingroup
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cy.store.model.Admingroup" >
-    insert into admingroup (id, name, auth, 
-       sort)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{auth,jdbcType=VARCHAR}, 
-       #{order,jdbcType=INTEGER})
-  </insert>
   <insert id="insertSelective" parameterType="com.cy.store.model.Admingroup" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into admingroup
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -76,11 +70,8 @@
         #{parentid,jdbcType=INTEGER},
       </if>
     </trim>
-      <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
-          select  LAST_INSERT_ID()
-      </selectKey>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="map" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.store.model.Admingroup">
     update admingroup
     <set >
       <if test="name != null" >
@@ -91,6 +82,9 @@
       </if>
       <if test="sort != null" >
         sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentid!=null">
+        parentid = #{parentid,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id}

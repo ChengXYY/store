@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cy.store.exception.JsonException;
 import com.cy.store.model.Pagetpl;
 import com.cy.store.service.PagetplService;
+import com.cy.store.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/pagetpl")
-public class PagetplController extends BaseController{
+public class PagetplController extends AdminConfig {
     @Autowired
     private PagetplService pagetplService;
 

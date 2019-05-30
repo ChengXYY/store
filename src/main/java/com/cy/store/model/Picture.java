@@ -9,6 +9,8 @@ public class Picture {
 
     private String intro ;
 
+    private String link;
+
     private String name;
 
     private String url;
@@ -43,6 +45,14 @@ public class Picture {
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getName() {

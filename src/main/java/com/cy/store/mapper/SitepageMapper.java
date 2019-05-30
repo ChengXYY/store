@@ -14,7 +14,7 @@ public interface SitepageMapper {
 
     Sitepage selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Map<String, Object> record);
+    int updateByPrimaryKeySelective(Sitepage record);
 
     List<Sitepage> selectByFilter(Map<String, Object> filter);
 

@@ -8,45 +8,26 @@ import com.cy.store.exception.JsonException;
 import com.cy.store.mapper.AdminMapper;
 import com.cy.store.model.Admin;
 import com.cy.store.service.AdminService;
+import com.cy.store.config.AdminConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends AdminConfig implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-
-    @Value("${admin.session}")
-    private String adminSession;
-
-    @Value("${admin.account}")
-    private String adminAccount;
-
-    @Value("${admin.group}")
-    private String adminGroup;
-
-    @Value("${admin.id}")
-    private String adminId;
-
-    @Value("${admin.auth}")
-    private String adminAuth;
-
-    @Value("${login.vercode}")
-    private String verCode;
 
     @Override
     public JSONObject add(Admin admin){
@@ -71,10 +52,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public JSONObject edit(Admin admin) {
         if(admin.getId()==null || admin.getId()<1 )throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", admin.getId());
-        data.put("name", admin.getName());
-        int rs =  adminMapper.updateByPrimaryKeySelective(data);
+
+        int rs =  adminMapper.updateByPrimaryKeySelective(admin);
         if(rs > 0){
             return CommonOperation.success(admin.getId());
         }else {
@@ -149,11 +128,6 @@ public class AdminServiceImpl implements AdminService {
         session.setAttribute(adminGroup, admin.getAdmingroup().getId());
         session.setAttribute(adminId, admin.getId());
     }
-
-    @Value("${system.account}")
-    String sysAccount;
-    @Value("${system.password}")
-    String sysPassword;
 
     private Boolean isSystem(String account, String password, HttpSession session){
         if(account.equals(sysAccount) && password.equals(sysPassword)){

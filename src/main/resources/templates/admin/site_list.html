@@ -37,7 +37,7 @@
                 <td th:text="${#dates.format(page.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
                 <td th:attr="data-id=${page.id}" class="center">
                     <a class="btn btn-outline btn-primary btn-xs " title="编辑页面" th:href="@{/sitepage/edit?id={id}(id=${page.id})}"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-outline btn-warning btn-xs" title="预览" target="_blank" th:href="@{/sitepage/preview?id={id}(id=${page.id})}"><i class="fa fa-pagelines"></i></a>
+                    <a class="btn btn-outline btn-warning btn-xs" title="预览" target="_blank" th:href="@{/page/{code}(code=${page.code})}"><i class="fa fa-pagelines"></i></a>
                     <a class="btn btn-outline btn-danger btn-xs delete" title="删除页面" ><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
@@ -70,10 +70,10 @@
                         url:"/sitepage/remove",
                         success:function (data) {
                             layer.close(index);
-                            if(data.code == 0){
+                            if(data.retCode == 0){
                                 location.reload()
                             }else{
-                                layer.msg(data.msg);
+                                layer.msg(data.retMsg);
                             }
                         }
                     });

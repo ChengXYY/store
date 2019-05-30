@@ -9,15 +9,11 @@ import java.util.Map;
 public interface AdmingroupMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Admingroup record);
-
     int insertSelective(Admingroup record);
 
     Admingroup selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Map<String, Object> record);
-
-    int updateByPrimaryKey(Admingroup record);
+    int updateByPrimaryKeySelective(Admingroup record);
 
     List<Admingroup> selectAll(@Param("parentid") Integer parentid);
 }

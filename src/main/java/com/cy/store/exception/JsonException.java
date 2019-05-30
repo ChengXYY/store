@@ -14,8 +14,8 @@ public class JsonException extends BaseException {
 
     public JSONObject toJson(){
         JSONObject res = new JSONObject();
-        res.put("code", this.getCode());
-        res.put("msg", this.getMsg());
+        res.put("retCode", this.getCode());
+        res.put("retMsg", this.getMsg());
         return res;
     }
 

@@ -82,7 +82,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="map" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.store.model.Pagetpl" >
     update pagetpl
     <set >
       <if test="name != null" >

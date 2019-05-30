@@ -84,11 +84,11 @@
                     dataType:"json",
                     url:"/system/admin/resetpwd/submit",
                     success:function (data) {
-                        if(data.code == 1){
+                        if(data.retCode == 0){
                             layer.closeAll();
                             layer.alert("管理员密码已重置！重置后密码为：<br/><b>123456</b>",{icon:6});
                         }else{
-                            layer.msg(data.msg);
+                            layer.msg(data.retMsg);
                         }
                     }
                 })
@@ -124,10 +124,10 @@
                     dataType:"json",
                     url:"/system/admin/remove",
                     success:function (data) {
-                        if(data.code==1){
+                        if(data.retCode==0){
                             location.reload();
                         }else{
-                            layer.msg(data.msg());
+                            layer.msg(data.retMsg);
                         }
                     }
                 });

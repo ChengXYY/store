@@ -21,6 +21,11 @@
             <input class="form-control" placeholder="输入页面标题" type="text" name="title"/>
         </div>
         <div class="form-group">
+            <h3 class="text text-primary">自定义页面样式</h3>
+            <hr/>
+            <textarea class="form-control" name="css"></textarea>
+        </div>
+        <div class="form-group">
             <h3 class="text text-primary">页面模板</h3>
             <hr/>
             <select class="form-control" name="tplid" id="pageTPL">
@@ -74,7 +79,7 @@
                 dataType:"json",
                 url:"/pagetpl/get",
                 success: function (data) {
-                    if(data.code == 0){
+                    if(data.retCode == 0){
                         $("#init").html(data.content);
                         updateStatus();
                     }else {
@@ -92,15 +97,55 @@
                 dataType :"json",
                 url :"/sitepage/add/submit",
                 success : function (data) {
-                    if(data.code == 0){
-                        layer.alert(data.msg, {icon:1}, function () {
+                    if(data.retCode == 0){
+                        layer.alert(data.retMsg, {icon:1}, function () {
                             parent.location.href="/sitepage";
                         })
                     }else{
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })
+        });
+
+        $("#textBox .preview").click(function () {
+            var code = $("#textBox input[name='articleCode']").val();
+            var obj = $("#textBox .show");
+            $.ajax({
+                type:"post",
+                data:{
+                    code:code
+                },
+                dataType:"json",
+                url:"/article/get",
+                success:function (data) {
+                    if(data.retCode == 0){
+                        obj.html(data.content);
+                    }  else {
+                        obj.html("<h3 class='text text-muted center'>"+data.retMsg+"</h3>");
+                    }
+                }
+            });
+        });
+
+        $("#pictureBox .preview").click(function () {
+            var code = $("#pictureBox input[name='pictureCode']").val();
+            var obj = $("#pictureBox .show");
+            $.ajax({
+                type:"post",
+                data:{
+                    code:code
+                },
+                dataType:"json",
+                url:"/picture/get",
+                success:function (data) {
+                    if(data.retCode == 0){
+                        obj.html("<img class='image' src='"+data.url+"' title='"+data.intro+"' style='width:100%'/>");
+                    }  else {
+                        obj.html("<h3 class='text text-muted center'>"+data.retMsg+"</h3>");
+                    }
+                }
+            });
         })
     });
 </script>

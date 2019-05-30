@@ -77,8 +77,10 @@
                     contentType: false,
                     dataType: "json",
                     success: function(data) {
-                        if(data.code == 0){
+                        if(data.retCode == 0){
                             success(data.path);
+                        }else {
+                            failure(data.retMsg);
                         }
                     },
                     error: function(e) {
@@ -96,10 +98,10 @@
                 dataType : "json",
                 url : "/article/edit/submit",
                 success :function (data) {
-                    if(data.code == 0){
+                    if(data.retCode == 0){
                         location.href="/article/list";
                     }else {
-                        layer.msg(data.msg);
+                        layer.msg(data.retMsg);
                     }
                 }
             })

@@ -23,13 +23,13 @@ function getArticle(code, blockid) {
             code:code
         },
         dataType:"json",
-        url:"/article/get",
+        url:"/getArticle",
         success:function (data) {
-            if(data.code == 0){
+            if(data.retCode == 0){
                 obj.html(data.content);
                 obj.attr("title", data.title);
             }  else {
-                obj.html("<h3 class='text text-muted center'>"+data.msg+"</h3>");
+                obj.html("<h3 class='text text-muted center'>"+data.retMsg+"</h3>");
             }
         }
     });
@@ -43,12 +43,12 @@ function getPicture(code, blockid) {
             code:code
         },
         dataType:"json",
-        url:"/picture/get",
+        url:"/getPicture",
         success:function (data) {
-            if(data.code == 0){
+            if(data.retCode == 0){
                 obj.html("<img class='image' src='"+data.url+"' title='"+data.intro+"'/>");
             }  else {
-                obj.html("<h3 class='text text-muted center'>"+data.msg+"</h3>");
+                obj.html("<h3 class='text text-muted center'>"+data.retMsg+"</h3>");
             }
         }
     });
