@@ -106,7 +106,7 @@ public class CommonOperation extends AdminConfig {
         if (filename != null || filename.isEmpty()) {
             FileInputStream is = null;
 
-            String type = filename.substring(0, filename.indexOf('-')+1);
+            String type = filename.substring(0, filename.indexOf('-'));
             if(!fileType.contains(type))return;
             String path = baseSavePath+type+"/"+filename;
             File file = new File(path);
@@ -170,7 +170,12 @@ public class CommonOperation extends AdminConfig {
         return rs;
     }
 
-    //读取Excel
+    public static JSONObject obj2Json(Object object){
+        JSONObject rs = new JSONObject();
 
+        Map<String, Object> data = BeanMap.create(object);
+        rs.putAll(data);
+        return rs;
+    }
 
 }

@@ -1,0 +1,14 @@
+.templateux-cover img{
+    width: 100%;
+    height: 800px;
+    position: absolute;
+    z-index: -99;
+}
+.block-thumbnail-1{
+    margin-left: 0px;
+}
+
+.block-thumbnail-1 img{
+    height: 500px;
+    width: 100%;
+}

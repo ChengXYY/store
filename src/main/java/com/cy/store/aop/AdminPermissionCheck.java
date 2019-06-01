@@ -1,5 +1,6 @@
 package com.cy.store.aop;
 
+import com.cy.store.config.AdminConfig;
 import com.cy.store.service.AdminService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -7,8 +8,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +19,7 @@ import javax.servlet.http.HttpSession;
 
 @Aspect
 @Component
-public class AdminConfig extends AdminConfig {
-
-    private final static Logger logger = LoggerFactory.getLogger(AdminConfig.class);
+public class AdminPermissionCheck extends AdminConfig {
 
     @Autowired
     private AdminService adminService;
@@ -50,7 +47,7 @@ public class AdminConfig extends AdminConfig {
                 return "/error/403";
             }
         }catch (NullPointerException e){
-            logger.info("method access is null");
+            System.out.println(e.getMessage());
         }
 
         //获取访问类
@@ -60,7 +57,7 @@ public class AdminConfig extends AdminConfig {
                 return "/error/403";
             }
         }catch (NullPointerException e){
-            logger.info("class access is null");
+            System.out.println(e.getMessage());
         }
 
         return joinPoint.proceed();
