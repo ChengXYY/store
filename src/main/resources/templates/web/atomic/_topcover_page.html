@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="templateux-cover" th:fragment="cover">
+    <img src="/getimg?filename=picture-sliderheader.jpg" />
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="heading mb-3" data-aos="fade-up" th:text="${page.intro}">intro</h1>
+                <p class="lead mb-5" data-aos="fade-up"  data-aos-delay="100" th:text="${page.subintro}">subintro</p>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

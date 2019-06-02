@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<section id="home" th:fragment="home">
+
+    <div id="slitSlider" class="sl-slider-wrapper">
+        <div class="sl-slider">
+
+            <!-- single slide item -->
+            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
+                <div class="sl-slide-inner">
+                    <div class="bg-img ">
+                        <img src="/getimg?filename=picture-w1.jpg">
+                    </div>
+                    <div class="carousel-caption">
+                        <div>
+                            <img class="wow fadeInUp" src="/getimg?filename=picture-w4.jpg" alt="Meghna">
+                            <h2 data-wow-duration="500ms"  data-wow-delay="500ms" class="heading animated fadeInRight">欢迎来到渐渐姑姑的网店</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /single slide item -->
+
+            <!-- single slide item -->
+            <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
+                <div class="sl-slide-inner">
+                    <div class="bg-img">
+                        <img src="/getimg?filename=picture-w2.jpg">
+                    </div>
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated fadeInDown">珠宝 · 翡翠</h2>
+                            <h3 class="animated fadeInUp">这里有精美绝伦的翡翠首饰</h3>
+                            <a class="btn btn-green animated fadeInUp" href="#about">开始浏览</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /single slide item -->
+
+            <!-- single slide item -->
+            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
+                <div class="sl-slide-inner">
+                    <div class="bg-img ">
+                        <img src="/getimg?filename=picture-w3.jpg">
+                    </div>
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated fadeInRight">会员服务</h2>
+                            <h3 class="animated fadeInLeft">我们提供会员定制化的珠宝服务</h3>
+                            <a class="btn btn-green animated fadeInUp" href="#about">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /single slide item -->
+
+        </div><!-- /sl-slider -->
+
+        <nav id="nav-arrows" class="nav-arrows">
+            <span class="nav-arrow-prev">上一个</span>
+            <span class="nav-arrow-next">下一个</span>
+        </nav>
+
+        <nav id="nav-dots" class="nav-dots">
+            <span class="nav-dot-current"></span>
+            <span></span>
+            <span></span>
+        </nav>
+
+    </div><!-- /slider-wrapper -->
+</section>
+
+</html>

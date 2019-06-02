@@ -19,6 +19,7 @@ spring:
     enabled: true
     servlet:
       content-type: text/html
+
   resources:
     chain:
       strategy:

@@ -15,13 +15,13 @@ public class ClientConfig {
 
     protected static String pictureSavePath = "C:/www/upload/picture/";
 
-    protected static String webHtml = "/web/atomic/";
+    protected static String webHtml = "/web/meghna/";
 
     protected static String sysAccount = "System";
 
     protected static String sysPassword = "system";
 
     //页面标题
-    protected static String systemTitle = "亚亚的世界";
+    protected static String systemTitle = "渐渐姑姑的Web";
 
 }

@@ -42,11 +42,13 @@
         and createby = #{createby}
       </if>
     </where>
+    order by id desc
+
     <if test="page !=null and pagesize !=null">
       limit #{page}, #{pagesize}
     </if>
-    order by addtime desc;
   </select>
+
   <select id="countByFilter" parameterType="map" resultType="java.lang.Integer">
     select
       count(id) as ct

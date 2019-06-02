@@ -7,7 +7,7 @@ public enum AuthCode {
     Menu_System(9001, "菜单查看权限-系统设置"),
     Menu_Index(8001,"菜单查看权限-首页"),
 
-    Menu_Sitepage(1001,"菜单查看权限-网页生成"),
+    Menu_Sitepage(1001,"菜单查看权限-网页配置"),
     Menu_FileManager(1002,"菜单查看权限-资料管理"),
     Menu_Blog(1003,"菜单查看权限-插件管理"),
 

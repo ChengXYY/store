@@ -6,7 +6,9 @@
         <div class="row">
 
             <div class="col-3 templateux-logo">
-                <a href="index.html" class="animsition-link">Atomic</a>
+                <a href="index.html" class="animsition-link">
+                    <img th:src="@{~/images/logo-line.png}">
+                </a>
             </div>
             <nav class="col-9 site-nav">
                 <button class="d-block d-md-none hamburger hamburger--spin templateux-toggle templateux-toggle-light ml-auto templateux-toggle-menu" data-toggle="collapse" data-target="#mobile-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +21,7 @@
                     <li th:class="${page.topflag == 'index'?'active':''}">
                         <a href="/index" class="animsition-link">首页</a>
                     </li>
-                    <li th:class="${page.topflag == 'index'?'active':''}">
+                    <li th:class="${page.topflag == 'product'?'active':''}">
                         <a href="/product" class="animsition-link">产品</a>
                         <ul>
                             <li><a href="#">全部</a></li>
@@ -28,12 +30,12 @@
                             <li><a href="#">套装</a></li>
                         </ul>
                     </li>
-                    <li th:class="${page.topflag == 'index'?'active':''}">
+                    <li th:class="${page.topflag == 'story'?'active':''}">
                         <a href="/story" class="animsition-link">故事</a>
 
                     </li>
-                    <li th:class="${page.topflag == 'index'?'active':''}"><a href="/membership" class="animsition-link">会员制度</a></li>
-                    <li th:class="${page.topflag == 'index'?'active':''}"><a href="/contact" class="animsition-link">联系我们</a></li>
+                    <li th:class="${page.topflag == 'membership'?'active':''}"><a href="/membership" class="animsition-link">会员制度</a></li>
+                    <li th:class="${page.topflag == 'contact'?'active':''}"><a href="/contact" class="animsition-link">联系我们</a></li>
                 </ul> <!-- .templateux-menu -->
 
             </nav> <!-- .site-nav -->

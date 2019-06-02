@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="row mt-5" th:fragment="page">
+    <div class="col-md-12 pt-5">
+        <ul class="pagination custom-pagination">
+            <li class="page-item prev">
+                <a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage-1})}" th:style="${page.currentPage==1?'pointer-events:none':''}"><i class="icon-keyboard_arrow_left"></i></a>
+            </li>
+
+            <li class="page-item" th:if="${page.currentPage-2 > 1}"><a class="page-link" th:href="@{${page.currentUrl}(page=1)}">1</a></li>
+            <li class="page-item"  th:if="${page.currentPage-2 > 1}"><a class="pointer-events:none">...</a></li>
+            <li class="page-item"  th:if="${page.currentPage-2 >=1}" ><a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage-2})}" th:text="${page.currentPage -2}" >1</a></li>
+            <li class="page-item"  th:if="${page.currentPage-1 >=1}" ><a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage-1})}" th:text="${page.currentPage -1}" >1</a></li>
+            <li class="page-item active"><a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage})}" th:text="${page.currentPage}" >1</a></li>
+            <li class="page-item"  th:if="${page.currentPage+1 <=page.pageCount}" ><a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage+1})}" th:text="${page.currentPage +1}" >1</a></li>
+            <li class="page-item"  th:if="${page.currentPage+2 <=page.pageCount}" ><a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage+2})}" th:text="${page.currentPage +2}" >1</a></li>
+
+            <li class="page-item"  th:if="${page.currentPage+2 < page.pageCount}"><a class="pointer-events:none">...</a></li>
+            <li class="page-item"  th:if="${page.currentPage+2 < page.pageCount}"><a class="page-link" th:href="@{${page.currentUrl}(page=${page.pageCount})}" th:text="${page.pageCount}">1</a></li>
+
+
+            <li class="page-item next">
+                <a class="page-link" th:href="@{${page.currentUrl}(page=${page.currentPage+1})}" th:style="${page.currentPage==page.pageCount?'pointer-events:none':''}"><i class="icon-keyboard_arrow_right"></i></a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+</html>
