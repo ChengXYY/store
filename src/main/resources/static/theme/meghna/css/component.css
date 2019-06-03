@@ -18,8 +18,8 @@
     width: 300px;
 }
 
-.og-grid li > a,
-.og-grid li > a img {
+.og-grid li > a/*,
+.og-grid li > a img*/ {
 	border: none;
 	outline: none;
 	display: block;

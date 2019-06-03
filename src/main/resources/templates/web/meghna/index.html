@@ -23,65 +23,27 @@
 		<!--
         End Fixed Navigation
         ==================================== -->
-		
-		<!--
-		Start About Section
-		==================================== -->
-		<section th:replace="/web/meghna/_about::about"></section>
-		<!--
-		Start Counter Section
-		==================================== -->
+
+		<section th:replace="/web/meghna/_story::blog"></section>
+
+		<section th:replace="/web/meghna/_product::showcase"></section>
+
+		<section th:replace="/web/meghna/_membership::about"></section>
+
 		<section th:replace="/web/meghna/_counter::counter"></section>
-		
-		<!-- Start Services Section
-		==================================== -->
-		<section th:replace="/web/meghna/_service::service"></section>
-		
-		<!-- Start Portfolio Section
-		=========================================== -->
-		<section th:replace="/web/meghna/_showcase::showcase"></section>
-		
-		<!-- Start Team Skills
-		=========================================== -->
-		<section th:replace="/web/meghna/_skills::skills"></section>
-		<!-- Start Our Team
-		=========================================== -->
-		<section th:replace="/web/meghna/_team::team"></section>
-		
-		<!-- Start Twitter Feed
-		=========================================== -->
-		<section th:replace="/web/meghna/_twitter::twitter"></section>
-		<!-- Start Pricing section
-		=========================================== -->
-		<section th:replace="/web/meghna/_pricing::pricing"></section>
-		
-		<!-- Start Testimonial
-		=========================================== -->
-		<section th:replace="/web/meghna/_aboutus::aboutus"></section>
-		<!--
-		Start Blog Section
-		=========================================== -->
-		<section th:replace="/web/meghna/_blog::blog"></section>
-		
-		<!-- Srart Contact Us
-		=========================================== -->		
+
+		<section th:replace="/web/meghna/_stores::aboutus"></section>
+
+		<section th:replace="/web/meghna/_wechat::twitter"></section>
+
 		<section th:replace="/web/meghna/_contact::contact"></section>
-		
-		<!-- end Contact Area
-		========================================== -->
+
+
+		<!-- footer -->
 		<footer th:replace="/web/meghna/_footer::footer"></footer>
 
-		<!-- Back to Top
-		============================== -->
 		<a th:replace="/web/meghna/_scrollup::scrollup"></a>
-		
-		<!-- end Footer Area
-		========================================== -->
-		<!-- 
-		Essential Scripts
-		=====================================-->
-		
-		<!-- Main jQuery -->
+
 		<div th:replace="/web/meghna/_scripts::scripts"></div>
 
     </body>

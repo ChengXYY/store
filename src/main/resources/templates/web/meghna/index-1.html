@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js">
+<head th:replace="/web/meghna/_include::include"></head>
+	
+    <body id="body">
+	    <!--
+	    Start Preloader
+	    ==================================== -->
+		<div th:replace="/web/meghna/_loading::loading"></div>
+        <!--
+        End Preloader
+        ==================================== -->
+		
+        <!--
+        Welcome Slider
+        ==================================== -->
+		<!--/#home section-->
+		<section th:replace="/web/meghna/_home::home"></section>
+        <!-- 
+        Fixed Navigation
+        ==================================== -->
+		<header th:replace="/web/meghna/_topmenu::topmenu"></header>
+		<!--
+        End Fixed Navigation
+        ==================================== -->
+		
+		<!--
+		Start About Section
+		==================================== -->
+		<section th:replace="/web/meghna/_about::about"></section>
+		<!--
+		Start Counter Section
+		==================================== -->
+		<section th:replace="/web/meghna/_counter::counter"></section>
+		
+		<!-- Start Services Section
+		==================================== -->
+		<section th:replace="/web/meghna/_service::service"></section>
+		
+		<!-- Start Portfolio Section
+		=========================================== -->
+		<section th:replace="/web/meghna/_showcase::showcase"></section>
+		
+		<!-- Start Team Skills
+		=========================================== -->
+		<section th:replace="/web/meghna/_skills::skills"></section>
+		<!-- Start Our Team
+		=========================================== -->
+		<section th:replace="/web/meghna/_team::team"></section>
+		
+		<!-- Start Twitter Feed
+		=========================================== -->
+		<section th:replace="/web/meghna/_twitter::twitter"></section>
+		<!-- Start Pricing section
+		=========================================== -->
+		<section th:replace="/web/meghna/_pricing::pricing"></section>
+		
+		<!-- Start Testimonial
+		=========================================== -->
+		<section th:replace="/web/meghna/_aboutus::aboutus"></section>
+		<!--
+		Start Blog Section
+		=========================================== -->
+		<section th:replace="/web/meghna/_blog::blog"></section>
+		
+		<!-- Srart Contact Us
+		=========================================== -->		
+		<section th:replace="/web/meghna/_contact::contact"></section>
+		
+		<!-- end Contact Area
+		========================================== -->
+		<footer th:replace="/web/meghna/_footer::footer"></footer>
+
+		<!-- Back to Top
+		============================== -->
+		<a th:replace="/web/meghna/_scrollup::scrollup"></a>
+		
+		<!-- end Footer Area
+		========================================== -->
+		<!-- 
+		Essential Scripts
+		=====================================-->
+		
+		<!-- Main jQuery -->
+		<div th:replace="/web/meghna/_scripts::scripts"></div>
+
+    </body>
+</html>
