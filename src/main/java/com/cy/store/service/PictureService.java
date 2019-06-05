@@ -14,6 +14,8 @@ public interface PictureService {
 
     JSONObject remove(Integer id);
 
+    JSONObject remove(String ids);
+
     List<Picture> getList(Map<String, Object> filter);
 
     Integer getCount(Map<String, Object> filter);

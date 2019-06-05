@@ -14,6 +14,8 @@ public interface ArticleService {
 
     JSONObject remove(Integer id);
 
+    JSONObject remove(String ids);
+
     List<Article> getList(Map<String, Object> filter);
 
     Integer getCount(Map<String, Object> filter);

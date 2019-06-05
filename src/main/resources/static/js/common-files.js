@@ -29,6 +29,20 @@ $(function () {
     });
 
 });
+function getSelectedIds(){
+    var ids = "";
+    $(".select-item").each(function () {
+        if($(this).prop("checked")==true){
+            ids += $(this).val()+",";
+        }
+    });
+    if(ids.length > 1){
+        ids = ids.substring(0, ids.length-1);
+    }else {
+        ids = "";
+    }
+    return ids;
+}
 
 function uploadFile(url) {
     var result=[];
@@ -46,10 +60,10 @@ function uploadFile(url) {
         },
         success : function(data) {
             layer.closeAll();
-            if (data.code == 0) {
+            if (data.retCode == 0) {
                 result = data;
             } else {
-                layer.msg(data.msg);
+                layer.msg(data.retMsg);
             }
         }
     });

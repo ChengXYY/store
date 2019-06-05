@@ -5,6 +5,7 @@ import com.cy.store.exception.JsonException;
 import com.cy.store.model.Pagetpl;
 import com.cy.store.service.PagetplService;
 import com.cy.store.config.AdminConfig;
+import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -25,33 +27,20 @@ public class PagetplController extends AdminConfig {
     private PagetplService pagetplService;
 
     @RequestMapping(value = {"", "/", "index", "list"}, method = RequestMethod.GET)
-    public String list(@RequestParam(value = "name", required = false)String name,
-                       @RequestParam(value = "page", defaultValue = "1", required = false)Integer page,
+    public String list(@RequestParam Map<String, Object>param ,
+                       HttpServletRequest req,
                        ModelMap model){
-        Map<String, Object> filter = new HashMap<>();
-        if(name!=null && !name.isEmpty()){
-            filter.put("name", name);
-        }
-        if(page == null || page<1){
-            page = 1;
-        }
-        int totalCount = pagetplService.getCount(filter);
-        int pageCount = (int)Math.ceil(totalCount/pageSize);
-        if(pageCount <1){
-            pageCount = 1;
-        }
+        String currentUrl = req.getRequestURI();
 
-        filter.put("page", (page-1)*pageSize);
-        filter.put("pagesize", pageSize);
+        int totalCount = pagetplService.getCount(param);
+        param.put("totalCount", totalCount);
+        setPagenation(param);
 
-        List<Pagetpl> list = pagetplService.getList(filter);
+        List<Pagetpl> list = pagetplService.getList(param);
 
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageCount", pageCount);
-        model.addAttribute("totalCount", totalCount);
+        model.addAllAttributes(param);
 
         model.addAttribute("list", list);
-        model.addAttribute("name", name);
 
         model.addAttribute("pageTitle",listPageTitle+pagetplModuleTitle+systemTitle);
         model.addAttribute("TopMenuFlag", "sitepage");
@@ -108,6 +97,16 @@ public class PagetplController extends AdminConfig {
     public JSONObject get(@RequestParam(value = "id", required = true) Integer id){
         try {
             return pagetplService.get(id);
+        }catch (JsonException e){
+            return e.toJson();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/batchremove")
+    public JSONObject batchRemove(@RequestParam(value = "ids")String ids){
+        try {
+            return pagetplService.remove(ids);
         }catch (JsonException e){
             return e.toJson();
         }

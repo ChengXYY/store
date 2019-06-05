@@ -13,6 +13,8 @@ public interface PagetplService {
 
     JSONObject remove(Integer id);
 
+    JSONObject remove(String ids);
+
     int getCount(Map<String, Object> filter);
 
     List<Pagetpl> getList(Map<String, Object> filter);

@@ -10,6 +10,7 @@ import com.cy.store.service.AdminService;
 import com.cy.store.service.AdmingroupService;
 import com.cy.store.service.AdminlogService;
 import com.cy.store.config.AdminConfig;
+import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -220,11 +221,15 @@ public class SystemController extends AdminConfig {
     @RequestMapping(value = "/adminlog/list", method = RequestMethod.GET)
     public String adminlogList(@RequestParam(value = "content", required = false)String content,
                                 @RequestParam(value = "page", defaultValue = "1", required = false)Integer page,
+                               HttpServletRequest req,
                                ModelMap model){
         Map<String, Object>filter = new HashMap<>();
         filter.put("order", "id desc");
+        String currentUrl = req.getRequestURI();
+
         if(content!=null && !content.isEmpty()){
             filter.put("content",content);
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "content", content);
         }else{
             content = "";
         }
@@ -244,6 +249,7 @@ public class SystemController extends AdminConfig {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("totalCount", totalCount);
+        model.addAttribute("currentUrl", currentUrl);
 
         model.addAttribute("list", list);
         model.addAttribute("content", content);

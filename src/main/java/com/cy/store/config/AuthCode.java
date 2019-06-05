@@ -7,10 +7,12 @@ public enum AuthCode {
     Menu_System(9001, "菜单查看权限-系统设置"),
     Menu_Index(8001,"菜单查看权限-首页"),
 
+    //一级菜单： topmenu
     Menu_Sitepage(1001,"菜单查看权限-网页配置"),
     Menu_FileManager(1002,"菜单查看权限-资料管理"),
-    Menu_Blog(1003,"菜单查看权限-插件管理"),
+    Menu_Blog(1003,"菜单查看权限-产品管理"),
 
+    //二级菜单：leftmenu
     Sys_Admin(2901, "系统权限-管理员管理"),
     Sys_AdminGroup(2902, "系统权限-管理员组管理"),
     Sys_AdminAuth(2903, "系统权限-管理员权限配置");

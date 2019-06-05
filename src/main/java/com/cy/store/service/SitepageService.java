@@ -15,6 +15,8 @@ public interface SitepageService {
 
     JSONObject remove(Integer id);
 
+    JSONObject remove(String ids);
+
     List<Sitepage> getList(Map<String, Object> filter);
 
     int getCount(Map<String, Object> filter);

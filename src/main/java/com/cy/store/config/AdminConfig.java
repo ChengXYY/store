@@ -1,5 +1,9 @@
 package com.cy.store.config;
 
+import org.springframework.ui.ModelMap;
+
+import java.util.Map;
+
 //后台配置
 public class AdminConfig {
 
@@ -35,6 +39,8 @@ public class AdminConfig {
 
     protected static String pictureModuleTitle = "图片-";
 
+    protected static String productModuleTitle = "产品-";
+
     protected static String indexModuleTitle = "首页-";
 
     protected static String listPageTitle  = "列表-";
@@ -46,7 +52,7 @@ public class AdminConfig {
     protected static String authPageTitle = "权限配置-";
 
 
-    protected static String fileType = "picture|article";
+    protected static String fileType = "picture|article|product";
 
     protected static String baseSavePath = "C:/www/upload/";
 
@@ -59,5 +65,26 @@ public class AdminConfig {
     protected static String sysAccount = "System";
 
     protected static String sysPassword = "system";
+
+
+    protected Map<String, Object> setPagenation(Map<String, Object> params){
+        Map<String, Object> param = params;
+        if(param.get("page") == null || param.get("page").equals("0")) param.put("page", 1);
+        param.put("currentPage", param.get("page"));
+        param.put("pagesize", pageSize);
+        Integer page = Integer.parseInt(param.get("page").toString());
+        page = (page-1)*pageSize;
+        param.put("page", page);
+
+        if(param.get("totalCount") == null ) param.put("totalCount", 0);
+        int totalCount = Integer.parseInt(param.get("totalCount").toString());
+        int pageCount = (int)Math.ceil(totalCount/pageSize);
+        if(pageCount <1){
+            pageCount = 1;
+        }
+        param.put("pageCount", pageCount);
+
+        return param;
+    }
 
 }

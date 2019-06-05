@@ -35,11 +35,14 @@ public class PictureController extends AdminConfig {
                        HttpServletRequest request,
                        ModelMap model){
         Map<String, Object> filter = new HashMap<>();
+        String currentUrl = request.getRequestURI();
         if(code!=null && !code.isEmpty()){
             filter.put("code", code);
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "code", code);
         }
         if(title!=null && !title.isEmpty()){
             filter.put("title", title);
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "title", title);
         }
         if(page == null || page<1){
             page = 1;
@@ -58,6 +61,7 @@ public class PictureController extends AdminConfig {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("totalCount", totalCount);
+        model.addAttribute("currentUrl", currentUrl);
 
         model.addAttribute("list", list);
         model.addAttribute("code", code);
@@ -132,8 +136,8 @@ public class PictureController extends AdminConfig {
     public JSONObject uploadIamge(@RequestParam(value = "fileupload")MultipartFile file){
 
         try {
-            JSONObject result = CommonOperation.uploadFile(file, pictureSavePath);
-            result.put("url", "/getimg?filename="+result.get("realname"));
+            JSONObject result = CommonOperation.uploadFile(file, "picture");
+            result.put("url", result.get("realname"));
             result.put("name", result.get("filename"));
             result.remove("realname");
             result.remove("filename");
@@ -149,6 +153,16 @@ public class PictureController extends AdminConfig {
         try {
             Picture pic = pictureService.get(code);
             return CommonOperation.success(pic);
+        }catch (JsonException e){
+            return e.toJson();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/batchremove")
+    public JSONObject batchRemove(@RequestParam(value = "ids")String ids){
+        try {
+            return pictureService.remove(ids);
         }catch (JsonException e){
             return e.toJson();
         }

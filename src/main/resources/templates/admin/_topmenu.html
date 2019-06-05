@@ -4,7 +4,7 @@
     <li th:if="${#strings.contains(session.ADMIN_AUTH+'','8001')}" th:class="${TopMenuFlag=='index'?'active':''}" ><a href="/admin/index">首页</a></li>
     <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1001')}" th:class="${TopMenuFlag=='sitepage'?'active':''}"><a href="/sitepage/list">网页配置</a></li>
     <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1002')}" th:class="${TopMenuFlag=='resource'?'active':''}"><a href="/article/list">资料管理</a></li>
-    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1003')}" th:class="${TopMenuFlag=='plugin'?'active':''}"><a href="/plugin/list">插件管理</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1003')}" th:class="${TopMenuFlag=='product'?'active':''}"><a href="/product/list">产品管理</a></li>
     <li th:if="${#strings.contains(session.ADMIN_AUTH+'','9001')}" th:class="${TopMenuFlag=='system'?'active':''}"><a href="/system/adminlog/list">系统设置</a></li>
 </ul>
 </html>

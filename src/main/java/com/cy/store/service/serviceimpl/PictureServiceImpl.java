@@ -57,7 +57,7 @@ public class PictureServiceImpl extends AdminConfig implements PictureService {
         Picture pic = get(id);
         if(pic == null) throw JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST);
         try {
-            CommonOperation.removeFile(pictureSavePath+pic.getUrl().replace("getimg?filename=", ""));
+            CommonOperation.removeFile(pic.getUrl());
         }catch (JsonException e){
             System.out.println(e.toJson());
         }
@@ -69,6 +69,34 @@ public class PictureServiceImpl extends AdminConfig implements PictureService {
         }else {
             throw JsonException.newInstance(ErrorCodes.DATA_OP_FAILED);
         }
+    }
+
+    @Override
+    public JSONObject remove(String ids) {
+        if(ids == null || ids.isEmpty()) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+        ids = ids.replace(" ", "");
+        String[] idArr = ids.split(",");
+        String msg = "";
+        int success = 0;
+        int count = 0;
+        int fail = 0;
+        for(String id : idArr){
+            count ++;
+            try {
+                remove(Integer.parseInt(id));
+                success++;
+            }catch (JsonException e){
+                msg += "ID"+id+"："+ e.getMsg()+ "。";
+                fail++;
+            }
+        }
+        msg = "成功删除："+success+"，失败："+fail+"。"+msg;
+        if(fail > 0){
+            return CommonOperation.fail(msg);
+        }else {
+            return CommonOperation.success(msg);
+        }
+
     }
 
     @Override

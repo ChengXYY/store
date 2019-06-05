@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<ul th:fragment="leftmenu" class="list-group">
+    <li class="list-group-item item-title">
+        <a class="list-group-item-heading">
+            <i class="fa fa-arrow-circle-right"></i>
+            产品管理
+        </a>
+    </li>
+    <li th:class="${LeftMenuFlag=='product'?'list-group-item active':'list-group-item'}">
+        <a class="list-group-item-heading" href="/product/list">
+            产品列表
+        </a>
+    </li>
+    <li th:class="${LeftMenuFlag=='category'?'list-group-item active':'list-group-item'}">
+        <a class="list-group-item-heading" href="/category/list">
+            产品分类
+        </a>
+    </li>
+
+</ul>
+</html>

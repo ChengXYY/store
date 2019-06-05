@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cy.store.config.AdminConfig;
 import com.cy.store.exception.ErrorCodes;
 import com.cy.store.exception.JsonException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,7 +65,7 @@ public class CommonOperation extends AdminConfig {
         if(myFileName == null || myFileName.isEmpty()){
             newFileName = System.currentTimeMillis() + "-" +fileName;
         }
-        newFileName = type + "-" + newFileName;
+        newFileName = type + "_" + newFileName;
         String savePath = baseSavePath+type;
 
         String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -78,8 +79,7 @@ public class CommonOperation extends AdminConfig {
         }
         try {
             file.transferTo(dest);
-            rs.put("code", 0);
-            rs.put("msg", "上传成功");
+            rs = success("上传成功");
             rs.put("size", size);
             rs.put("filename", fileName);
             rs.put("realname", newFileName);
@@ -170,12 +170,71 @@ public class CommonOperation extends AdminConfig {
         return rs;
     }
 
+    public static JSONObject success(String msg){
+        JSONObject rs = new JSONObject();
+        rs.put("retCode", 0);
+        rs.put("retMsg", msg);
+        return  rs;
+    }
+
+    public static JSONObject fail(int errCode){
+        JSONObject rs = new JSONObject();
+        rs.put("retCode", errCode);
+        rs.put("retMsg", "操作失败");
+        return  rs;
+    }
+
+    public static JSONObject fail(){
+        return JsonException.newInstance(ErrorCodes.SERVER_IS_WRONG).toJson();
+    }
+
+    public static JSONObject fail(String msg){
+        JSONObject rs =  JsonException.newInstance(ErrorCodes.SERVER_IS_WRONG).toJson();
+        rs.put("retMsg", msg);
+        return rs;
+    }
+
     public static JSONObject obj2Json(Object object){
         JSONObject rs = new JSONObject();
 
         Map<String, Object> data = BeanMap.create(object);
         rs.putAll(data);
         return rs;
+    }
+
+
+    public static String setUrlParam(String url, String key, String val){
+        if (!StringUtils.isNotBlank(url) && !StringUtils.isNotBlank(key)) return url;
+        String local = url;
+        String paramStr = "";
+        if(url.indexOf("?") > -1){
+            paramStr = url.substring(url.indexOf("?")+1);
+            local = url.substring(0, url.indexOf("?"));
+        }
+
+        Map<String, Object> paramMap = new HashMap<>();
+        if(StringUtils.isNotBlank(paramStr)){
+            //拆解参数
+            String[] paramArr = paramStr.split("&");
+            for(String param : paramArr ){
+                int index = param.indexOf("=");
+                String k = param.substring(0, index);
+                String v = param.substring(index+1);
+                paramMap.put(k, v);
+            }
+        }
+
+        //hashmap 元素唯一
+        paramMap.put(key, val);
+
+        // 拼接参数
+        String paramStr1 = "";
+        for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+            paramStr1 += entry.getKey()+"="+entry.getValue()+"&";
+        }
+        paramStr1 = paramStr1.substring(0, paramStr1.length()-1);
+        String newUrl = local+"?"+paramStr1;
+        return newUrl;
     }
 
 }

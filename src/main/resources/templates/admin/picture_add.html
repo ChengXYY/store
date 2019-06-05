@@ -92,7 +92,7 @@
             $("input[name='url']").val(result.url);
             $("input[name='size']").val(result.size);
             $("input[name='ext']").val(result.ext);
-            $("#show-image").html("<img src='"+result.url+"' width='200px'/>");
+            $("#show-image").html("<img src='/getimg?filename="+result.url+"' width='200px'/>");
         });
     })
 </script>

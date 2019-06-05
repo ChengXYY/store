@@ -2,16 +2,11 @@ package com.cy.store.client;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cy.store.config.ClientConfig;
-import com.cy.store.model.Sitepage;
 import com.cy.store.service.SitepageService;
-import com.cy.store.utils.CommonOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +23,7 @@ public class PageController extends ClientConfig {
 
     @RequestMapping(value = {"/", "", "/index", "/index/"})
     public String index(ModelMap modelMap){
-        pageData.put("title", "首页-"+systemTitle);
+        pageData.put("title", systemTitle);
         pageData.put("topflag", "index");
         modelMap.addAttribute("page", pageData);
         return webHtml+"index";
@@ -40,7 +35,7 @@ public class PageController extends ClientConfig {
                           ModelMap modelMap){
         String requestUrl =  req.getRequestURI();
 
-        pageData.put("title", "产品-"+systemTitle);
+        pageData.put("title", "珠宝·翡翠 - "+systemTitle);
         pageData.put("topflag", "product");
         //   pageData.put("list", list);
         pageData.put("currentPage", page);
@@ -52,9 +47,9 @@ public class PageController extends ClientConfig {
         return webHtml+"product";
     }
 
-    @RequestMapping("/blog")
+    @RequestMapping("/story")
     public String blog(ModelMap modelMap){
-        pageData.put("title", "新闻-"+systemTitle);
+        pageData.put("title", "新闻·故事 - "+systemTitle);
         pageData.put("topflag", "blog");
         modelMap.addAttribute("page", pageData);
         return webHtml+"blog";

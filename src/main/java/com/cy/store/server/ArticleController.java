@@ -29,39 +29,17 @@ public class ArticleController extends AdminConfig {
     private ArticleService articleService;
 
     @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
-    public String list(@RequestParam(value = "code", required = false)String code,
-                       @RequestParam(value = "title", required = false)String title,
-                       @RequestParam(value = "article", defaultValue = "1", required = false)Integer page,
+    public String list(@RequestParam Map<String, Object> param,
                        HttpServletRequest request,
                        ModelMap model){
-        Map<String, Object> filter = new HashMap<>();
-        if(code!=null && !code.isEmpty()){
-            filter.put("code", code);
-        }
-        if(title!=null && !title.isEmpty()){
-            filter.put("title", title);
-        }
-        if(page == null || page<1){
-            page = 1;
-        }
-        int totalCount = articleService.getCount(filter);
-        int pageCount = (int)Math.ceil(totalCount/pageSize);
-        if(pageCount <1){
-            pageCount = 1;
-        }
 
-        filter.put("article", (page-1)*pageSize);
-        filter.put("pagesize", pageSize);
+        int totalCount = articleService.getCount(param);
+        param.put("totalCount", totalCount);
+        setPagenation(param);
 
-        List<Article> list = articleService.getList(filter);
-
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageCount", pageCount);
-        model.addAttribute("totalCount", totalCount);
-
+        List<Article> list = articleService.getList(param);
+        model.addAllAttributes(param);
         model.addAttribute("list", list);
-        model.addAttribute("code", code);
-        model.addAttribute("title", title);
 
         model.addAttribute("pageTitle",listPageTitle+articleModuleTitle+systemTitle);
         model.addAttribute("TopMenuFlag", "resource");
@@ -146,6 +124,16 @@ public class ArticleController extends AdminConfig {
         try {
             Article article = articleService.get(code);
             return CommonOperation.success(article);
+        }catch (JsonException e){
+            return e.toJson();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/batchremove")
+    public JSONObject batchRemove(@RequestParam(value = "ids")String ids){
+        try {
+            return articleService.remove(ids);
         }catch (JsonException e){
             return e.toJson();
         }
