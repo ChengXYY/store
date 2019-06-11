@@ -909,7 +909,7 @@ h1, h2, h3, h4, h5, h6 {
 .client-meta h3 {
   font-family: Ubuntu,sans-serif;
   font-size: 20px;
-  margin: 15px 0 5px .0;
+  margin: 15px 0 5px 0;
 }
 
 .client-meta span {
@@ -1232,11 +1232,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .blog-icon {
-    border: 1px solid #6CB670;
-    border-radius: 50%;
-    color: #6CB670;
-    display: inline-block;
-    padding: 16px 20px;
+	border: 1px solid #6CB670;
+	border-radius: 50%;
+	color: #6CB670;
+	display: inline-block;
+	overflow: hidden;
+	width: 400px;
+	height: 400px;
 }
 
 .blog-title h1 {

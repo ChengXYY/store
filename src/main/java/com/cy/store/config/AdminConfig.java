@@ -41,6 +41,8 @@ public class AdminConfig {
 
     protected static String productModuleTitle = "产品-";
 
+    protected static String categoryModuleTitle = "产品分类-";
+
     protected static String indexModuleTitle = "首页-";
 
     protected static String listPageTitle  = "列表-";
@@ -52,7 +54,7 @@ public class AdminConfig {
     protected static String authPageTitle = "权限配置-";
 
 
-    protected static String fileType = "picture|article|product";
+    protected static String fileType = "picture|article|product|category";
 
     protected static String baseSavePath = "C:/www/upload/";
 

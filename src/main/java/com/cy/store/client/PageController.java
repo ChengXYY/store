@@ -52,6 +52,6 @@ public class PageController extends ClientConfig {
         pageData.put("title", "新闻·故事 - "+systemTitle);
         pageData.put("topflag", "blog");
         modelMap.addAttribute("page", pageData);
-        return webHtml+"blog";
+        return webHtml+"story";
     }
 }

@@ -6,6 +6,7 @@ import com.cy.store.model.Picture;
 import com.cy.store.service.PictureService;
 import com.cy.store.utils.CommonOperation;
 import com.cy.store.config.AdminConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,43 +30,24 @@ public class PictureController extends AdminConfig {
     private PictureService pictureService;
 
     @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
-    public String list(@RequestParam(value = "code", required = false)String code,
-                       @RequestParam(value = "title", required = false)String title,
-                       @RequestParam(value = "picture", defaultValue = "1", required = false)Integer page,
+    public String list(@RequestParam Map<String, Object> param,
                        HttpServletRequest request,
                        ModelMap model){
-        Map<String, Object> filter = new HashMap<>();
         String currentUrl = request.getRequestURI();
-        if(code!=null && !code.isEmpty()){
-            filter.put("code", code);
-            currentUrl = CommonOperation.setUrlParam(currentUrl, "code", code);
+        if(param.get("code")!=null && StringUtils.isNotBlank(param.get("code").toString())){
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "code", param.get("code").toString());
         }
-        if(title!=null && !title.isEmpty()){
-            filter.put("title", title);
-            currentUrl = CommonOperation.setUrlParam(currentUrl, "title", title);
+        if(param.get("title")!=null && StringUtils.isNotBlank(param.get("title").toString())){
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "title", param.get("title").toString());
         }
-        if(page == null || page<1){
-            page = 1;
-        }
-        int totalCount = pictureService.getCount(filter);
-        int pageCount = (int)Math.ceil(totalCount/pageSize);
-        if(pageCount <1){
-            pageCount = 1;
-        }
+        param.put("currentUrl", currentUrl);
 
-        filter.put("picture", (page-1)*pageSize);
-        filter.put("pagesize", pageSize);
+        int totalCount = pictureService.getCount(param);
 
-        List<Picture> list = pictureService.getList(filter);
+        List<Picture> list = pictureService.getList(param);
 
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageCount", pageCount);
-        model.addAttribute("totalCount", totalCount);
-        model.addAttribute("currentUrl", currentUrl);
-
+        model.addAllAttributes(param);
         model.addAttribute("list", list);
-        model.addAttribute("code", code);
-        model.addAttribute("title", title);
 
         model.addAttribute("pageTitle",listPageTitle+pictureModuleTitle+systemTitle);
         model.addAttribute("TopMenuFlag", "resource");

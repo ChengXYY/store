@@ -106,7 +106,7 @@ public class CommonOperation extends AdminConfig {
         if (filename != null || filename.isEmpty()) {
             FileInputStream is = null;
 
-            String type = filename.substring(0, filename.indexOf('-'));
+            String type = filename.substring(0, filename.indexOf('_'));
             if(!fileType.contains(type))return;
             String path = baseSavePath+type+"/"+filename;
             File file = new File(path);

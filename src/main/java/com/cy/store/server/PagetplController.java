@@ -6,6 +6,7 @@ import com.cy.store.model.Pagetpl;
 import com.cy.store.service.PagetplService;
 import com.cy.store.config.AdminConfig;
 import com.cy.store.utils.CommonOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,9 +29,16 @@ public class PagetplController extends AdminConfig {
 
     @RequestMapping(value = {"", "/", "index", "list"}, method = RequestMethod.GET)
     public String list(@RequestParam Map<String, Object>param ,
-                       HttpServletRequest req,
+                       HttpServletRequest request,
                        ModelMap model){
-        String currentUrl = req.getRequestURI();
+        String currentUrl = request.getRequestURI();
+        if(param.get("code")!=null && StringUtils.isNotBlank(param.get("code").toString())){
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "code", param.get("code").toString());
+        }
+        if(param.get("title")!=null && StringUtils.isNotBlank(param.get("title").toString())){
+            currentUrl = CommonOperation.setUrlParam(currentUrl, "title", param.get("title").toString());
+        }
+        param.put("currentUrl", currentUrl);
 
         int totalCount = pagetplService.getCount(param);
         param.put("totalCount", totalCount);

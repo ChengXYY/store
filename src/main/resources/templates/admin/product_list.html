@@ -7,10 +7,10 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <div class="container fluid">
-    <div class="col-md-3">
-        <div th:replace="/admin/_resource_leftmenu::leftmenu"></div>
+    <div class="col-md-2">
+        <div th:replace="/admin/_product_leftmenu::leftmenu"></div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="toolbar">
             <div class="col-md-4">
                 <a class="btn btn-primary" href="/product/add"><i class="fa fa-plus"></i> 创建产品</a>
@@ -30,16 +30,16 @@
                 <th>名称</th>
                 <th>所属类别</th>
                 <th>说明</th>
-                <th>添加时间</th>
+                <th class="time-column">添加时间</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="product:${list}">
                 <td class="center"><input type="checkbox" th:value="${product.id}" class="select-item"/></td>
-                <td th:text="${product.code}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.categoty.name}"></td>
+                <td class="oneline-column" th:text="${product.code}"></td>
+                <td class="oneline-column" th:text="${product.name}"></td>
+                <td th:text="${product.category.name}"></td>
                 <td th:text="${product.intro}"></td>
                 <td th:text="${#dates.format(product.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
                 <td th:attr="data-id=${product.id}" class="center">
@@ -48,7 +48,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(list)}">
-                <td colspan="6" class="center">暂无数据</td>
+                <td colspan="7" class="center">暂无数据</td>
             </tr>
             </tbody>
         </table>

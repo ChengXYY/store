@@ -7,6 +7,7 @@ import com.cy.store.mapper.ArticleMapper;
 import com.cy.store.model.Article;
 import com.cy.store.service.ArticleService;
 import com.cy.store.utils.CommonOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public JSONObject add(Article article) {
-        if(article.getCode().isEmpty())throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+        if(StringUtils.isBlank(article.getCode()))throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         //判断重复
         Article art = get(article.getCode());
         if(art!=null) throw JsonException.newInstance(ErrorCodes.CODE_REPEATED);
@@ -35,7 +36,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public JSONObject edit(Article article) {
         if(!CommonOperation.checkId(article.getId())) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
-        if(article.getCode().isEmpty())throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         //判断重复
         Article art = get(article.getCode());
         if(art!=null && art.getId()!=article.getId()) throw JsonException.newInstance(ErrorCodes.CODE_REPEATED);

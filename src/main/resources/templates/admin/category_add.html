@@ -11,17 +11,22 @@
     <form class="form-horizontal" id="myForm" style="margin-bottom: 50px">
 
         <div class="form-group">
-            <h3 class="text text-primary">图片编号</h3>
+            <h3 class="text text-primary">分类编号</h3>
             <hr/>
             <input class="form-control" placeholder="英文字母、数字、符号" type="text" name="code"/>
         </div>
         <div class="form-group">
-            <h3 class="text text-primary">图片描述</h3>
+            <h3 class="text text-primary">分类名称</h3>
+            <hr/>
+            <input class="form-control" placeholder="" type="text" name="name"/>
+        </div>
+        <div class="form-group">
+            <h3 class="text text-primary">分类描述</h3>
             <hr/>
             <textarea class="form-control" name="intro"></textarea>
         </div>
         <div class="form-group">
-            <h3 class="text text-primary">图片上传</h3>
+            <h3 class="text text-primary">上传图片</h3>
             <hr/>
             <div class="btn btn-outline btn-success" id="select-file"><i class="fa fa-folder-open"></i> 选择文件</div>
             <div class="btn btn-primary" id="upload-file"><i class="fa fa-upload"></i> 上传</div>
@@ -30,10 +35,7 @@
         </div>
         <div class="form-group" id="uploadShow">
             <h5 class="text-danger" id="upload-finished">请上传文件</h5>
-            <input type="hidden" name="name"/>
-            <input type="hidden" name="url"/>
-            <input type="hidden" name="size"/>
-            <input type="hidden" name="ext"/>
+            <input type="hidden" name="pic"/>
             <div class="image" id="show-image">
 
             </div>
@@ -62,10 +64,10 @@
                 type : "post",
                 data : $("#myForm").serialize(),
                 dataType : "json",
-                url : "/picture/add/submit",
+                url : "/category/add/submit",
                 success :function (data) {
                     if(data.retCode == 0){
-                        location.href="/picture/list";
+                        location.href="/category/list";
                     }else {
                         layer.msg(data.retMsg);
                     }
@@ -83,16 +85,13 @@
         });
 
         $("#upload-file").click(function () {
-            var result = uploadFile("/picture/upload");
+            var result = uploadFile("/category/upload");
             if(result == null || $.isEmptyObject(result) || result.retCode!=0){
                 return;
             }
             $("#upload-finished").html(result.msg);
-            $("input[name='name']").val(result.name);
-            $("input[name='url']").val(result.url);
-            $("input[name='size']").val(result.size);
-            $("input[name='ext']").val(result.ext);
-            $("#show-image").html("<img src='/getimg?filename="+result.url+"' width='200px'/>");
+            $("input[name='pic']").val(result.pic);
+            $("#show-image").html("<img src='/getimg?filename="+result.pic+"' width='200px'/>");
         });
     })
 </script>

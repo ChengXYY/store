@@ -28,6 +28,19 @@ $(function () {
         }
     });
 
+    $(".show-image").click(function () {
+        var obj = $(this);
+        var width = obj.width;
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: width+"px",
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: obj.html()
+        });
+    });
 });
 function getSelectedIds(){
     var ids = "";
