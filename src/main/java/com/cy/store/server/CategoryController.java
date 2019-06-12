@@ -1,6 +1,7 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.aop.Permission;
 import com.cy.store.config.AdminConfig;
 import com.cy.store.exception.JsonException;
 import com.cy.store.model.Category;
@@ -23,11 +24,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/category")
+@Permission("1003")
 public class CategoryController extends AdminConfig {
 
     @Autowired
     private CategoryService categoryService;
 
+    @Permission("2132")
     @RequestMapping(value = {"", "/", "/index", "/list"}, method = RequestMethod.GET)
     public String list(@RequestParam Map<String, Object> param,
                        HttpServletRequest request,
@@ -56,6 +59,7 @@ public class CategoryController extends AdminConfig {
         return "/admin/category_list";
     }
 
+    @Permission("2132")
     @RequestMapping(value = "/add")
     public String add(ModelMap modelMap){
         modelMap.addAttribute("pageTitle",addPageTitle+categoryModuleTitle+systemTitle);
@@ -63,6 +67,7 @@ public class CategoryController extends AdminConfig {
         return "/admin/category_add";
     }
 
+    @Permission("2132")
     @ResponseBody
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public JSONObject add(Category category, HttpSession session){
@@ -75,6 +80,7 @@ public class CategoryController extends AdminConfig {
         }
     }
 
+    @Permission("2132")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@RequestParam(value = "id")Integer id, ModelMap model){
 
@@ -92,6 +98,7 @@ public class CategoryController extends AdminConfig {
         }
     }
 
+    @Permission("2132")
     @ResponseBody
     @RequestMapping(value = "/edit/submit", method = RequestMethod.POST)
     public JSONObject edit(Category category){
@@ -103,6 +110,7 @@ public class CategoryController extends AdminConfig {
         }
     }
 
+    @Permission("2132")
     @ResponseBody
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public JSONObject remove(@RequestParam(value = "id")Integer id){
@@ -113,6 +121,7 @@ public class CategoryController extends AdminConfig {
         }
     }
 
+    @Permission("2132")
     @ResponseBody
     @RequestMapping("/upload")
     public JSONObject upload(@RequestParam(value = "fileupload")MultipartFile file){

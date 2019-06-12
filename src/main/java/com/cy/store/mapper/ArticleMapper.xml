@@ -31,6 +31,12 @@
         and title like CONCAT('%',#{title},'%')
       </if>
     </where>
+    <if test="orderby!=null">
+      order by ${orderby}
+    </if>
+    <if test="orderby == null" >
+      order by addtime desc
+    </if>
     <if test="page !=null and pagesize !=null">
       limit #{page}, #{pagesize}
     </if>

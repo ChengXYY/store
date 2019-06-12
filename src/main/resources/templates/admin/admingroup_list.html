@@ -7,10 +7,10 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <div class="container fluid">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div th:replace="/admin/_system_leftmenu::leftmenu"></div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="toolbar">
             <div class="col-md-6">
                 <a class="btn btn-primary btn-outline" id="add-admingroup">
@@ -30,11 +30,14 @@
             <tr th:each="group:${list}">
                 <td th:text="${group.name}">name</td>
                 <td th:text="${group.sort}">sort</td>
-                <td class="center">
+                <td class="center" th:if="${group.id != session.ADMIN_GROUP}">
                     <input type="hidden" class="id" th:value="${group.id}"/>
                     <a class="text-success reset" th:href="${'/system/admingroup/auth/'+group.id}" title="配置权限"
                         th:if="${#strings.contains(session.ADMIN_AUTH+'','2903')}">
                         <i class="fa fa-power-off"></i>
+                    </a>
+                    <a class="text-warning" th:href="${'/system/admingroup/members?id='+group.id}" title="组内成员">
+                        <i class="fa fa-users"></i>
                     </a>
                     <a class="text-primary edit" href="javascript:" title="编辑组信息">
                         <i class="fa fa-edit"></i>
@@ -43,6 +46,8 @@
                         <i class="fa fa-close"></i>
                     </a>
                 </td>
+
+                <td th:if="${group.id == session.ADMIN_GROUP}"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(list)}">
                 <td colspan="3" class="center">暂无数据</td>
@@ -84,6 +89,32 @@
                     layer.iframeAuto(index);
                 }
             });
+        });
+
+        $(".remove").click(function () {
+            var id = $(this).siblings(".id").val();
+            layer.confirm('确认删除该管理员组吗？', {
+                    btn: ['确认','取消']
+                }, function(){
+                    var index = layer.load(0, {shade: false});
+                    $.ajax({
+                        type:"post",
+                        data:{
+                            id:id
+                        },
+                        dataType:"json",
+                        url:"/system/admingroup/remove",
+                        success:function (data) {
+                            if(data.retCode==0){
+                                location.reload();
+                            }else{
+                                layer.msg(data.retMsg);
+                            }
+                        }
+                    });
+                }, function(){}
+            );
+
         });
 
     })

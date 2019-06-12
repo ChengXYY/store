@@ -27,8 +27,11 @@
         and (content like CONCAT('%',#{content},'%') or admin like CONCAT('%',#{content},'%'))
       </if>
     </where>
-    <if test="order!=null">
-      order by ${order}
+    <if test="orderby!=null">
+      order by ${orderby}
+    </if>
+    <if test="orderby == null" >
+      order by addtime desc
     </if>
     <if test="page !=null and pagesize !=null">
       limit #{page}, #{pagesize}

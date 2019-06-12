@@ -1,6 +1,7 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.aop.Permission;
 import com.cy.store.exception.JsonException;
 import com.cy.store.model.Pagetpl;
 import com.cy.store.service.PagetplService;
@@ -23,10 +24,12 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/pagetpl")
+@Permission("1001")
 public class PagetplController extends AdminConfig {
     @Autowired
     private PagetplService pagetplService;
 
+    @Permission("2112")
     @RequestMapping(value = {"", "/", "index", "list"}, method = RequestMethod.GET)
     public String list(@RequestParam Map<String, Object>param ,
                        HttpServletRequest request,
@@ -56,6 +59,7 @@ public class PagetplController extends AdminConfig {
         return "/admin/tpl_list";
     }
 
+    @Permission("2112")
     @RequestMapping("/add")
     public String add(ModelMap model){
         model.addAttribute("pageTitle",addPageTitle+pagetplModuleTitle+systemTitle);
@@ -63,6 +67,7 @@ public class PagetplController extends AdminConfig {
         return "/admin/tpl_add";
     }
 
+    @Permission("2112")
     @ResponseBody
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public JSONObject add(Pagetpl pagetpl, HttpSession session){
@@ -74,6 +79,7 @@ public class PagetplController extends AdminConfig {
         }
     }
 
+    @Permission("2112")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@RequestParam(value = "id", required = true)Integer id, ModelMap model){
         try {
@@ -89,6 +95,7 @@ public class PagetplController extends AdminConfig {
 
     }
 
+    @Permission("2112")
     @ResponseBody
     @RequestMapping(value = "/edit/submit", method = RequestMethod.POST)
     public JSONObject edit(Pagetpl pagetpl, HttpSession session){
@@ -100,6 +107,7 @@ public class PagetplController extends AdminConfig {
         }
     }
 
+    @Permission("2112")
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public JSONObject get(@RequestParam(value = "id", required = true) Integer id){
@@ -110,6 +118,7 @@ public class PagetplController extends AdminConfig {
         }
     }
 
+    @Permission("2112")
     @ResponseBody
     @RequestMapping("/batchremove")
     public JSONObject batchRemove(@RequestParam(value = "ids")String ids){

@@ -1,6 +1,7 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.aop.Permission;
 import com.cy.store.exception.JsonException;
 import com.cy.store.model.Picture;
 import com.cy.store.service.PictureService;
@@ -24,11 +25,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/picture")
+@Permission("1002")
 public class PictureController extends AdminConfig {
 
     @Autowired
     private PictureService pictureService;
 
+    @Permission("2122")
     @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
     public String list(@RequestParam Map<String, Object> param,
                        HttpServletRequest request,
@@ -55,6 +58,7 @@ public class PictureController extends AdminConfig {
         return "/admin/picture_list";
     }
 
+    @Permission("2122")
     @RequestMapping("/add")
     public String add(ModelMap model){
         //获取模板列表       
@@ -63,6 +67,7 @@ public class PictureController extends AdminConfig {
         return "/admin/picture_add";
     }
 
+    @Permission("2122")
     @ResponseBody
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public JSONObject add(Picture picture, HttpSession session){
@@ -75,6 +80,7 @@ public class PictureController extends AdminConfig {
         }
     }
 
+    @Permission("2122")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@RequestParam(value = "id")Integer id, ModelMap model){
 
@@ -92,6 +98,7 @@ public class PictureController extends AdminConfig {
         }
     }
 
+    @Permission("2122")
     @ResponseBody
     @RequestMapping(value = "/edit/submit", method = RequestMethod.POST)
     public JSONObject edit(Picture picture){
@@ -103,6 +110,7 @@ public class PictureController extends AdminConfig {
         }
     }
 
+    @Permission("2122")
     @ResponseBody
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public JSONObject remove(@RequestParam(value = "id")Integer id){
@@ -113,6 +121,7 @@ public class PictureController extends AdminConfig {
         }
     }
 
+    @Permission("2122")
     @ResponseBody
     @RequestMapping("/upload")
     public JSONObject uploadIamge(@RequestParam(value = "fileupload")MultipartFile file){
@@ -129,6 +138,7 @@ public class PictureController extends AdminConfig {
         }
     }
 
+    @Permission("2122")
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public JSONObject get(@RequestParam(value = "code")String code){
@@ -140,6 +150,7 @@ public class PictureController extends AdminConfig {
         }
     }
 
+    @Permission("2122")
     @ResponseBody
     @RequestMapping("/batchremove")
     public JSONObject batchRemove(@RequestParam(value = "ids")String ids){

@@ -16,8 +16,8 @@
                 <h5 th:text="${groupName}"></h5>
             </div>
             <div class="col-md-6 right">
-                <a class="btn btn-primary" id="auth-save">
-                    <i class="fa fa-save"></i> 保存权限
+                <a class="btn btn-danger" id="batch-remove">
+                    <i class="fa fa-trash"></i> 移除
                 </a>
             </div>
         </div>
@@ -25,23 +25,22 @@
             <thead>
             <tr>
                 <th>全选<input class="select-all" value="1" type="checkbox"></th>
-                <th>编码</th>
-                <th>名称</th>
+                <th>账号</th>
+                <th>添加时间</th>
             </tr>
             </thead>
             <tbody>
             <form id="myForm">
                 <input type="hidden" name="id" th:value="${groupid}">
-            <tr th:each="auth:${list}">
+            <tr th:each="member:${list}">
                 <td>
                     <input type="checkbox"
-                           name="authcodes[]"
-                           th:value="${auth.code}"
-                           th:checked="${auth.code!=null && #strings.contains(authlist, auth.code)}"
-                           class="select-item"/>
+                           name="members[]"
+                           th:value="${member.id}"
+                          class="select-item"/>
                 </td>
-                <td th:text="${auth.code}">code</td>
-                <td th:text="${auth.intro}">intro</td>
+                <td th:text="${member.account}">account</td>
+                <td th:text="${#dates.format(member.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
             </tr>
             </form>
             </tbody>
@@ -52,20 +51,25 @@
 <script th:src="@{~/js/common-files.js}"></script>
 <script>
     $(function () {
-        $("#auth-save").click(function () {
+        $("#batch-remove").click(function () {
+            var ids = getSelectedIds();
+            if(ids.length < 1) {
+                layer.msg("请勾选您要删除的记录");
+                return;
+            }
+            var index = layer.load(0, { shade: false });
             $.ajax({
                 type:"post",
-                data:$("#myForm").serialize(),
+                data:{
+                    ids:ids
+                },
                 dataType:"json",
-                url:"/system/admingroup/auth/save",
+                url:"/system/admingroup/member/remove",
                 success:function (data) {
-                    if(data.retCode ==0){
-                        layer.alert(data.retMsg, {icon: 6, shade: false}, function () {
-                            parent.location.reload();
-                        });
-                    }else{
-                        layer.msg(data.retMsg);
-                    }
+                    layer.close(index);
+                    layer.alert(data.retMsg, function () {
+                        location.reload();
+                    })
                 }
             })
         });

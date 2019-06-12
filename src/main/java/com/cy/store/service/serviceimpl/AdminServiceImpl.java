@@ -125,7 +125,7 @@ public class AdminServiceImpl extends AdminConfig implements AdminService {
         session.setAttribute(adminSession, sessionStr);
         session.setAttribute(adminAccount, admin.getAccount());
         session.setAttribute(adminAuth, admin.getAdmingroup().getAuth());
-        session.setAttribute(adminGroup, admin.getAdmingroup().getId());
+        session.setAttribute(adminGroup, admin.getGroupid());
         session.setAttribute(adminId, admin.getId());
     }
 

@@ -13,7 +13,7 @@
     <div class="col-md-10">
         <div class="toolbar">
             <div class="col-md-4">
-                <a class="btn btn-primary" href="/product/add"><i class="fa fa-plus"></i> 创建产品</a>
+                <a class="btn btn-primary" href="/products/add"><i class="fa fa-plus"></i> 创建产品</a>
                 <a class="btn btn-danger batch-delete" href="javascript:" ><i class="fa fa-trash-o"></i> 批量删除</a>
             </div>
             <form class="col-md-8 right form-inline">
@@ -43,7 +43,7 @@
                 <td th:text="${product.intro}"></td>
                 <td th:text="${#dates.format(product.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
                 <td th:attr="data-id=${product.id}" class="center">
-                    <a class="btn btn-outline btn-primary btn-xs " title="编辑产品" th:href="@{/product/edit?id={id}(id=${product.id})}"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-outline btn-primary btn-xs " title="编辑产品" th:href="@{/products/edit?id={id}(id=${product.id})}"><i class="fa fa-edit"></i></a>
                     <a class="btn btn-outline btn-danger btn-xs delete" title="删除产品" ><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
@@ -73,7 +73,7 @@
                             id:id
                         },
                         dataType:"json",
-                        url:"/product/remove",
+                        url:"/products/remove",
                         success:function (data) {
                             layer.close(index);
                             if(data.retCode == 0){
@@ -99,7 +99,7 @@
                     ids:ids
                 },
                 dataType:"json",
-                url:"/product/batchremove",
+                url:"/products/batchremove",
                 success:function (data) {
                     layer.close(index);
                     layer.alert(data.retMsg, function () {

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/_include::include"></head>
+<body>
+<header th:include="/admin/_header::header">
+    Your Company Name.
+</header>
+<div th:replace="/admin/_topmenu::topmenu"></div>
+<div class="container fluid">
+    <div class="col-md-3">
+        <div th:replace="/admin/_product_leftmenu::leftmenu"></div>
+    </div>
+    <div class="col-md-9">
+        <h3 class="center text text-muted" th:text="${pageTitle}"></h3>
+    </div>
+</div>
+<footer th:replace="/admin/_footer::footer">
+    Your Company Name.
+</footer>
+</body>
+</html>

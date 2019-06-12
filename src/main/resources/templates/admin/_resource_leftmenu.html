@@ -7,12 +7,14 @@
             资料管理
         </a>
     </li>
-    <li th:class="${LeftMenuFlag=='article'?'list-group-item active':'list-group-item'}">
+    <li th:class="${LeftMenuFlag=='article'?'list-group-item active':'list-group-item'}"
+        th:if="${#strings.contains(session.ADMIN_AUTH+'','2121')}">
         <a class="list-group-item-heading" href="/article/list">
             文章
         </a>
     </li>
-    <li th:class="${LeftMenuFlag=='picture'?'list-group-item active':'list-group-item'}">
+    <li th:class="${LeftMenuFlag=='picture'?'list-group-item active':'list-group-item'}"
+        th:if="${#strings.contains(session.ADMIN_AUTH+'','2122')}">
         <a class="list-group-item-heading" href="/picture/list">
             图片
         </a>

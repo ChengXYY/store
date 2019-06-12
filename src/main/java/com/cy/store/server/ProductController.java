@@ -1,6 +1,7 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.aop.Permission;
 import com.cy.store.config.AdminConfig;
 import com.cy.store.model.Product;
 import com.cy.store.utils.CommonOperation;
@@ -17,10 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/products")
+@Permission("1003")
 public class ProductController extends AdminConfig {
 
-    @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
+
+    @Permission("2131")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(@RequestParam Map<String, Object> params,
                        HttpServletRequest request,
                        ModelMap model){
@@ -41,17 +45,20 @@ public class ProductController extends AdminConfig {
         return "/admin/product_list";
     }
 
+    @Permission("2131")
     @RequestMapping("/add")
     public String add(ModelMap modelMap){
         return "/admin/product_add";
     }
 
+    @Permission("2131")
     @ResponseBody
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public JSONObject add(Product product){
         return null;
     }
 
+    @Permission("2131")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@RequestParam(value = "id")Integer id,
                        ModelMap modelMap){

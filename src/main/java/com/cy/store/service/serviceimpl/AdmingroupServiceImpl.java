@@ -1,6 +1,8 @@
 package com.cy.store.service.serviceimpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.mapper.AdminMapper;
+import com.cy.store.model.Admin;
 import com.cy.store.model.Sitepage;
 import com.cy.store.utils.CommonOperation;
 import com.cy.store.exception.ErrorCodes;
@@ -23,7 +25,9 @@ public class AdmingroupServiceImpl implements AdmingroupService {
     @Autowired
     private AdmingroupMapper admingroupMapper;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private AdminMapper adminMapper;
+
 
     @Override
     public List<Admingroup> getListAll(Integer parentid) {
@@ -54,7 +58,15 @@ public class AdmingroupServiceImpl implements AdmingroupService {
 
     @Override
     public JSONObject remove(Integer id) {
-        if(id == null || id <1)throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
+        // 判断该组是否存在
+        Admingroup group = get(id);
+        if(group == null) throw JsonException.newInstance(ErrorCodes.ITEM_NOT_EXIST);
+        // 先判断组内是否有成员
+        Map<String, Object> filter = new HashMap<>();
+        filter.put("groupid", id);
+        List<Admin> members = adminMapper.selectByFilter(filter);
+        if(members.size() >0) throw JsonException.newInstance(ErrorCodes.GROUP_NOT_EMPTY);
+
         int rs = admingroupMapper.deleteByPrimaryKey(id);
 
         if(rs > 0){

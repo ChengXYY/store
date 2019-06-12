@@ -7,12 +7,14 @@
             产品管理
         </a>
     </li>
-    <li th:class="${LeftMenuFlag=='product'?'list-group-item active':'list-group-item'}">
-        <a class="list-group-item-heading" href="/product/list">
+    <li th:class="${LeftMenuFlag=='product'?'list-group-item active':'list-group-item'}"
+        th:if="${#strings.contains(session.ADMIN_AUTH+'','2131')}">
+        <a class="list-group-item-heading" href="/products/list">
             产品列表
         </a>
     </li>
-    <li th:class="${LeftMenuFlag=='category'?'list-group-item active':'list-group-item'}">
+    <li th:class="${LeftMenuFlag=='category'?'list-group-item active':'list-group-item'}"
+        th:if="${#strings.contains(session.ADMIN_AUTH+'','2132')}">
         <a class="list-group-item-heading" href="/category/list">
             产品分类
         </a>

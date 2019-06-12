@@ -31,9 +31,16 @@
         and name like CONCAT('%',#{name},'%')
       </if>
     </where>
+    <if test="orderby!=null">
+      order by ${orderby}
+    </if>
+    <if test="orderby == null" >
+      order by addtime desc
+    </if>
     <if test="page !=null and pagesize !=null">
       limit #{page}, #{pagesize}
     </if>
+
   </select>
   <select id="countByFilter" resultType="java.lang.Integer" parameterType="map">
     select

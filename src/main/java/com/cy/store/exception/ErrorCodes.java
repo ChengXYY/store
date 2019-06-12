@@ -16,6 +16,8 @@ public enum ErrorCodes {
     ITEM_NOT_EXIST(20001, "记录不存在"),
     DATA_OP_FAILED(20002, "数据操作失败"),
 
+    GROUP_NOT_EMPTY(30001, "群组不为空"),
+
     FILE_NOT_EXSIT(70001, "文件不存在"),
     FILE_UPLOAD_FAILED(70002, "文件上传失败"),
     FILE_WRITE_FAILED(70003, "文件写失败"),

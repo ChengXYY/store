@@ -21,10 +21,10 @@
     select <include refid="Base_Column_List" />
     from admingroup
     <where>
-      <if test="parentid!=null">
+      <if test="parentid!=null and parentid!=0">
         and (parentid = #{parentid,jdbcType=INTEGER} or id=#{parentid, jdbcType=INTEGER})
       </if>
-      <if test="parentid==null">
+      <if test="parentid==null or parentid==0">
         and parentid=0
       </if>
     </where>

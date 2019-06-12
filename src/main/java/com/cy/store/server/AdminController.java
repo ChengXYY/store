@@ -19,12 +19,7 @@ public class AdminController extends AdminConfig {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = {"/index", "/", ""})
-    public String index(ModelMap model){
-        model.addAttribute("TopMenuFlag", "index");
-        model.addAttribute("pageTitle",indexModuleTitle+systemTitle);
-        return "/admin/index";
-    }
+
 
     @RequestMapping("/editpwd")
     public String editPassword(){

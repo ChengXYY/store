@@ -88,6 +88,6 @@ public class LoginController extends AdminConfig {
         session.removeAttribute(adminAccount);
         session.removeAttribute(adminAuth);
         session.removeAttribute(adminGroup);
-        return "redirect:admin";
+        return "redirect:/admin";
     }
 }

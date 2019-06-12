@@ -7,10 +7,10 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <div class="container fluid">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div th:replace="/admin/_system_leftmenu::leftmenu"></div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="toolbar">
             <div class="col-md-6">
                 <a class="btn btn-primary btn-outline" id="add-admin">
@@ -32,7 +32,7 @@
                 <td th:text="${admin.account}">account</td>
                 <td th:text="${admin.admingroup.name}">groupid</td>
                 <td th:text="${#dates.format(admin.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
-                <td class="center" th:if="${admin.groupid>1}">
+                <td class="center" th:if="${admin.groupid != session.ADMIN_GROUP}">
                     <input type="hidden" class="id" th:value="${admin.id}"/>
                     <a class="text-success reset" href="javascript:" title="重置密码">
                         <i class="fa fa-refresh"></i>
@@ -44,7 +44,7 @@
                         <i class="fa fa-close"></i>
                     </a>
                 </td>
-                <td th:if="${admin.groupid==1}"></td>
+                <td th:if="${admin.groupid == session.ADMIN_GROUP}"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(list)}">
                 <td colspan="4" class="center">暂无数据</td>

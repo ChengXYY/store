@@ -1,6 +1,7 @@
 package com.cy.store.server;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cy.store.aop.Permission;
 import com.cy.store.model.Sitepage;
 import com.cy.store.service.PagetplService;
 import com.cy.store.service.SitepageService;
@@ -24,6 +25,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/sitepage")
+@Permission("1001")
 public class SitepageController extends AdminConfig {
 
     @Autowired
@@ -32,6 +34,7 @@ public class SitepageController extends AdminConfig {
     @Autowired
     private PagetplService pagetplService;
 
+    @Permission("2111")
     @RequestMapping(value = {"", "/index", "/list"}, method = RequestMethod.GET)
     public String list(@RequestParam Map<String, Object> param,
                        HttpServletRequest request,
@@ -62,6 +65,7 @@ public class SitepageController extends AdminConfig {
         return "/admin/site_list";
     }
 
+    @Permission("2111")
     @RequestMapping("/add")
     public String add(ModelMap model){
         //获取模板列表
@@ -72,6 +76,7 @@ public class SitepageController extends AdminConfig {
         return "/admin/site_add";
     }
 
+    @Permission("2111")
     @ResponseBody
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public JSONObject add(Sitepage sitepage, HttpSession session){
@@ -84,6 +89,7 @@ public class SitepageController extends AdminConfig {
         }
     }
 
+    @Permission("2111")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@RequestParam(value = "id", required = true)Integer id, ModelMap model){
 
@@ -103,6 +109,7 @@ public class SitepageController extends AdminConfig {
         }
     }
 
+    @Permission("2111")
     @ResponseBody
     @RequestMapping(value = "/edit/submit", method = RequestMethod.POST)
     public JSONObject edit(Sitepage sitepage){
@@ -114,6 +121,7 @@ public class SitepageController extends AdminConfig {
         }
     }
 
+    @Permission("2111")
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
     public String preview(@RequestParam(value = "id", required = true)String id, ModelMap model){
         if(id==null || id.isEmpty() || id.equals("0")){
@@ -131,6 +139,7 @@ public class SitepageController extends AdminConfig {
         }
     }
 
+    @Permission("2111")
     @ResponseBody
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public JSONObject remove(@RequestParam(value = "id", required = true)Integer id){
@@ -143,6 +152,7 @@ public class SitepageController extends AdminConfig {
         }
     }
 
+    @Permission("2111")
     @ResponseBody
     @RequestMapping("/batchremove")
     public JSONObject batchRemove(@RequestParam(value = "ids")String ids){

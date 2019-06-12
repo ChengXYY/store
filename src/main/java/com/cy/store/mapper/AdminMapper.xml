@@ -57,12 +57,15 @@
       <if test="groupid!=null">
         and groupid = #{groupid}
       </if>
-      <if test="parentid!=null and groupid!=1">
+      <if test="parentid!=null and parentid!=0">
         and (parentid=#{parentid} or id=#{parentid})
       </if>
     </where>
-    <if test="order!=null">
-      order by ${order}
+    <if test="orderby!=null">
+      order by ${orderby}
+    </if>
+    <if test="orderby == null" >
+      order by addtime desc
     </if>
     <if test="page !=null and pagesize !=null">
       limit #{page}, #{pagesize}
@@ -72,16 +75,7 @@
     delete from admin
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cy.store.model.Admin"  >
-    insert into admin (id, name, account,
-      password, salt, groupid,
-      lastloginip, lastlogintime, logincount,
-      addtime)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{groupid,jdbcType=INTEGER},
-      #{lastloginip,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, #{logincount,jdbcType=INTEGER},
-      #{addtime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.cy.store.model.Admin" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides="," >

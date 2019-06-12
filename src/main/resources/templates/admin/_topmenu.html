@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <ul th:fragment="topmenu" class="nav nav-tabs topmenu">
-    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','8001')}" th:class="${TopMenuFlag=='index'?'active':''}" ><a href="/admin/index">首页</a></li>
-    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1001')}" th:class="${TopMenuFlag=='sitepage'?'active':''}"><a href="/sitepage/list">网页配置</a></li>
-    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1002')}" th:class="${TopMenuFlag=='resource'?'active':''}"><a href="/article/list">资料管理</a></li>
-    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1003')}" th:class="${TopMenuFlag=='product'?'active':''}"><a href="/product/list">产品管理</a></li>
-    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','9001')}" th:class="${TopMenuFlag=='system'?'active':''}"><a href="/system/adminlog/list">系统设置</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','8001')}" th:class="${TopMenuFlag=='index'?'active':''}" ><a href="/admin">首页</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1001')}" th:class="${TopMenuFlag=='sitepage'?'active':''}"><a href="/site">网页配置</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1002')}" th:class="${TopMenuFlag=='resource'?'active':''}"><a href="/resource">资料管理</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1003')}" th:class="${TopMenuFlag=='product'?'active':''}"><a href="/products">产品管理</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','1004')}" th:class="${TopMenuFlag=='membership'?'active':''}"><a href="/membership/index">会员管理</a></li>
+    <li th:if="${#strings.contains(session.ADMIN_AUTH+'','9001')}" th:class="${TopMenuFlag=='system'?'active':''}"><a href="/system">系统设置</a></li>
 </ul>
 </html>
