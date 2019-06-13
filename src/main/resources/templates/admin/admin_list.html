@@ -30,7 +30,7 @@
             <tbody>
             <tr th:each="admin:${list}">
                 <td th:text="${admin.account}">account</td>
-                <td th:text="${admin.admingroup.name}">groupid</td>
+                <td th:text="${admin.groupid==0?'NULL':admin.admingroup.name}">groupid</td>
                 <td th:text="${#dates.format(admin.addtime,'yyyy-MM-dd HH:mm:ss')}">addtime</td>
                 <td class="center" th:if="${admin.groupid != session.ADMIN_GROUP}">
                     <input type="hidden" class="id" th:value="${admin.id}"/>

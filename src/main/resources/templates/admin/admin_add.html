@@ -35,9 +35,7 @@
                 url : "/system/admin/add/submit",
                 success : function (data) {
                     if(data.retCode == 0){
-                        layer.alert(data.retMsg, {icon: 6, shade: false}, function () {
-                            parent.location.reload();
-                        })
+                        parent.location.reload();
                     }else {
                         layer.msg(data.retMsg);
                     }

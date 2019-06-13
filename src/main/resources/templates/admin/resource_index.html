@@ -7,11 +7,22 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <div class="container fluid">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div th:replace="/admin/_resource_leftmenu::leftmenu"></div>
     </div>
-    <div class="col-md-9">
-        <h3 class="center text text-muted" th:text="${pageTitle}"></h3>
+    <div class="col-md-10">
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-danger">
+                <h4><i class="fa fa-file-text-o"></i> 文章数</h4>
+                <h1 class="bolder" th:text="${articleCount}"></h1>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-warning">
+                <h4><i class="fa fa-image"></i> 图片数</h4>
+                <h1 class="bolder" th:text="${pictureCount}"></h1>
+            </div>
+        </div>
     </div>
 </div>
 <footer th:replace="/admin/_footer::footer">

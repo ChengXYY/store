@@ -16,4 +16,5 @@ public interface AdmingroupMapper {
     int updateByPrimaryKeySelective(Admingroup record);
 
     List<Admingroup> selectAll(@Param("parentid") Integer parentid);
+
 }

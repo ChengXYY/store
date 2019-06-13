@@ -29,6 +29,7 @@ public enum ErrorCodes {
     PASSWORD_IS_WRONG(80004, "密码错误"),
     PASSWORD_NOT_SAME(80005, "两次密码不一致"),
     UN_LOGIN(80006, "用户未登录"),
+    SYS_ACCOUNT(80007, "系统管理员账户，密码不能修改"),
 
     SERVER_IS_WRONG(90001, "服务端错误"),
     HTTP_IS_WRONG(90002, "http服务错误");

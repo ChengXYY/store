@@ -19,6 +19,9 @@
                 <a class="btn btn-danger" id="batch-remove">
                     <i class="fa fa-trash"></i> 移除
                 </a>
+                <a class="btn btn-default" href="javascript:history.back()">
+                    <i class="fa fa-share"> 返回</i>
+                </a>
             </div>
         </div>
         <table class="table">
@@ -64,7 +67,7 @@
                     ids:ids
                 },
                 dataType:"json",
-                url:"/system/admingroup/member/remove",
+                url:"/system/admingroup/members/remove",
                 success:function (data) {
                     layer.close(index);
                     layer.alert(data.retMsg, function () {

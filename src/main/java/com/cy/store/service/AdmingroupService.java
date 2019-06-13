@@ -10,6 +10,9 @@ public interface AdmingroupService {
     //list all
     List<Admingroup> getListAll(Integer parentid);
 
+    //count all
+    Integer countAll(Integer parentid);
+
     //add
     JSONObject add(Admingroup admingroup);
 

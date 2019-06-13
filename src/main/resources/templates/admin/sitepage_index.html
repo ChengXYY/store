@@ -7,11 +7,22 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <div class="container fluid">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div th:replace="/admin/_sitepage_leftmenu::leftmenu"></div>
     </div>
-    <div class="col-md-9">
-        <h3 class="center text text-muted" th:text="${pageTitle}"></h3>
+    <div class="col-md-10">
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-danger">
+                <h4><i class="fa fa-internet-explorer"></i> 页面数</h4>
+                <h1 class="bolder" th:text="${siteCount}"></h1>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-warning">
+                <h4><i class="fa fa-window-restore"></i> 模板数</h4>
+                <h1 class="bolder" th:text="${tplCount}"></h1>
+            </div>
+        </div>
     </div>
 </div>
 <footer th:replace="/admin/_footer::footer">

@@ -18,5 +18,7 @@ public interface AdminMapper {
 
     List<Admin> selectByFilter(Map<String, Object> filter);
 
+    int countByFilter(Map<String, Object> filter);
+
     int updateByPrimaryKeySelective(Admin admin);
 }

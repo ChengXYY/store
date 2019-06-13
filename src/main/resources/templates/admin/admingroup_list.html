@@ -105,6 +105,7 @@
                         dataType:"json",
                         url:"/system/admingroup/remove",
                         success:function (data) {
+                            layer.close(index);
                             if(data.retCode==0){
                                 location.reload();
                             }else{

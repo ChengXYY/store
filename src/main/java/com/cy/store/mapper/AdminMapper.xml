@@ -71,6 +71,24 @@
       limit #{page}, #{pagesize}
     </if>
   </select>
+  <select id="countByFilter" resultType="java.lang.Integer" parameterType="map">
+    select
+    count(id) as ct
+    from admin
+    <where >
+      <if test="name!=null">
+        and name like CONCAT('%',#{name},'%')
+      </if>
+      <if test="groupid!=null">
+        and groupid = #{groupid}
+      </if>
+      <if test="parentid!=null and parentid!=0">
+        and (parentid=#{parentid} or id=#{parentid})
+      </if>
+    </where>
+
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from admin
     where id = #{id,jdbcType=INTEGER}

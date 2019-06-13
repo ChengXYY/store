@@ -60,9 +60,7 @@
                 url:"/system/admingroup/auth/save",
                 success:function (data) {
                     if(data.retCode ==0){
-                        layer.alert(data.retMsg, {icon: 6, shade: false}, function () {
-                            parent.location.reload();
-                        });
+                        location.reload();
                     }else{
                         layer.msg(data.retMsg);
                     }

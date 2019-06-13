@@ -232,7 +232,7 @@ public class SystemController extends AdminConfig {
     @RequestMapping(value = "/admingroup/members/remove", method = RequestMethod.POST)
     public JSONObject admingroupMembers(@RequestParam(value = "ids") String ids, ModelMap model){
         try {
-            return null;
+            return adminService.resetGroups(ids);
         }catch (JsonException e){
             return e.toJson();
         }
@@ -298,8 +298,9 @@ public class SystemController extends AdminConfig {
         if(param.get("content")!=null && StringUtils.isNotBlank(param.get("content").toString())){
             currentUrl = CommonOperation.setUrlParam(currentUrl, "content", param.get("content").toString());
         }
-
+        param.put("currentUrl", currentUrl);
         int totalCount = adminlogService.getCount(param);
+        param.put("totalCount", totalCount);
         param = setPagenation(param);
 
         List<Adminlog> list = adminlogService.getList(param);

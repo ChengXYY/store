@@ -4,7 +4,7 @@ import java.util.*;
 
 public enum AuthCode {
 
-    Menu_Index(8001,"菜单查看权限-首页"),
+   // Menu_Index(8001,"菜单查看权限-首页"),
 
     //一级菜单： topmenu
     Menu_System(9001, "菜单查看权限-系统设置"),

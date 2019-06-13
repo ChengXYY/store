@@ -21,6 +21,8 @@ public interface AdminService {
 
     List<Admin> getList(Map<String, Object> filter);
 
+    Integer getCount(Map<String, Object> filter);
+
     JSONObject resetPassword(Integer id);
 
     void login(String account, String password, String vercode, HttpSession session);
@@ -28,4 +30,7 @@ public interface AdminService {
     void editPassword(String oldpwd, String newpwd, String repwd, HttpSession session);
 
     Admin getCurrentUser();
+
+    //群组设置为0，parentid也为0
+    JSONObject resetGroups(String ids);
 }

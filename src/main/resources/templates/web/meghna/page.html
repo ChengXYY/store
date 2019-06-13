@@ -1,53 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Single Post | Meghna - Responsive Multipurpose Parallax Theme</title>
-		
-        <meta name="description" content="description">
-		
-		<!-- Mobile Specific Meta
-		================================================== -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<!-- Favicon -->
-		<link rel="shortcut icon" type="image/x-icon" href="../../../static/theme/meghna/img/favicon.png" />
-		
-		<!-- CSS
-		================================================== -->
-		<!-- Fontawesome Icon font -->
-        <link rel="stylesheet" href="../../../static/theme/meghna/css/font-awesome.min.css">
-		<!-- bootstrap.min css -->
-        <link rel="stylesheet" href="../../../static/theme/meghna/css/bootstrap.min.css">
-		<!-- Animate.css -->
-        <link rel="stylesheet" href="../../../static/theme/meghna/css/animate.css">
-		<!-- Owl Carousel -->
-        <link rel="stylesheet" href="../../../static/theme/meghna/css/owl.carousel.css">
-		<!-- Main Stylesheet -->
-        <link rel="stylesheet" href="../../../static/theme/meghna/css/main.css">
-		<!-- Media Queries -->
-        <link rel="stylesheet" href="../../../static/theme/meghna/css/responsive.css">
+<html xmlns:th="http://www.thymeleaf.org" class="no-js">
+<head th:replace="/web/meghna/_include::include"></head>
 
-		
-		<!-- Modernizer Script for old Browsers -->
-        <script src="../../../static/theme/meghna/js/modernizr-2.6.2.min.js"></script>
-
-    </head>
-	
-    <body class="blog-page">
+<body class="blog-page">
 	    <!--
 	    Start Preloader
 	    ==================================== -->
-		<div id="loading-mask">
-			<div class="loading-img">
-				<img alt="CY" src="../../../static/theme/meghna/img/preloader.gif"  />
-			</div>
-		</div>
+        <div th:replace="/web/meghna/_loading::loading"></div>
         <!--
         End Preloader
         ==================================== -->
@@ -55,37 +14,7 @@
         <!-- 
         Fixed Navigation
         ==================================== -->
-        <header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-						<h1 id="logo">
-							<img src="../../../static/theme/meghna/img/logo-meghna.png" alt="CY" />
-						</h1>
-					</a>
-                </div>
-
-                <nav class="collapse navbar-collapse navbar-right" >
-                    <ul id="nav" class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#about">About Us</a></li>
-                        <li><a href="index.html#services">Services</a></li>
-                        <li><a href="index.html#our-team">Team</a></li>
-                        <li><a href="index.html#pricing">Pricing</a></li>
-                        <li><a href="index.html#showcase">Portfolio</a></li>
-                        <li><a href="index.html#blog">Blog</a></li>
-                        <li><a href="index.html#contact-us">Contact</a></li>
-                    </ul>
-
-                </nav><!-- /.navbar-collapse -->
-            </div>
-        </header>
+        <header th:replace="/web/meghna/_topmenu_page::topmenu"></header>
         <!--
         End Fixed Navigation
         ==================================== -->
@@ -475,71 +404,15 @@
 				</div>	    <!-- End row -->
 			</div>       <!-- End container -->
 		</section>    <!-- End Section -->
-        
 
-		<!-- Start Footer Section
-		========================================== -->
-		<footer id="footer" class="bg-one">
-			<div class="container">
-			    <div class="row wow fadeInUp" data-wow-duration="500ms">
-					<div class="col-lg-12">
-						
-						<!-- Footer Social Links -->
-						<div class="social-icon">
-							<ul>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-youtube"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-							</ul>
-						</div>
-						<!--/. End Footer Social Links -->
 
-						<!-- copyright -->
-						<div class="copyright text-center">
-							<img src="../../../static/theme/meghna/img/logo-meghna.png" alt="CY" /> <br />
-							<p>Copyright &copy; 2014. All Rights Reserved.</p>
-						</div>
-						<!-- /copyright -->
-						
-					</div> <!-- end col lg 12 -->
-				</div> <!-- end row -->
-			</div> <!-- end container -->
-		</footer> <!-- end footer -->
-		
-		<!-- Back to Top
-		============================== -->
-		<a href="#" id="scrollUp"><i class="fa fa-angle-up fa-2x"></i></a>
-		
-		<!-- end Footer Area
-		========================================== -->
-		
-		<!-- 
-		Essential Scripts
-		=====================================-->
-		
-		<!-- Main jQuery -->
-		<script src="../../../static/theme/meghna/js/jquery-1.11.0.min.js"></script>
-		<!-- Bootstrap 3.1 -->
-		<script src="../../../static/theme/meghna/js/bootstrap.min.js"></script>
-		<!-- Back to Top -->
-		<script src="js/jquery.scrollUp.min.js"></script>
-		<script src="../../../static/theme/meghna/js/classie.js"></script>
-		<!-- Owl Carousel -->
-		<script src="../../../static/theme/meghna/js/owl.carousel.min.js"></script>
-		<!-- Custom Scrollbar -->
-		<script src="../../../static/theme/meghna/js/jquery.nicescroll.min.js"></script>
-		<!-- jQuery Easing -->
-		<script src="../../../static/theme/meghna/js/jquery.easing-1.3.pack.js"></script>
-		<!-- wow.min Script -->
-		<script src="../../../static/theme/meghna/js/wow.min.js"></script>
-		<!-- For video responsive -->
-		<script src="../../../static/theme/meghna/js/jquery.fitvids.js"></script>
-		<!-- Custom js -->
-		<script src="../../../static/theme/meghna/js/custom.js"></script>
+        <!-- footer -->
+        <footer th:replace="/web/meghna/_footer::footer"></footer>
 
-    </body>
+        <a th:replace="/web/meghna/_scrollup::scrollup"></a>
+
+        <div th:replace="/web/meghna/_scripts::scripts"></div>
+
+
+</body>
 </html>

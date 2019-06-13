@@ -35,6 +35,11 @@ public class AdmingroupServiceImpl implements AdmingroupService {
     }
 
     @Override
+    public Integer countAll(Integer parentid) {
+        return getListAll(parentid).size();
+    }
+
+    @Override
     public JSONObject add(Admingroup admingroup) {
         if(admingroup.getName().isEmpty() || !CommonOperation.checkId(admingroup.getSort())) throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         int rs = admingroupMapper.insertSelective(admingroup);

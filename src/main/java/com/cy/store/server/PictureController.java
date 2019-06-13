@@ -46,6 +46,8 @@ public class PictureController extends AdminConfig {
         param.put("currentUrl", currentUrl);
 
         int totalCount = pictureService.getCount(param);
+        param.put("totalCount", totalCount);
+        param = setPagenation(param);
 
         List<Picture> list = pictureService.getList(param);
 

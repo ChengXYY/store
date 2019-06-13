@@ -7,11 +7,29 @@
 </header>
 <div th:replace="/admin/_topmenu::topmenu"></div>
 <div class="container fluid">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div th:replace="/admin/_system_leftmenu::leftmenu"></div>
     </div>
-    <div class="col-md-9">
-        <h3 class="center text text-muted" th:text="${pageTitle}"></h3>
+    <div class="col-md-10">
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-danger">
+                <h4><i class="fa fa-users"></i> 管理员总数</h4>
+                <h1 class="bolder" th:text="${adminCount}"></h1>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-warning">
+                <h4><i class="fa fa-object-group"></i> 群组总数</h4>
+                <h1 class="bolder" th:text="${groupCount}"></h1>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-tasks"></i> 登录次数</h4>
+                <h1 class="bolder" th:text="${loginCount}"></h1>
+            </div>
+
+        </div>
     </div>
 </div>
 <footer th:replace="/admin/_footer::footer">

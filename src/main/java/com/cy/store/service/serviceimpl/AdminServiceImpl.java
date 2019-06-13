@@ -9,6 +9,7 @@ import com.cy.store.mapper.AdminMapper;
 import com.cy.store.model.Admin;
 import com.cy.store.service.AdminService;
 import com.cy.store.config.AdminConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,11 @@ public class AdminServiceImpl extends AdminConfig implements AdminService {
     }
 
     @Override
+    public Integer getCount(Map<String, Object> filter) {
+        return adminMapper.countByFilter(filter);
+    }
+
+    @Override
     public JSONObject resetPassword(Integer id) {
         if(!CommonOperation.checkId(id)) throw JsonException.newInstance(ErrorCodes.ID_NOT_LEGAL);
         Admin admin = get(id);
@@ -145,6 +151,7 @@ public class AdminServiceImpl extends AdminConfig implements AdminService {
 
     @Override
     public void editPassword(String oldpwd, String newpwd, String repwd, HttpSession session) {
+        if(session.getAttribute(adminId).equals("0"))throw JsonException.newInstance(ErrorCodes.SYS_ACCOUNT);
         if(oldpwd.isEmpty() || newpwd.isEmpty() || repwd.isEmpty())throw  JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
         if(!newpwd.equals(repwd))throw JsonException.newInstance(ErrorCodes.PASSWORD_NOT_SAME);
         Admin admin = get(session.getAttribute(adminAccount).toString());
@@ -170,5 +177,20 @@ public class AdminServiceImpl extends AdminConfig implements AdminService {
         HttpSession session= request.getSession();
         if(session.getAttribute(adminAccount) == null) throw JsonException.newInstance(ErrorCodes.UN_LOGIN);
         return get(session.getAttribute(adminAccount).toString());
+    }
+
+    @Override
+    public JSONObject resetGroups(String ids) {
+        if(StringUtils.isBlank(ids))throw JsonException.newInstance(ErrorCodes.PARAM_NOT_EMPTY);
+        String[] idArr = ids.split(",");
+        int rs = 0;
+        for (String id : idArr){
+            Admin admin = new Admin();
+            admin.setId(Integer.parseInt(id));
+            admin.setParentid(0);
+            admin.setGroupid(0);
+            rs += adminMapper.updateByPrimaryKeySelective(admin);
+        }
+        return CommonOperation.success("成功操作记录数："+rs);
     }
 }
