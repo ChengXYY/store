@@ -105,10 +105,15 @@ public class CommonOperation extends AdminConfig {
 
         if (filename != null || filename.isEmpty()) {
             FileInputStream is = null;
+            String path = baseSavePath;
+            if(filename.indexOf('_')> -1){
+                String type = filename.substring(0, filename.indexOf('_'));
+                if(!fileType.contains(type))return;
+                path += type+"/"+filename;
+            }else {
+                path += filename;
+            }
 
-            String type = filename.substring(0, filename.indexOf('_'));
-            if(!fileType.contains(type))return;
-            String path = baseSavePath+type+"/"+filename;
             File file = new File(path);
             try {
                 is = new FileInputStream(file);

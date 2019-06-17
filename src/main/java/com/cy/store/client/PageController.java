@@ -47,11 +47,20 @@ public class PageController extends ClientConfig {
         return webHtml+"product";
     }
 
-    @RequestMapping("/story")
-    public String blog(ModelMap modelMap){
+    @RequestMapping("/stories")
+    public String stories(ModelMap modelMap){
         pageData.put("title", "新闻·故事 - "+systemTitle);
         pageData.put("topflag", "blog");
         modelMap.addAttribute("page", pageData);
         return webHtml+"story";
+    }
+
+    @RequestMapping("/story")
+    public String story(ModelMap modelMap){
+
+        pageData.put("title", "新闻·故事 - "+systemTitle);
+        pageData.put("topflag", "blog");
+        modelMap.addAttribute("page", pageData);
+        return webHtml+"story_detail";
     }
 }

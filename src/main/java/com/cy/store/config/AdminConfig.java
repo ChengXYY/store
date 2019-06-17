@@ -5,7 +5,7 @@ import org.springframework.ui.ModelMap;
 import java.util.Map;
 
 //后台配置
-public class AdminConfig {
+public class AdminConfig extends CommonConfig{
 
 
     protected static String adminAccount = "ADMIN_ACCOUNT";
@@ -19,8 +19,6 @@ public class AdminConfig {
     protected static String adminSession = "ADMIN_SESSION";
 
     protected static String verCode = "ADMIN_VERCODE";
-
-    protected static Integer pageSize = 15;
 
     //title
     protected static String systemTitle = "后台管理系统";
@@ -63,42 +61,9 @@ public class AdminConfig {
 
     protected static String authPageTitle = "权限配置-";
 
-
-    protected static String fileType = "picture|article|product|category";
-
-    protected static String baseSavePath = "C:/www/upload/";
-
-    protected static String articleSavePath = "C:/www/upload/article/";
-
-    protected static String pictureSavePath = "C:/www/upload/picture/";
-
-    protected static String webHtml = "/web/";
-
     protected static String sysAccount = "System";
 
     protected static String sysPassword = "123456";
 
-
-    protected Map<String, Object> setPagenation(Map<String, Object> params){
-        Map<String, Object> param = params;
-        if(param.get("page") == null || param.get("page").equals("0")) param.put("page", 1);
-        Integer page = Integer.parseInt(param.get("page").toString());
-
-        param.put("currentPage", page);
-        param.put("pagesize", pageSize);
-
-        page = (page-1)*pageSize;
-        param.put("page", page);
-
-        if(param.get("totalCount") == null ) param.put("totalCount", 0);
-        int totalCount = Integer.parseInt(param.get("totalCount").toString());
-        int pageCount = (int)Math.ceil((double)totalCount/pageSize);
-        if(pageCount <1){
-            pageCount = 1;
-        }
-        param.put("pageCount", pageCount);
-
-        return param;
-    }
 
 }

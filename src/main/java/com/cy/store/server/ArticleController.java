@@ -129,7 +129,7 @@ public class ArticleController extends AdminConfig {
 
         JSONObject result = new JSONObject();
         try {
-            result = CommonOperation.uploadFile(file, articleSavePath);
+            result = CommonOperation.uploadFile(file, "article");
             result.put("path", "/getimg?filename="+result.get("realname"));
         }catch (JsonException e){
             result = e.toJson();
