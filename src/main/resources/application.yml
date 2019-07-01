@@ -44,6 +44,7 @@ mybatis:
   type-aliases-package: com.cy.*.model
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true #下划线改小驼峰
 
 debug: false
 

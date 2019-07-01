@@ -32,8 +32,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 匹配数据库中的所有表（% 去掉schema="", tableName="user" 即匹配user表）, columnRenamingRule去除字段前缀 -->
-        <table tableName="category"
-               domainObjectName="Category"
+        <table tableName="user_record"
+               domainObjectName="UserRecord"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
